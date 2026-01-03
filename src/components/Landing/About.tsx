@@ -26,8 +26,10 @@ export default function About()
                 </button>
             </div>
 
-            <div className="flex flex-col h-[432px] items-start gap-2 relative flex-1 grow bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-[50%_50%]">
-                <div className="relative flex-1 self-stretch w-full grow rounded-2xl border-[none] opacity-80 before:content-[''] before:absolute before:inset-0 before:p-0.5 before:rounded-2xl before:[background:linear-gradient(180deg,rgba(232,142,255,1)_0%,rgba(195,0,255,1)_100%)] before:[-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[-webkit-mask-composite:xor] before:[mask-composite:exclude] before:z-[1] before:pointer-events-none" />
+            <div className="flex flex-col h-[432px] items-start gap-2 relative flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-[50%_50%]">
+                <div className="relative self-stretch w-full h-[432px] rounded-2xl" />
+
+                <div className="relative flex-1 self-stretch w-full grow mb-[-9.00px] rounded-2xl" />
             </div>
         </div>
     )
