@@ -39,7 +39,13 @@ const spaceObjects = [
   },
 ];
 
-export default function Experience() {
+export interface NavigateToLanding
+{
+  onNavigateToLanding?: () => void;
+}
+
+export default function Experience({onNavigateToLanding}: NavigateToLanding)
+{
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
 
   const handleObjectClick = (objectId: string) => {
@@ -96,6 +102,7 @@ export default function Experience() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <motion.button
+              onClick={onNavigateToLanding}
               className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
               whileHover={{ x: -5 }}
               whileTap={{ scale: 0.95 }}

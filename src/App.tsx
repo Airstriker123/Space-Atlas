@@ -26,9 +26,8 @@ export default function App()
         {
             case 'Experience':
                 return (
-                    <
-                        Experience
-
+                    <Experience
+                        onNavigateToLanding={handleSwapLanding}
                     />
                 )
             case 'Landing':
