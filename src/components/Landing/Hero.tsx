@@ -1,4 +1,9 @@
-export default function Hero()
+export interface LandingNavigtion
+{
+    onNavigateToExperience?: () => void;
+}
+
+export default function Hero({onNavigateToExperience}: LandingNavigtion): JSX.Element
 {
     return (
         <section className="
@@ -29,7 +34,8 @@ export default function Hero()
 
                     <div className="mt-4 flex gap-4 sm:mt-6">
                         <button className="px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 hover:from-purple-800 hover:to-purple-600 transition duration-300 shadow-lg"
-                           >
+                           onClick={onNavigateToExperience}
+                        >
                             go to experience
                         </button>
 

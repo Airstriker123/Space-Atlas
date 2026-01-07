@@ -1,4 +1,9 @@
-export default function About()
+export interface LandingNavigtion
+{
+    onNavigateToExperience?: () => void;
+}
+
+export default function About({onNavigateToExperience}: LandingNavigtion)
 {
     return  (
         <div className="pt-20 pb-10 px-16 flex items-center justify-center gap-16 relative self-stretch w-full flex-[0_0_auto]">
@@ -19,7 +24,9 @@ export default function About()
                     </p>
                 </div>
 
-                <button className="all-[unset] box-border bg-[linear-gradient(90deg,rgba(83,38,229,1)_0%,rgba(150,15,162,1)_100%)] inline-flex items-center justify-center gap-2 px-4 py-3 relative flex-[0_0_auto] rounded-xl">
+                <button
+                    onClick={onNavigateToExperience}
+                    className="all-[unset] box-border bg-[linear-gradient(90deg,rgba(83,38,229,1)_0%,rgba(150,15,162,1)_100%)] inline-flex items-center justify-center gap-2 px-4 py-3 relative flex-[0_0_auto] rounded-xl">
                     <div className="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-white text-lg text-center tracking-[-0.09px] leading-[26.1px] whitespace-nowrap">
                         go to experience
                     </div>

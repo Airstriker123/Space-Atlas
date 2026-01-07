@@ -1,4 +1,9 @@
-export default function ProjectKeyFeatures()
+export interface LandingNavigtion
+{
+    onNavigateToExperience?: () => void;
+}
+
+export default function ProjectKeyFeatures({onNavigateToExperience}: LandingNavigtion): JSX.Element
 {
     return (
         <div className="pt-10 pb-20 px-16 flex items-center justify-center gap-16 relative self-stretch w-full flex-[0_0_auto]">
@@ -24,7 +29,9 @@ export default function ProjectKeyFeatures()
                         <li>Educational Overlays: Optional text or voice-over information about space objects for an educational layer.<br/> </li><br/>
                     </span>
                 </p>
-                <button className="all-[unset] box-border inline-flex items-center justify-center gap-2 px-4 py-3 relative flex-[0_0_auto] rounded-xl bg-[linear-gradient(90deg,rgba(144,0,255,1)_0%,rgba(81,0,255,1)_100%)]">
+                <button
+                    onClick={onNavigateToExperience}
+                    className="all-[unset] box-border inline-flex items-center justify-center gap-2 px-4 py-3 relative flex-[0_0_auto] rounded-xl bg-[linear-gradient(90deg,rgba(144,0,255,1)_0%,rgba(81,0,255,1)_100%)]">
                     <div className="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'Inter-Medium',Helvetica] font-medium text-white text-lg text-center tracking-[-0.09px] leading-[26.1px] whitespace-nowrap">
                         go to experience
                     </div>
