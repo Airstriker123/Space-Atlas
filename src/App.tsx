@@ -1,12 +1,12 @@
 import './App.css'
 import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
-import {useState, useEffect} from "react"
+import {useState} from "react"
 
 
 export default function App()
 {
-    let [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
+    const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
 
     const handleSwapExperience = () =>
     {

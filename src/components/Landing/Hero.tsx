@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ThreeBackground from './ThreeBackground';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -56,7 +55,7 @@ export default function AnimatedHero({
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.6,
+                        duration: 0.4,
                     },
                     '-=0.7'
                 )
@@ -65,7 +64,7 @@ export default function AnimatedHero({
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.4,
+                        duration: 0.3,
                     },
                     '-=0.6'
                 );
@@ -157,7 +156,6 @@ export default function AnimatedHero({
 
     return (
         <>
-            <ThreeBackground />
             <section
                 ref={sectionRef}
                 className="relative before:absolute before:top-0 before:left-0 before:w-full before:h-0.75 before:bg-linear-to-r before:from-purple-700 before:via-purple-500 before:to-purple-100 before:blur-sm before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.75 after:bg-linear-to-r after:from-purple-700 after:via-purple-500 after:to-purple-100 after:blur-sm after:content-['']"
@@ -171,16 +169,20 @@ export default function AnimatedHero({
                             >
                                 <strong>Project Galactic</strong>
                             </h1>
-                            <p ref={paragraphRef} className="text-[15px] text-white">
-                                A project that utilises aspects of multimedia to forge an engaging experience using various animations and methods to demonstrate the use of multimedia.
-                            </p>
-                            <h2
+
+                            <h2 ref={paragraphRef}
+                               className="bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]">
+                                <strong>A project that utilises aspects of multimedia to forge an engaging experience using various animations and methods to demonstrate the use of multimedia.
+                                </strong>
+                                </h2>
+
+                            <h3
                                 ref={subtitleRef}
                                 className="mt-4 text-3xl [-webkit-text-stroke:1px_#7200ff] bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Inter-Bold',Helvetica] font-bold text-transparent tracking-[0] leading-[normal]"
                             >
-
                                 <strong>By student: 39736463</strong>
-                            </h2>
+                            </h3>
+
                             <div ref={buttonsRef} className="mt-4 flex gap-4 sm:mt-6">
                                 <button
                                     className="px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 hover:from-purple-800 hover:to-purple-600 transition duration-300 shadow-lg transform-gpu"
@@ -190,7 +192,6 @@ export default function AnimatedHero({
                                 >
                                     go to experience
                                 </button>
-
                                 <a
                                     className="px-6 py-3 rounded-lg font-semibold text-base bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] border-2 border-purple-500 hover:border-purple-600 hover:text-purple-100 transition duration-300 transform-gpu"
                                     onMouseEnter={handleLinkHover}

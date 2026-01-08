@@ -1,43 +1,207 @@
-export interface LandingNavigtion
-{
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
+
+export interface LandingNavigtion {
     onNavigateToExperience?: () => void;
 }
 
-export default function About({onNavigateToExperience}: LandingNavigtion)
-{
-    return  (
-        <div className="pt-20 pb-10 px-16 flex items-center justify-center gap-16 relative self-stretch w-full flex-[0_0_auto]">
-            <div className="self-stretch flex flex-col items-start justify-center gap-12 relative flex-1 grow">
-                <div className="flex-col items-start gap-6 self-stretch w-full flex-[0_0_auto] relative flex">
-                    <div className="relative flex items-center justify-center self-stretch mt-[-1.00px] bg-[linear-gradient(90deg,rgba(94,0,255,1)_0%,rgba(255,0,221,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Inter',Helvetica] font-bold text-transparent text-4xl tracking-[-0.72px] leading-[43.2px]">
+export default function AnimatedAbout({
+                                          onNavigateToExperience,
+                                      }: LandingNavigtion) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLDivElement>(null);
+    const paragraphRef = useRef<HTMLParagraphElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // --- Split title letters for gradient + animation ---
+            if (titleRef.current) {
+                const titleText = titleRef.current.textContent || '';
+                titleRef.current.innerHTML = titleText
+                    .split('')
+                    .map(
+                        (char) =>
+                            `<span class="inline-block bg-clip-text [-webkit-background-clip:text] text-transparent
+                          bg-[linear-gradient(90deg,rgba(94,0,255,1)_0%,rgba(255,0,221,1)_100%)]
+                          will-change-transform will-change-opacity"
+              >${char === ' ' ? '&nbsp;' : char}</span>`
+                    )
+                    .join('');
+
+                // Scroll reveal
+                gsap.from(titleRef.current.children, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse',
+                    },
+                    opacity: 0,
+                    y: 20,
+                    rotationX: -90,
+                    stagger: 0.03,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)',
+                });
+
+                // Floating + glow effect
+                gsap.to(titleRef.current.children, {
+                    y: '+=5',
+                    textShadow: '0 0 10px rgba(255,0,221,0.6)',
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    stagger: 0.03,
+                });
+            }
+
+            // Paragraph fade/slide
+            if (paragraphRef.current) {
+                gsap.from(paragraphRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top 75%',
+                        toggleActions: 'play none none reverse',
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    ease: 'power3.out',
+                });
+            }
+
+            // Button animation
+            if (buttonRef.current) {
+                gsap.from(buttonRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top 75%',
+                        toggleActions: 'play none none reverse',
+                    },
+                    opacity: 0,
+                    y: 20,
+                    scale: 0.9,
+                    duration: 0.8,
+                    ease: 'back.out(1.4)',
+                });
+            }
+
+            // Image fade + parallax
+            if (imageRef.current) {
+                gsap.fromTo(
+                    imageRef.current,
+                    { opacity: 0, scale: 0.9, y: 0 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1.2,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: 'top 80%',
+                            end: 'top 50%',
+                            scrub: true,
+                        },
+                    }
+                );
+
+                gsap.to(imageRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1,
+                    },
+                    y: -40,
+                });
+            }
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    // --- Button hover/click ---
+    const handleButtonHover = (e: React.MouseEvent<HTMLButtonElement>) => {
+        gsap.to(e.currentTarget, {
+            scale: 1.05,
+            boxShadow: '0 10px 30px rgba(83, 38, 229, 0.5)',
+            duration: 0.3,
+            ease: 'power2.out',
+        });
+    };
+
+    const handleButtonLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+        gsap.to(e.currentTarget, {
+            scale: 1,
+            boxShadow: '0 0 0px rgba(83, 38, 229, 0)',
+            duration: 0.3,
+            ease: 'power2.out',
+        });
+    };
+
+    const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        gsap.to(e.currentTarget, {
+            scale: 0.95,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 1,
+            ease: 'power2.inOut',
+            onComplete: () => {
+                if (onNavigateToExperience) onNavigateToExperience();
+            },
+        });
+    };
+
+    return (
+        <div
+            ref={containerRef}
+            className="pt-20 pb-10 px-16 flex items-center justify-center gap-16 w-full"
+        >
+            {/* Left content */}
+            <div className="flex flex-col items-start justify-center gap-12 flex-1 grow">
+                <div className="flex flex-col gap-6 w-full">
+                    <div
+                        ref={titleRef}
+                        className="relative flex items-center justify-center self-stretch mt-[-1px] font-bold text-4xl tracking-[-0.72px] leading-[43.2px]"
+                    >
                         About project galactic
                     </div>
-
-                    <p className="relative flex items-center justify-center self-stretch [font-family:'Inter',Helvetica] font-medium text-white text-lg tracking-[-0.09px] leading-[26.1px]">
-                        Project Galactic is an interactive 3D web experience that
-                        simulates an immersive journey through space. You can explore
-                        different celestial environments, interact with 3D objects
-                        such as planets, satellites, and asteroids. The project
-                        combines 3D modelling, animation, sound design, and
-                        interactive coding to create an engaging multimedia
-                        experience.
-                    </p>
                 </div>
 
+                <p
+                    ref={paragraphRef}
+                    className="relative flex items-center justify-center self-stretch font-medium text-white text-lg tracking-[-0.09px] leading-[26.1px]"
+                >
+                    Project Galactic is an interactive 3D web experience that simulates an immersive journey through space. You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids. The project combines 3D modelling, animation, sound design, and interactive coding to create an engaging multimedia experience.
+                </p>
+
                 <button
-                    onClick={onNavigateToExperience}
-                    className="all-[unset] box-border bg-[linear-gradient(90deg,rgba(83,38,229,1)_0%,rgba(150,15,162,1)_100%)] inline-flex items-center justify-center gap-2 px-4 py-3 relative flex-[0_0_auto] rounded-xl">
-                    <div className="relative flex items-center justify-center w-fit mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-white text-lg text-center tracking-[-0.09px] leading-[26.1px] whitespace-nowrap">
+                    ref={buttonRef}
+                    onClick={handleButtonClick}
+                    onMouseEnter={handleButtonHover}
+                    onMouseLeave={handleButtonLeave}
+                    className="all-[unset] box-border inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[linear-gradient(90deg,rgba(83,38,229,1)_0%,rgba(150,15,162,1)_100%)] cursor-pointer transform-gpu"
+                >
+                    <div className="relative flex items-center justify-center w-fit mt-[-1px] font-medium text-white text-lg text-center tracking-[-0.09px] leading-[26.1px] whitespace-nowrap">
                         go to experience
                     </div>
                 </button>
             </div>
 
-            <div className="flex flex-col h-[432px] items-start gap-2 relative flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-[50%_50%]">
-                <div className="relative self-stretch w-full h-[432px] rounded-2xl" />
-
-                <div className="relative flex-1 self-stretch w-full grow mb-[-9.00px] rounded-2xl" />
+            {/* Right image */}
+            <div
+                ref={imageRef}
+                className="flex flex-col h-[432px] flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-center rounded-2xl transform-gpu"
+            >
+                <div className="w-full h-full rounded-2xl" />
             </div>
         </div>
-    )
+    );
 }
