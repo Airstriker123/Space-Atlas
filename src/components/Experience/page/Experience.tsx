@@ -5,39 +5,9 @@ import { SpaceObjectCard } from './objects/SpaceObjectCard';
 import { GalacticBackground } from './objects/GalacticBackground';
 import { CelestialObjectDetail } from './objects/CelestialObjectDetail';
 import { celestialObjects } from './data/celestialObjects.tsx';
+import planets from "./data/planets.json"
 
-const spaceObjects = [
-  {
-    id: 'earth',
-    name: 'Earth',
-    imageUrl: 'https://images.unsplash.com/photo-1584974292709-5c2f0619971b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMHNwYWNlJTIwYmx1ZSUyMHBsYW5ldHxlbnwxfHx8fDE3Njc2MTg4NDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'jupiter',
-    name: 'Jupiter',
-    imageUrl: 'https://images.unsplash.com/photo-1765207363238-105669534be9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqdXBpdGVyJTIwcGxhbmV0JTIwZ2FzJTIwZ2lhbnR8ZW58MXx8fHwxNzY3NjE4ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'stars',
-    name: 'Stars',
-    imageUrl: 'https://images.unsplash.com/photo-1502957291543-d85480254bf8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGFycyUyMG5pZ2h0JTIwc2t5fGVufDF8fHx8MTc2NzYxODg0Mnww&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'galaxies',
-    name: 'Galaxies',
-    imageUrl: 'https://images.unsplash.com/photo-1762590322937-f932b06f4046?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnYWxheHklMjBzcGlyYWwlMjBuZWJ1bGF8ZW58MXx8fHwxNzY3NjE4ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'neutron-stars',
-    name: 'Neutron Stars',
-    imageUrl: 'https://images.unsplash.com/photo-1710268470131-90841411e634?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZXV0cm9uJTIwc3RhciUyMGNvc21pY3xlbnwxfHx8fDE3Njc2MTg4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'black-holes',
-    name: 'Black Holes',
-    imageUrl: 'https://images.unsplash.com/photo-1670884307315-eb843e5c3829?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMGhvbGUlMjBzcGFjZXxlbnwxfHx8fDE3Njc1ODQ3ODF8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-];
+const spaceObjects:typeof planets = planets
 
 export interface NavigateToLanding
 {
