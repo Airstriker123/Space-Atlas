@@ -158,7 +158,7 @@ export default function AnimatedHero({
         <>
             <section
                 ref={sectionRef}
-                className="relative before:absolute before:top-0 before:left-0 before:w-full before:h-0.75 before:bg-linear-to-r before:from-purple-700 before:via-purple-500 before:to-purple-100 before:blur-sm before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.75 after:bg-linear-to-r after:from-purple-700 after:via-purple-500 after:to-purple-100 after:blur-sm after:content-['']"
+                className="overflow-hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-0.75 before:bg-linear-to-r before:from-purple-700 before:via-purple-500 before:to-purple-100 before:blur-sm before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.75 after:bg-linear-to-r after:from-purple-700 after:via-purple-500 after:to-purple-100 after:blur-sm after:content-['']"
             >
                 <div className="bg-[linear-gradient(90deg,rgba(104,0,173,0.49)_0%,rgba(19,0,31,0.88)_8%,rgba(0,0,0,1)_13%,rgba(43,0,72,0.72)_50%,rgba(14,0,26,1)_88%,rgba(82,0,154,0.63)_100%)] lg:grid lg:h-screen lg:place-content-center">
                     <div className="mx-auto w-screen max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:grid md:grid-cols-2 md:items-center md:gap-4 lg:px-8 lg:py-32">

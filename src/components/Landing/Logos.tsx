@@ -83,8 +83,7 @@ export default function Logos() {
                 start: "top bottom",
                 end: "bottom top",
                 onUpdate: () => {
-                    const velocity = ScrollTrigger.getVelocity()
-
+                    const velocity = (ScrollTrigger as unknown as { getVelocity: () => number }).getVelocity();
                     gsap.to(marqueeRef.current, {
                         timeScale: gsap.utils.clamp(0.8, 2, 1 + velocity * 0.002),
                         duration: 0.25,

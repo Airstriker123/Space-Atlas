@@ -7,7 +7,7 @@ import { CelestialObjectDetail } from './objects/CelestialObjectDetail';
 import { celestialObjects } from './data/celestialObjects.tsx';
 import planets from "./data/planets.json"
 
-const spaceObjects:typeof planets = planets
+const spaceObjects = planets
 
 export interface NavigateToLanding
 {
@@ -59,10 +59,10 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated background gradient */}
-      <div className="fixed inset-0 bg-gradient-to-br from-black via-purple-950 to-black -z-10" />
+      <div className="fixed inset-0 bg-linear-to-br from-black via-purple-950 to-black -z-10" />
       
       {/* Secondary gradient overlay for depth */}
-      <div className="fixed inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-black/40 -z-10" />
+      <div className="fixed inset-0 bg-linear-to-t from-purple-900/20 via-transparent to-black/40 -z-10" />
       
       {/* Star field animation */}
       <GalacticBackground />

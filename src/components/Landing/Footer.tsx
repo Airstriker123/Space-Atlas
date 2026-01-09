@@ -34,7 +34,7 @@ export default function Footer() {
     }, []);
 
     return (
-        <footer ref={footerRef} className="flex flex-col items-start gap-12 px-6 md:px-16 py-16 w-full">
+        <footer ref={footerRef} className="overflow-hidden flex flex-col items-start gap-12 px-6 md:px-16 py-16 w-full">
             <div className="flex flex-col md:flex-row gap-12 w-full">
                 {[
                     {
@@ -57,7 +57,7 @@ export default function Footer() {
                         }}
                         className="flex flex-col gap-4 pt-6 border-t border-white w-full"
                     >
-                        <h3 className="font-bold text-white text-2xl hover:text-purple-400 transition-colors duration-300">
+                        <h3 className="font-bold text-white text-2xl ransition-colors duration-300">
                             {col.title}
                         </h3>
                         <p className="text-white text-base">{col.text}</p>
