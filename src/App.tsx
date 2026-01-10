@@ -1,7 +1,7 @@
 import './App.css'
 import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
 
 export default function App()
@@ -18,6 +18,14 @@ export default function App()
         setCurrentSection('Landing');
         console.log(currentSection);
     }
+
+    useEffect(() =>
+    {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentSection]);
 
 
     const renderCurrentSection = () =>

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ThreeDLogo from "./3dLogo.tsx";
 
 
 // Register GSAP plugins
@@ -203,11 +204,13 @@ export default function AnimatedHero({
                                 </a>
                             </div>
                         </div>
-                        <img
-                            src="http://www.w3.org/2000/svg"
+                        <div
                             className="mx-auto hidden max-w-md text-gray-900 md:block dark:text-white"
-                            alt="logo"
-                        />
+
+                        >
+                            {/*3d cube goes here */}
+                            <ThreeDLogo/>
+                        </div>
                     </div>
                 </div>
             </section>
