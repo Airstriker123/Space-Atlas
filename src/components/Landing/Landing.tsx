@@ -1,9 +1,9 @@
 import Hero from "./Hero.tsx"
-import Visual from "./Visual.tsx"
 import Logos from "./Logos.tsx"
 import About from "./About.tsx"
 import ProjectKeyFeatures from "./ProjectKeyFeatures.tsx"
 import Footer from "./Footer.tsx"
+import Visual from "./Visual.tsx"
 
 export interface LandingNavigtion
 {

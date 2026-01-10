@@ -49,9 +49,8 @@ export default function Visual() {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: () => `+=${window.innerHeight * 1.3}`, // adjust scroll length for speed
+                end: () => `+=${window.innerHeight *0.8}`, // adjust scroll length for speed
                 scrub: true,
-                pin: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
             },
