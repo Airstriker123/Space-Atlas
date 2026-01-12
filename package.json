@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.88.0",
+    "@react-three/fiber": "^8.18.0",
+    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.1.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "*",
@@ -30,7 +33,7 @@
     "sonner": "^2.0.3",
     "tailwind-merge": "*",
     "tailwindcss": "^4.1.18",
-    "three": "*",
+    "three": "^0.182.0",
     "vaul": "^1.1.2"
   },
   "devDependencies": {

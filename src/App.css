@@ -2,6 +2,7 @@
 {
   overscroll-behavior: none;
   background-color: black;
+  scroll-behavior: smooth;
 }
 
 /* -- logos */

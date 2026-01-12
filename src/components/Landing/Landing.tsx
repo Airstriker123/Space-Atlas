@@ -1,31 +1,58 @@
-import Hero from "./Hero.tsx"
-import Logos from "./Logos.tsx"
-import About from "./About.tsx"
-import ProjectKeyFeatures from "./ProjectKeyFeatures.tsx"
-import Footer from "./Footer.tsx"
-import Visual from "./Visual.tsx"
+// Landing.tsx
+import { useEffect } from "react";
+import Hero from "./Hero";
+import Logos from "./Logos";
+import About from "./About";
+import ProjectKeyFeatures from "./ProjectKeyFeatures";
+import Footer from "./Footer";
+import Visual from "./Visual";
 
-export interface LandingNavigtion
-{
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import ScrollSmoother from "gsap/ScrollSmoother";
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+export interface LandingNavigtion {
     onNavigateToExperience?: () => void;
 }
 
-export default function Landing({onNavigateToExperience}: LandingNavigtion): JSX.Element
-{
+export default function Landing({
+                                    onNavigateToExperience,
+                                }: LandingNavigtion): JSX.Element {
+
+    useEffect(() => {
+        if (typeof window === "undefined") return; // SSR safe
+
+        const smoother = ScrollSmoother.create({
+            wrapper: "#smooth-wrapper",
+            content: "#smooth-content",
+            smooth: 1.2, // seconds to "catch up" to native scroll
+            effects: true, // looks for data-speed / data-lag
+            smoothTouch: 0.1, // touch devices
+        });
+
+        return () => {
+            smoother.kill(); // clean up when component unmounts
+        };
+    }, []);
+
     return (
-        <main className="overflow-hidden bg-[linear-gradient(180deg,rgba(0,0,0,1)_50%,rgba(34,1,50,1)_65%,rgba(0,0,0,1)_83%,rgba(85,0,255,1)_100%)]" data-model-id="1:6">
-            <Hero
-                onNavigateToExperience={onNavigateToExperience}
-            />
-            <Visual/>
-            <Logos/>
-            <About
-                onNavigateToExperience={onNavigateToExperience}
-            />
-            <ProjectKeyFeatures
-                onNavigateToExperience={onNavigateToExperience}
-            />
-            <Footer/>
+        <main>
+            {/* ScrollSmoother wrapper */}
+            <div
+                id="smooth-wrapper">
+                <div
+                    className="overflow-hidden bg-[linear-gradient(180deg,rgba(0,0,0,1)_50%,rgba(34,1,50,1)_65%,rgba(0,0,0,1)_83%,rgba(85,0,255,1)_100%)]" data-model-id="1:6"
+                    id="smooth-content">
+                    <Hero onNavigateToExperience={onNavigateToExperience} />
+                    <Visual/>
+                    <Logos />
+                    <About onNavigateToExperience={onNavigateToExperience} />
+                    <ProjectKeyFeatures onNavigateToExperience={onNavigateToExperience} />
+                    <Footer />
+                </div>
+            </div>
         </main>
-    )
+    );
 }
