@@ -49,9 +49,9 @@ export function RotatingGlowCard({ children, isHovered, borderRadius = '1rem' }:
   const glowStyle = isHovered
     ? {
         boxShadow: `
-          ${offsetX}px ${offsetY}px 40px 5px rgba(168, 85, 247, 0.8),
-          ${-offsetX}px ${-offsetY}px 40px 5px rgba(236, 72, 153, 0.6),
-          ${offsetY}px ${-offsetX}px 30px 3px rgba(59, 130, 246, 0.5),
+          ${offsetX}px ${offsetY}px 15px 5px rgba(168, 85, 247, 0.8),
+          ${-offsetX}px ${-offsetY}px 15px 5px rgba(236, 72, 153, 0.6),
+          ${offsetY}px ${-offsetX}px 10px 3px rgba(59, 130, 246, 0.5),
           0 0 60px rgba(168, 85, 247, 0.3),
           inset 0 0 40px rgba(168, 85, 247, 0.1)
         `,

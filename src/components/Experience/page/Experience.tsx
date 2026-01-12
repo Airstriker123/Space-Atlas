@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft} from 'lucide-react';
 import { SpaceObjectCard } from './objects/SpaceObjectCard';
 import { GalacticBackground } from './objects/GalacticBackground';
 import { CelestialObjectDetail } from './objects/CelestialObjectDetail';
@@ -87,7 +87,6 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Sparkles className="w-6 h-6 text-purple-400" />
               <h1 className="text-white tracking-wide">
                 Project Galactic
               </h1>
