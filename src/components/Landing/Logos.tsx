@@ -20,7 +20,7 @@ const logos = [
     WebStorm,
 ]
 
-export default function Logos() {
+export default function Logos(): JSX.Element {
     const sectionRef = useRef(null)
     const titleRef = useRef(null)
     const marqueeRef = useRef(null)

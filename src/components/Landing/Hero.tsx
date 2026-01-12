@@ -13,9 +13,8 @@ export interface LandingNavigation {
     onNavigateToExperience?: () => void;
 }
 
-export default function AnimatedHero({
-                                         onNavigateToExperience,
-                                     }: LandingNavigation): JSX.Element {
+export default function AnimatedHero({onNavigateToExperience}: LandingNavigation): JSX.Element
+{
     const sectionRef = useRef<HTMLElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -65,7 +64,7 @@ export default function AnimatedHero({
                     buttonsRef.current,
                     {
                         opacity: 1,
-                        y: 0,
+                        y: 37,
                         duration: 0.3,
                     },
                     '-=0.6'

@@ -6,7 +6,7 @@ if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
     const footerRef = useRef<HTMLDivElement>(null);
     const columnsRef = useRef<HTMLDivElement[]>([]);
 

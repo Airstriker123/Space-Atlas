@@ -6,22 +6,22 @@ import About from "./About";
 import ProjectKeyFeatures from "./ProjectKeyFeatures";
 import Footer from "./Footer";
 import Visual from "./Visual";
-
+//animations
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-export interface LandingNavigtion {
+export interface LandingNavigation {
     onNavigateToExperience?: () => void;
 }
 
-export default function Landing({
-                                    onNavigateToExperience,
-                                }: LandingNavigtion): JSX.Element {
+export default function Landing({onNavigateToExperience}: LandingNavigation): JSX.Element
+{
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         if (typeof window === "undefined") return; // SSR safe
 
         const smoother = ScrollSmoother.create({
@@ -33,7 +33,7 @@ export default function Landing({
         });
 
         return () => {
-            smoother.kill(); // clean up when component unmounts
+            smoother.kill(); // destroy component unmounts
         };
     }, []);
 
@@ -43,7 +43,7 @@ export default function Landing({
             <div
                 id="smooth-wrapper">
                 <div
-                    className="overflow-hidden bg-[linear-gradient(180deg,rgba(0,0,0,1)_50%,rgba(34,1,50,1)_65%,rgba(0,0,0,1)_83%,rgba(85,0,255,1)_100%)]" data-model-id="1:6"
+                    className="bg-[linear-gradient(180deg,rgba(0,0,0,1)_50%,rgba(34,1,50,1)_65%,rgba(0,0,0,1)_83%,rgba(85,0,255,1)_100%)]" data-model-id="1:6"
                     id="smooth-content">
                     <Hero onNavigateToExperience={onNavigateToExperience} />
                     <Visual/>

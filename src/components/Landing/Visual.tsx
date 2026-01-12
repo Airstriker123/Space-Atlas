@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 1460;
 
-export default function Visual() {
+export default function Visual(): JSX.Element {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -41,7 +41,6 @@ export default function Visual() {
             ctx.drawImage(img, 0, 0, canvas.width / scale, canvas.height / scale);
         };
 
-        // Pin canvas until all frames are cycled
         gsap.to(frameState, {
             frame: TOTAL_FRAMES - 1,
             snap: "frame",
