@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ThreeDLogo from "./3dLogo.tsx";
+import HeroPlanet from "./Planet_earth";
+import { useRef, useEffect } from 'react'
 
 
 // Register GSAP plugins
@@ -203,12 +203,8 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                 </a>
                             </div>
                         </div>
-                        <div
-                            className="mx-auto hidden max-w-md text-gray-900 md:block dark:text-white"
-
-                        >
-                            {/*3d cube goes here */}
-                            <ThreeDLogo/>
+                        <div className="relative h-300 w-full">
+                            <HeroPlanet />
                         </div>
                     </div>
                 </div>

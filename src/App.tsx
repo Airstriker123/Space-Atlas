@@ -3,7 +3,6 @@ import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
 import {useState, useEffect} from "react"
 
-
 export default function App(): JSX.Element
 {
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
