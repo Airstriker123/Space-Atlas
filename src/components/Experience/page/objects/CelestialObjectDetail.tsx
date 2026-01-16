@@ -4,6 +4,11 @@ import { InfoCard } from './InfoCard';
 import { StatCard } from './StatCard';
 import { GalacticBackground } from './GalacticBackground';
 import type {CelestialObject} from '../data/celestialObjects.tsx';
+import HeroPlanet from "../../../models/Earth.tsx";
+import Jupiter from "../../../models/Jupiter.tsx";
+import Star from "../../../models/Star.tsx";
+
+
 
 interface CelestialObjectDetailProps {
   object: CelestialObject;
@@ -17,7 +22,41 @@ export function CelestialObjectDetail({
   onBack, 
   onNext, 
   onPrevious 
-}: CelestialObjectDetailProps) {
+}: CelestialObjectDetailProps)
+{
+
+  const PlanetViewer = () => {
+    switch (object.id) {
+      case 'earth':
+        return <HeroPlanet/>
+      case 'jupiter':
+        return <Jupiter/>
+      case 'stars':
+        return <Star/>
+      case 'galaxies':
+        return null
+      default:
+        return (
+            <motion.div
+                className="relative w-full h-full"
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 60,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+            >
+              <img
+                  src={object.imageUrl}
+                  alt={object.name}
+                  className="w-full h-full object-cover"
+              />
+            </motion.div>
+        )
+    }
+  }
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Three.js Galactic Background */}
@@ -84,51 +123,10 @@ export function CelestialObjectDetail({
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden border-2 border-purple-500/30 bg-black/40 backdrop-blur-sm">
-              {/* Main image with rotation effect */}
-              <motion.div
-                className="relative w-full h-full"
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 60,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <img
-                  src={object.imageUrl}
-                  alt={object.name}
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-
-              {/* Glow overlay */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-purple-600/20"
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* Pulse effect */}
-              <motion.div
-                className="absolute inset-0 border-4 border-purple-400/0 rounded-2xl"
-                animate={{
-                  borderColor: ['rgba(168, 85, 247, 0)', 'rgba(168, 85, 247, 0.3)', 'rgba(168, 85, 247, 0)'],
-                  scale: [1, 1.02, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              {/* Main  OBJECT */}
+              <div className="w-full h-screen">
+                {PlanetViewer()}
+              </div>
             </div>
 
             {/* Decorative elements */}

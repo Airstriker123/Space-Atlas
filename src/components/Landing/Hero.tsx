@@ -1,7 +1,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import HeroPlanet from "./Planet_earth";
+import HeroPlanet from "../models/Earth.tsx";
 import { useRef, useEffect } from 'react'
+import {GalacticBackground} from "../Experience/page/objects/GalacticBackground.tsx";
 
 
 // Register GSAP plugins
@@ -161,25 +162,34 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                 ref={sectionRef}
                 className="overflow-hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-0.75 before:bg-linear-to-r before:from-purple-700 before:via-purple-500 before:to-purple-100 before:blur-sm before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.75 after:bg-linear-to-r after:from-purple-700 after:via-purple-500 after:to-purple-100 after:blur-sm after:content-['']"
             >
-                <div className="bg-[linear-gradient(90deg,rgba(104,0,173,0.49)_0%,rgba(19,0,31,0.88)_8%,rgba(0,0,0,1)_13%,rgba(43,0,72,0.72)_50%,rgba(14,0,26,1)_88%,rgba(82,0,154,0.63)_100%)] lg:grid lg:h-screen lg:place-content-center">
+                <div className="bg-black/40 lg:grid lg:h-screen lg:place-content-center">
+                    <GalacticBackground />
                     <div className="mx-auto w-screen max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:grid md:grid-cols-2 md:items-center md:gap-4 lg:px-8 lg:py-32">
                         <div ref={contentRef} className="max-w-prose text-left">
                             <h1
                                 ref={titleRef}
-                                className="text-4xl font-bold bg-[linear-gradient(89deg,rgba(45,0,134,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Inter-Bold',Helvetica] font-bold text-transparent text-[80px] tracking-[0] leading-[normal]"
+                                className="
+  text-4xl tk-nasalization
+  bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
+  font-bold text-transparent text-[77px] tracking-[0] leading-[normal] [-webkit-text-stroke:1px_#FFFFFF]
+"
+
+
                             >
-                                <strong>Project Galactic</strong>
+                                <strong className="whitespace-nowrap uppercase">Space Atlas</strong>
                             </h1>
 
                             <h2 ref={paragraphRef}
-                               className="bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]">
-                                <strong>A project that utilises aspects of multimedia to forge an engaging experience using various animations and methods to demonstrate the use of multimedia.
+                               className="tk-nasalization text-[20px] text-gray-200 [text-fill-color:transparent]">
+                                <strong>
+                                    A guide to the cosmos
                                 </strong>
                                 </h2>
 
                             <h3
                                 ref={subtitleRef}
-                                className="mt-4 text-3xl [-webkit-text-stroke:1px_#7200ff] bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Inter-Bold',Helvetica] font-bold text-transparent tracking-[0] leading-[normal]"
+                                className="mt-2 text-2xl  text-gray-400 font-bold  tracking-[0] leading-[normal]"
                             >
                                 <strong>By student: 39736463</strong>
                             </h3>
