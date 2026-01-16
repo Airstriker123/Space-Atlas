@@ -171,7 +171,7 @@ export default function AnimatedAbout({
                         ref={titleRef}
                         className="relative flex items-center justify-center self-stretch mt-[-1px] font-bold text-4xl tracking-[-0.72px] leading-[43.2px]"
                     >
-                        About project galactic
+                        About SPACE ATLAS
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@ export default function AnimatedAbout({
                     ref={paragraphRef}
                     className="relative flex items-center justify-center self-stretch font-medium text-white text-lg tracking-[-0.09px] leading-[26.1px]"
                 >
-                    Project Galactic is an interactive 3D web experience that simulates an immersive journey through space. You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids. The project combines 3D modelling, animation, sound design, and interactive coding to create an engaging multimedia experience.
+                    SPACE ATLAS is an interactive 3D web experience that simulates an immersive journey through space. You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids. The project combines 3D modelling, animation, sound design, and interactive coding to create an engaging multimedia experience.
                 </p>
 
                 <button

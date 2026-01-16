@@ -105,10 +105,11 @@ export default function Logos(): JSX.Element {
         >
             <p
                 ref={titleRef}
-                className="bg-[linear-gradient(90deg,rgba(60,0,255,1)_0%,rgba(197,0,255,1)_71%,rgba(208,0,255,1)_100%)]
-        bg-clip-text text-transparent text-[32px] text-center font-medium"
+                className="bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
+  text-transparent  tracking-[0] leading-[normal] [-webkit-text-stroke:1px_#FFFFFF] text-[32px] text-center font-medium"
             >
-                Project Galactic was made possible through the tools listed below
+                 SPACE ATLAS was made possible through the tools listed below
             </p>
 
             {/* Marquee container */}

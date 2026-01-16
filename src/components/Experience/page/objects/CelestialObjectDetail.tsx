@@ -7,6 +7,8 @@ import type {CelestialObject} from '../data/celestialObjects.tsx';
 import HeroPlanet from "../../../models/Earth.tsx";
 import Jupiter from "../../../models/Jupiter.tsx";
 import Star from "../../../models/Star.tsx";
+import Galaxy from "../../../models/Galaxy.tsx";
+import NeutronStar from "../../../models/NeutronStar.tsx";
 
 
 
@@ -34,7 +36,9 @@ export function CelestialObjectDetail({
       case 'stars':
         return <Star/>
       case 'galaxies':
-        return null
+        return <Galaxy/>
+      case 'neutron-stars':
+          return <NeutronStar/>
       default:
         return (
             <motion.div

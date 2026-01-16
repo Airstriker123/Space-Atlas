@@ -209,7 +209,7 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                     onMouseLeave={handleLinkLeave}
                                     href="https://github.com/Airstriker123/Project-Galactic"
                                 >
-                                    contribute to project galactic
+                                    contribute to SPACE ATLAS
                                 </a>
                             </div>
                         </div>

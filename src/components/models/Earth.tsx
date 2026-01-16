@@ -47,7 +47,7 @@ export default function HeroPlanet() {
         <OrbitControls
             autoRotate
             autoRotateSpeed={3}
-            enableZoom={true}
+            enableZoom={false}
             enablePan={false}
             rotateSpeed={1}
         />
