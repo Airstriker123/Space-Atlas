@@ -9,6 +9,7 @@ import Jupiter from "../../../models/Jupiter.tsx";
 import Star from "../../../models/Star.tsx";
 import Galaxy from "../../../models/Galaxy.tsx";
 import NeutronStar from "../../../models/Neutronstar.tsx";
+import Blackhole from "../../../models/Blackhole.tsx";
 
 
 
@@ -41,6 +42,8 @@ export function CelestialObjectDetail({
         return <Galaxy/>
       case 'neutron-stars':
           return <NeutronStar/>
+      case 'black-holes':
+        return <Blackhole/>
       default:
         return (
             <motion.div
