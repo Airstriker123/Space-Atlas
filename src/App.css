@@ -40,3 +40,33 @@
   }
 }
 
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar
+{
+  width: 10px;              /* scrollbar width */
+}
+
+::-webkit-scrollbar-track
+{
+  background: #0f172a;      /* dark background  */
+}
+
+::-webkit-scrollbar-thumb
+{
+  background-color: #3700ff;
+  border-radius: 10px; /* rounded corners */
+  border: 2px solid #0f172a; /* space around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+  background-color: #3700ff; /*  on hover */
+}
+
+/* Firefox settings */
+*
+{
+  scrollbar-width: thin;
+  scrollbar-color: #3700ff #0f172a;
+}
+/*--------------</custom css here>-------------- */

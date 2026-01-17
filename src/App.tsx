@@ -1,12 +1,38 @@
 import './App.css'
 import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
-import {useState, useEffect} from "react"
-import {Toaster} from "sonner";
-
+import {useEffect, useRef, useState} from "react"
+import {toast, Toaster} from "sonner";
+const TOAST_ID = 'fullscreen-alert';
 export default function App(): JSX.Element
 {
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
+    const hasAlerted = useRef(false);
+
+    useEffect(() => {
+        const checkFullscreen = () => {
+            const isWindowFull =
+                window.innerWidth === window.screen.width &&
+                window.innerHeight === window.screen.height;
+
+            if (!isWindowFull && !hasAlerted.current) {
+                toast.error("Please enter fullscreen mode for the best experience!", {
+                    id: TOAST_ID, // This prevents duplicates!
+                    onDismiss: () => { hasAlerted.current = true; },
+                    onAutoClose: () => { hasAlerted.current = true; },
+                });
+
+                // Mark as alerted so Strict Mode's second run is ignored
+                hasAlerted.current = true;
+            }
+        };
+
+        // Run the check
+        checkFullscreen();
+
+        window.addEventListener('resize', checkFullscreen);
+        return () => window.removeEventListener('resize', checkFullscreen);
+    }, []);
 
     const handleSwapExperience = () =>
     {
@@ -26,6 +52,7 @@ export default function App(): JSX.Element
             behavior: 'smooth'
         });
     }, [currentSection]);
+
 
 
     const renderCurrentSection = () =>
@@ -60,8 +87,8 @@ export default function App(): JSX.Element
         }
     };
     return (
-        <main>
-            {renderCurrentSection()}\
+        <main className="app-container">
+            {renderCurrentSection()}
             <Toaster
                 theme="dark"
                 position="bottom-right"
