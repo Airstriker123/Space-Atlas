@@ -42,8 +42,8 @@ function Model(props: JSX.IntrinsicElements['group']) {
             {/* We override the material here to make it glow intensely */}
             <meshBasicMaterial
                 map={materials['Material.002'].map} // Keep your texture
-                color={[2, 2, 5]} // Multiplies RGB: This makes it "brighter than white" for bloom
-                toneMapped={false} // Prevents the color from being clamped
+                color={[0.5, 1, 10]} // Red: 0.5, Green: 1, Blue: 10
+                toneMapped={false}   // Crucial: allows the blue to "over-brighten"
             />
           </mesh>
         </group>
@@ -64,8 +64,8 @@ export default function NeutronStar(){
         {/* Post-processing for the Glow */}
         <EffectComposer>
           <Bloom
-              intensity={2.0} // Strength of the glow
-              luminanceThreshold={1} // Only glow things that are "over-bright"
+              intensity={5.0} // Strength of the glow
+              luminanceThreshold={0.5} // Only glow things that are "over-bright"
               mipmapBlur
           />
         </EffectComposer>
