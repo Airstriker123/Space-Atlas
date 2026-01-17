@@ -51,7 +51,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Model(props: JSX.IntrinsicElements['group']) {
-  const group = useRef<THREE.Group>()
+  const group = useRef<THREE.Group>(null)
   const { nodes, materials, animations } = useGLTF('/3D/blackhole-transformed.glb') as GLTFResult
   useAnimations(animations, group)
   return (

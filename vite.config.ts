@@ -10,12 +10,18 @@ export default defineConfig({
   plugins: [
       VitePWA({
           //pwa config
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
           manifest,
           includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
           // switch to "true" to enable sw on development
           devOptions: { enabled: true }, //allow pwa features on development server
           registerType: 'autoUpdate',
-          workbox: { globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'] },
+          workbox: {
+              globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'],
+              maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+          },
+
       }),
       react(),
       tailwindcss(),
@@ -42,6 +48,15 @@ export default defineConfig({
     build: {
         target: 'esnext',
         outDir: 'build',
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        return 'vendor';
+                    }
+                },
+            },
+        },
     },
     server: {
         port: 3000,
