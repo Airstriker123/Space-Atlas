@@ -214,7 +214,7 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                             </div>
                         </div>
                         <div className="relative h-300 w-full">
-                            <HeroPlanet />
+                            <HeroPlanet control={false} />
                         </div>
                     </div>
                 </div>

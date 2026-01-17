@@ -28,9 +28,12 @@ export default function AnimatedAbout({
                     .split('')
                     .map(
                         (char) =>
-                            `<span class="inline-block bg-clip-text [-webkit-background-clip:text] text-transparent
-                          bg-[linear-gradient(90deg,rgba(94,0,255,1)_0%,rgba(255,0,221,1)_100%)]
-                          will-change-transform will-change-opacity"
+                            `<span class="inline-block 
+                          will-change-transform will-change-opacity
+                          bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
+  text-transparent  tracking-[0] leading-[normal]
+                          "
               >${char === ' ' ? '&nbsp;' : char}</span>`
                     )
                     .join('');
@@ -53,7 +56,7 @@ export default function AnimatedAbout({
                 // Floating + glow effect
                 gsap.to(titleRef.current.children, {
                     y: '+=5',
-                    textShadow: '0 0 10px rgba(255,0,221,0.6)',
+                    textShadow: '0 0 10px rgba(0,123,255,1)',
                     duration: 2,
                     repeat: -1,
                     yoyo: true,

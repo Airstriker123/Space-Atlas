@@ -8,7 +8,7 @@ import HeroPlanet from "../../../models/Earth.tsx";
 import Jupiter from "../../../models/Jupiter.tsx";
 import Star from "../../../models/Star.tsx";
 import Galaxy from "../../../models/Galaxy.tsx";
-import NeutronStar from "../../../models/NeutronStar.tsx";
+import NeutronStar from "../../../models/Neutronstar.tsx";
 
 
 
@@ -30,7 +30,9 @@ export function CelestialObjectDetail({
   const PlanetViewer = () => {
     switch (object.id) {
       case 'earth':
-        return <HeroPlanet/>
+        return <HeroPlanet
+            control={true}
+        />
       case 'jupiter':
         return <Jupiter/>
       case 'stars':
@@ -87,7 +89,8 @@ export function CelestialObjectDetail({
               transition={{ duration: 0.6 }}
             >
               <Sparkles className="w-6 h-6 text-purple-400" />
-              <h1 className="text-white tracking-wide">Project Galactic</h1>
+              <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
+              <Sparkles className="w-6 h-6 text-purple-400" />
             </motion.div>
 
             <div className="w-40" /> {/* Spacer */}

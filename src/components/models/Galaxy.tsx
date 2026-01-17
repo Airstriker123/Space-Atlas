@@ -168,8 +168,6 @@ export default function Galaxy() {
           <ProceduralGalaxy count={100000} />
           <ProceduralGalaxy count={100000} /><ProceduralGalaxy count={100000} /><ProceduralGalaxy count={100000} />
 
-
-
           <OrbitControls
               autoRotate
               autoRotateSpeed={0.2}

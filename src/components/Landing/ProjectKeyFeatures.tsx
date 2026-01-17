@@ -28,9 +28,10 @@ export default function ProjectKeyFeatures({
                     .split('')
                     .map(
                         (char) =>
-                            `<span class="inline-block bg-clip-text [-webkit-background-clip:text] text-transparent
-                          bg-[linear-gradient(90deg,rgba(113,46,248,1)_0%,rgba(217,0,255,1)_100%)]
-                          will-change-transform will-change-opacity"
+                            `<span class="inline-block bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
+  text-transparent  tracking-[0] leading-[normal] 
+                         will-change-transform will-change-opacity"
               >${char === ' ' ? '&nbsp;' : char}</span>`
                     )
                     .join('');
@@ -53,7 +54,7 @@ export default function ProjectKeyFeatures({
                 // Floating + subtle glow
                 gsap.to(titleRef.current.children, {
                     y: '+=5',
-                    textShadow: '0 0 10px rgba(217,0,255,0.6)',
+                    textShadow: '0 0 10px rgba(0,123,255,1)',
                     duration: 2,
                     repeat: -1,
                     yoyo: true,

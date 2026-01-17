@@ -1,111 +1,84 @@
-import { useRef } from 'react'
-import {Canvas, useFrame} from '@react-three/fiber'
 import * as THREE from 'three'
-import {OrbitControls} from "@react-three/drei";
+import React, { useEffect } from 'react'
+import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import { Canvas } from "@react-three/fiber"
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
+import type { GLTF } from 'three-stdlib'
 
-function Model() {
-    const mainRef = useRef<THREE.Group>(null!)
-    const coreRef = useRef<THREE.Mesh>(null!)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const pulseLight = useRef<THREE.PointLight>(null!)
+type ActionName = 'SphereAction'
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useFrame((state) => {
-        const t = state.clock.getElapsedTime()
+interface GLTFAction extends THREE.AnimationClip {
+  name: ActionName
+}
 
-        // 1. Extreme Spin: Pulsars rotate at incredible speeds
-        mainRef.current.rotation.y = t * 15
-        mainRef.current.rotation.z = Math.sin(t * 0.2) * 0.2 // Slight "wobble"
+type GLTFResult = GLTF & {
+  nodes: { Sphere: THREE.Mesh }
+  materials: { ['Material.002']: THREE.MeshBasicMaterial }
+  animations: GLTFAction[]
+}
 
-        // 2. High-Frequency Pulsing
-        const pulse = Math.sin(t * 20) * 0.5 + 0.5
-        if (pulseLight.current) {
-            pulseLight.current.intensity = 40 + pulse * 60
-        }
+function Model(props: JSX.IntrinsicElements['group']) {
+  const group = React.useRef<THREE.Group>(null!)
+  const { nodes, materials, animations } = useGLTF('/3D/neutronstar-transformed.glb') as GLTFResult
+  const { actions } = useAnimations(animations, group)
 
-        // 3. Core "Vibration"
-        const s = 1 + Math.sin(t * 50) * 0.02
-        coreRef.current.scale.set(s, s, s)
-    })
+  // Autoplay the animation
+  useEffect(() => {
+    if (actions['SphereAction']) {
+      actions['SphereAction'].play()
+    }
+  }, [actions])
 
-    return (
-        <group ref={mainRef}>
-            {/* The Core: Very small, very bright */}
-            <mesh ref={coreRef}>
-                <sphereGeometry args={[0.08, 32, 32]} />
-                <meshBasicMaterial color="#ffffff" />
-            </mesh>
-
-            {/* Inner Glow (Blue/Violet) */}
-            <mesh>
-                <sphereGeometry args={[0.15, 32, 32]} />
-                <meshBasicMaterial
-                    color="#88ccff"
-                    transparent
-                    opacity={0.8}
-                    blending={THREE.AdditiveBlending}
-                />
-            </mesh>
-
-            {/* Extreme Point Light */}
-            <pointLight ref={pulseLight} distance={6} color="#00ffff" />
-
-            {/* Pulsar Jets: Thin, bright needles of light */}
-            <group>
-                {/* Top Jet */}
-                <mesh position={[0, 3, 0]}>
-                    <cylinderGeometry args={[0.005, 0.15, 6, 16, 1, true]} />
-                    <meshBasicMaterial
-                        color="#00ffff"
-                        transparent
-                        opacity={0.6}
-                        blending={THREE.AdditiveBlending}
-                    />
-                </mesh>
-                {/* Bottom Jet */}
-                <mesh position={[0, -3, 0]}>
-                    <cylinderGeometry args={[0.15, 0.005, 6, 16, 1, true]} />
-                    <meshBasicMaterial
-                        color="#00ffff"
-                        transparent
-                        opacity={0.6}
-                        blending={THREE.AdditiveBlending}
-                    />
-                </mesh>
-            </group>
-
-            {/* Magnetic Field "Halo" */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[0.3, 0.01, 16, 100]} />
-                <meshBasicMaterial color="#4488ff" transparent opacity={0.3} blending={THREE.AdditiveBlending} />
-            </mesh>
+  return (
+      <group
+          position={[0, -2 , 0]}
+          ref={group} {...props} dispose={null}>
+        <group name="Scene">
+          <mesh
+              name="Sphere"
+              geometry={nodes.Sphere.geometry}
+              rotation={[2.945, -0.837, 2.879]}
+          >
+            {/* We override the material here to make it glow intensely */}
+            <meshBasicMaterial
+                map={materials['Material.002'].map} // Keep your texture
+                color={[2, 2, 5]} // Multiplies RGB: This makes it "brighter than white" for bloom
+                toneMapped={false} // Prevents the color from being clamped
+            />
+          </mesh>
         </group>
-    )
+      </group>
+  )
 }
 
-export default function NeutronStar()
-{
-    return (
-        <div style={{ width: "100%", height: "100vh", position: 'relative' }}>
-            <Canvas
-                // 1. Setup for transparent background
-                gl={{ antialias: true, alpha: true }}
-                camera={{ position: [0, 10, 20], fov: 45 }}
-                onCreated={({ gl }) => {
-                    gl.setClearColor(0x000000, 0); // Set alpha to 0
-                }}
-            >
-                {/* Removed <color attach="background" /> */}
-                <ambientLight intensity={1} />
-                {/* Using fewer instances for better performance and subtlety */}
-                <Model/>
-                <OrbitControls
-                    autoRotate
-                    autoRotateSpeed={0.2}
-                    enableZoom={true}
-                    enablePan={false}
-                />
-            </Canvas>
-        </div>
-    )
+export default function NeutronStar(){
+  return (
+      <Canvas
+          camera={{ position: [0, 0, 14], fov: 300 }}
+          style={{ width: "100%", height: "100%", background: 'transparent' }}
+      >
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[3, 3, 3]} intensity={1.2} />
+
+        <Model />
+        {/* Post-processing for the Glow */}
+        <EffectComposer>
+          <Bloom
+              intensity={2.0} // Strength of the glow
+              luminanceThreshold={1} // Only glow things that are "over-bright"
+              mipmapBlur
+          />
+        </EffectComposer>
+
+        <OrbitControls
+            autoRotate
+            autoRotateSpeed={3}
+            enableZoom={true}
+            enablePan={false}
+        />
+      </Canvas>
+  )
 }
+
+
+useGLTF.preload('/3D/neutronstar-transformed.glb')

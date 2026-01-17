@@ -96,7 +96,7 @@ export const celestialObjects: CelestialObject[] = [
     ],
     stats: [
       { label: 'Observable Stars', value: '~200 billion trillion' },
-      { label: 'Nearest Star', value: '4.24 light-years (Proxima)' },
+      { label: 'Other Stars', value: '4.24 light-years (Proxima)' },
       { label: 'Temperature Range', value: '2,000 - 40,000 K' },
       { label: 'Lifespan', value: '1 million - 100 billion years' },
       { label: 'Core Pressure', value: '~250 billion atmospheres' },

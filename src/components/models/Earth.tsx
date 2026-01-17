@@ -30,27 +30,58 @@ function Planet() {
 
 useGLTF.preload("/3D/planet_earth-transformed.glb")
 
-export default function HeroPlanet() {
-  return (
-      <Canvas
-          camera={{ position: [0, 0, 4], fov: 50 }}
-          style={{ width: "100%", height: "100%" }}
-      >
-        {/* Lights */}
-        <ambientLight intensity={1} />
-        <directionalLight position={[3, 3, 3]} intensity={1.2} />
+interface PlanetProp
+{
+  control: boolean;
+}
+export default function HeroPlanet({control}: PlanetProp)
+{
+  if (control) {
+    return (
+        <Canvas
+            camera={{ position: [0, 0, 4], fov: 50 }}
+            style={{ width: "100%", height: "100%" }}
+        >
+          {/* Lights */}
+          <ambientLight intensity={1} />
+          <directionalLight position={[3, 3, 3]} intensity={1.2} />
 
-        {/* Model */}
-        <Planet />
+          {/* Model */}
+          <Planet />
 
-        {/* Controls */}
-        <OrbitControls
-            autoRotate
-            autoRotateSpeed={3}
-            enableZoom={false}
-            enablePan={false}
-            rotateSpeed={1}
-        />
-      </Canvas>
-  )
+          {/* Controls */}
+          <OrbitControls
+              autoRotate
+              autoRotateSpeed={3}
+              enableZoom={true}
+              enablePan={false}
+              rotateSpeed={1}
+          />
+        </Canvas>
+    )
+  }
+  else {
+    return (
+        <Canvas
+            camera={{ position: [0, 0, 4], fov: 50 }}
+            style={{ width: "100%", height: "100%" }}
+        >
+          {/* Lights */}
+          <ambientLight intensity={1} />
+          <directionalLight position={[3, 3, 3]} intensity={1.2} />
+
+          {/* Model */}
+          <Planet />
+
+          {/* Controls */}
+          <OrbitControls
+              autoRotate
+              autoRotateSpeed={3}
+              enableZoom={false}
+              enablePan={false}
+              rotateSpeed={1}
+          />
+        </Canvas>
+    )
+  }
 }
