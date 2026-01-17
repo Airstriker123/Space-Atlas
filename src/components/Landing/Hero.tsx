@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroPlanet from "../models/Earth.tsx";
 import { useRef, useEffect } from 'react'
 import {GalacticBackground} from "../Experience/page/objects/GalacticBackground.tsx";
+import {toast} from "sonner";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -139,21 +140,6 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
         });
     };
 
-    const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        gsap.to(e.currentTarget, {
-            scale: 1.05,
-            duration: 0.3,
-            ease: 'power2.out',
-        });
-    };
-
-    const handleLinkLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        gsap.to(e.currentTarget, {
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out',
-        });
-    };
 
     return (
         <>
@@ -202,14 +188,15 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                 >
                                     go to experience
                                 </button>
-                                <a
+                                <button
                                     className="px-6 py-3 rounded-lg font-semibold text-base bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] border-2 border-purple-500 hover:border-purple-600 hover:text-purple-100 transition duration-300 transform-gpu"
-                                    onMouseEnter={handleLinkHover}
-                                    onMouseLeave={handleLinkLeave}
-                                    href="https://github.com/Airstriker123/Project-Galactic"
+                                    onClick={() => toast.error('not available right now!')}
+                                    onMouseEnter={handleButtonHover}
+                                    onMouseLeave={handleButtonLeave}
+
                                 >
-                                    contribute to SPACE ATLAS
-                                </a>
+                                    Download project documentation
+                                </button>
                             </div>
                         </div>
                         <div className="relative h-300 w-full">

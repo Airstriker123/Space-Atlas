@@ -2,6 +2,7 @@ import './App.css'
 import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
 import {useState, useEffect} from "react"
+import {Toaster} from "sonner";
 
 export default function App(): JSX.Element
 {
@@ -58,5 +59,21 @@ export default function App(): JSX.Element
                 )
         }
     };
-    return renderCurrentSection();
+    return (
+        <main>
+            {renderCurrentSection()}\
+            <Toaster
+                theme="dark"
+                position="bottom-right"
+                toastOptions={{
+                    style: {
+                        background: 'linear-gradient(135deg, rgb(26, 0, 40), rgb(122, 0, 255))',
+                        border: '1px solid linear-gradient(135deg, rgb(26, 0, 40), rgb(122, 0, 255))',
+                        color: '#DBE9F3',
+                    },
+                }}
+            />
+        </main>
+
+    )
 }
