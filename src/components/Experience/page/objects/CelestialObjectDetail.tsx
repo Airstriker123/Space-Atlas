@@ -241,7 +241,7 @@ export function CelestialObjectDetail({
       <footer className="relative z-10 border-t border-purple-500/20 backdrop-blur-sm bg-black/20 mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-purple-400/60">
-            <p>© 2026 Project Galactic - Explore the Cosmos</p>
+            <p>© 2026 SPACE ATLAS - Explore the Cosmos</p>
           </div>
         </div>
       </footer>

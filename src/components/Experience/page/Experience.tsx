@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft} from 'lucide-react';
+import {ArrowLeft, Sparkles} from 'lucide-react';
 import { SpaceObjectCard } from './objects/SpaceObjectCard';
 import { GalacticBackground } from './objects/GalacticBackground';
 import { CelestialObjectDetail } from './objects/CelestialObjectDetail';
@@ -87,9 +87,11 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
+              <Sparkles className="w-6 h-6 text-purple-400" />
               <h1 className="text-white tracking-wide">
-                Project Galactic
+                SPACE ATLAS
               </h1>
+              <Sparkles className="w-6 h-6 text-purple-400" />
             </motion.div>
 
             <div className="w-20" /> {/* Spacer for alignment */}
@@ -152,7 +154,7 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
       <footer className="relative z-10 border-t border-purple-500/20 backdrop-blur-sm bg-black/20 mt-20">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-purple-400/60">
-            <p>© 2026 Project Galactic - Explore the Cosmos</p>
+            <p>© 2026 SPACE ATLAS - Explore the Cosmos</p>
           </div>
         </div>
       </footer>
