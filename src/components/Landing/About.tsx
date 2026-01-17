@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-if (typeof window !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-}
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 export interface LandingNavigtion {
     onNavigateToExperience?: () => void;
@@ -182,7 +182,9 @@ export default function AnimatedAbout({
                     ref={paragraphRef}
                     className="relative flex items-center justify-center self-stretch font-medium text-white text-lg tracking-[-0.09px] leading-[26.1px]"
                 >
-                    SPACE ATLAS is an interactive 3D web experience that simulates an immersive journey through space. You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids. The project combines 3D modelling, animation, sound design, and interactive coding to create an engaging multimedia experience.
+                    SPACE ATLAS is an interactive 3D web experience that simulates an immersive journey through space.
+                    You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids.
+                    The project combines 3D modelling, animation, and interactive coding to create an engaging multimedia experience.
                 </p>
 
                 <button
@@ -201,7 +203,7 @@ export default function AnimatedAbout({
             {/* Right image */}
             <div
                 ref={imageRef}
-                className="flex flex-col h-[432px] flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-center rounded-2xl transform-gpu"
+                className="flex flex-col h-[432px] flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(/about.jpg)] bg-cover bg-center rounded-2xl transform-gpu"
             >
                 <div className="w-full h-full rounded-2xl" />
             </div>

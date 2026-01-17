@@ -1,7 +1,6 @@
 export interface CelestialObject {
   id: string;
   name: string;
-  imageUrl: string;
   tagline: string;
   description: string;
   facts: {
@@ -19,7 +18,6 @@ export const celestialObjects: CelestialObject[] = [
     {
     id: 'earth',
     name: 'Earth',
-    imageUrl: 'https://images.unsplash.com/photo-1584974292709-5c2f0619971b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMHNwYWNlJTIwYmx1ZSUyMHBsYW5ldHxlbnwxfHx8fDE3Njc2MTg4NDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'The Blue Marble',
     description: 'Our home planet, a unique oasis of life in the vast cosmos. Earth is the only known planet to harbor life, with vast oceans covering 71% of its surface and a protective atmosphere that shields us from harmful solar radiation.',
     facts: [
@@ -48,7 +46,6 @@ export const celestialObjects: CelestialObject[] = [
   {
     id: 'jupiter',
     name: 'Jupiter',
-    imageUrl: 'https://images.unsplash.com/photo-1765207363238-105669534be9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqdXBpdGVyJTIwcGxhbmV0JTIwZ2FzJTIwZ2lhbnR8ZW58MXx8fHwxNzY3NjE4ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'The Gas Giant',
     description: 'Jupiter is the largest planet in our solar system, a massive gas giant with a powerful magnetic field and the iconic Great Red Spot - a storm larger than Earth that has raged for centuries.',
     facts: [
@@ -77,7 +74,6 @@ export const celestialObjects: CelestialObject[] = [
   {
     id: 'stars',
     name: 'Stars',
-    imageUrl: 'https://images.unsplash.com/photo-1502957291543-d85480254bf8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGFycyUyMG5pZ2h0JTIwc2t5fGVufDF8fHx8MTc2NzYxODg0Mnww&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'Cosmic Furnaces',
     description: 'Stars are massive, luminous spheres of plasma held together by gravity. They generate energy through nuclear fusion, converting hydrogen into helium and releasing tremendous amounts of light and heat.',
     facts: [
@@ -106,7 +102,6 @@ export const celestialObjects: CelestialObject[] = [
   {
     id: 'galaxies',
     name: 'Galaxies',
-    imageUrl: 'https://images.unsplash.com/photo-1762590322937-f932b06f4046?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnYWxheHklMjBzcGlyYWwlMjBuZWJ1bGF8ZW58MXx8fHwxNzY3NjE4ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'Islands of Stars',
     description: 'Galaxies are vast collections of stars, gas, dust, and dark matter bound together by gravity. They come in various shapes and sizes, from spiral galaxies like our Milky Way to elliptical and irregular forms.',
     facts: [
@@ -135,7 +130,6 @@ export const celestialObjects: CelestialObject[] = [
   {
     id: 'neutron-stars',
     name: 'Neutron Stars',
-    imageUrl: 'https://images.unsplash.com/photo-1710268470131-90841411e634?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZXV0cm9uJTIwc3RhciUyMGNvc21pY3xlbnwxfHx8fDE3Njc2MTg4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'Cosmic Lighthouses',
     description: 'Neutron stars are the collapsed cores of massive stars, incredibly dense objects where a sugar-cube-sized amount of material would weigh billions of tons. They spin at incredible speeds and emit powerful beams of radiation.',
     facts: [
@@ -164,7 +158,6 @@ export const celestialObjects: CelestialObject[] = [
   {
     id: 'black-holes',
     name: 'Black Holes',
-    imageUrl: 'https://images.unsplash.com/photo-1670884307315-eb843e5c3829?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMGhvbGUlMjBzcGFjZXxlbnwxfHx8fDE3Njc1ODQ3ODF8MA&ixlib=rb-4.1.0&q=80&w=1080',
     tagline: 'The Ultimate Abyss',
     description: 'Black holes are regions of spacetime where gravity is so strong that nothing, not even light, can escape. They form from the collapse of massive stars and warp the fabric of space and time around them.',
     facts: [

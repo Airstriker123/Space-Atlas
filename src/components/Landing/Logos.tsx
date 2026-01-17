@@ -83,9 +83,8 @@ export default function Logos(): JSX.Element {
                 start: "top bottom",
                 end: "bottom top",
                 onUpdate: () => {
-                    const velocity = (ScrollTrigger as unknown as { getVelocity: () => number }).getVelocity();
                     gsap.to(marqueeRef.current, {
-                        timeScale: gsap.utils.clamp(0.8, 2, 1 + velocity * 0.002),
+                        timeScale: gsap.utils.clamp(0.8, 2, 1 + 0.002),
                         duration: 0.25,
                         ease: "power2.out",
                     })
@@ -114,7 +113,7 @@ export default function Logos(): JSX.Element {
 
             {/* Marquee container */}
             <div className="relative self-stretch overflow-hidden
-        bg-gradient-to-r from-violet-700/80 to-fuchsia-600/80">
+        bg-linear-to-r from-violet-700/80 to-fuchsia-600/80">
 
                 {/* Moving track */}
                 <div
@@ -136,8 +135,8 @@ export default function Logos(): JSX.Element {
                 </div>
 
                 {/* Fade edges */}
-                <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black/60 to-transparent" />
-                <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black/60 to-transparent" />
+                <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-linear-to-r from-black/60 to-transparent" />
+                <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-linear-to-l from-black/60 to-transparent" />
             </div>
         </div>
     )

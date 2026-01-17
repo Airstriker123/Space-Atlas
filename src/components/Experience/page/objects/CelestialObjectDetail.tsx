@@ -46,23 +46,9 @@ export function CelestialObjectDetail({
         return <Blackhole/>
       default:
         return (
-            <motion.div
-                className="relative w-full h-full"
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 60,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-            >
-              <img
-                  src={object.imageUrl}
-                  alt={object.name}
-                  className="w-full h-full object-cover"
-              />
-            </motion.div>
+            <>
+              error 404 - invalid request in systems
+            </>
         )
     }
   }

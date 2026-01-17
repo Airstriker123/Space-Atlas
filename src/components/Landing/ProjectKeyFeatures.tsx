@@ -165,7 +165,7 @@ export default function ProjectKeyFeatures({
             {/* Image */}
             <div
                 ref={imageRef}
-                className="flex flex-col h-[432px] flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(https://c.animaapp.com/3lbQtmfk/img/image-1.png)] bg-cover bg-center rounded-2xl transform-gpu"
+                className="flex flex-col h-[432px] flex-1 grow border-[3px] border-solid border-transparent [border-image:linear-gradient(180deg,rgba(119,0,255,1)_0%,rgba(197,6,255,1)_100%)_1] bg-[url(/3d.webp)] bg-cover bg-center rounded-2xl transform-gpu"
             >
                 <div className="w-full h-full rounded-2xl" />
             </div>
@@ -192,16 +192,13 @@ export default function ProjectKeyFeatures({
                         Dynamic Animations: GSAP will be used to animate elements such as transitions, text, and movement between sections.
                     </li>
                     <li className="font-medium">
-                        Immersive Sound Design: Ambient space-themed background audio will enhance user immersion.
-                    </li>
-                    <li className="font-medium">
                         Responsive Interface: Styled using TailwindCSS for a futuristic, game-like aesthetic that adapts across devices.
                     </li>
                     <li className="font-medium">
-                        Modular Sections: Multiple space environments (e.g., planets, galaxy, asteroid field) each with unique interactive features.
+                        Modular Sections: Multiple space environments (e.g., planets, galaxy) each with unique interactive features.
                     </li>
                     <li className="font-medium">
-                        Educational Overlays: Optional text or voice-over information about space objects for an educational layer.
+                        Educational: Optional text information about space objects for an educational.
                     </li>
                 </ul>
 

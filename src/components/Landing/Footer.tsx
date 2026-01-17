@@ -39,11 +39,11 @@ export default function Footer(): JSX.Element {
                 {[
                     {
                         title: 'Inspiration',
-                        text: 'I was inspired by space, futuristic design, and sci‑fi games. My project lets people feel like they’re exploring space.',
+                        text: 'Inspired by Apple’s interactive product displays and other 3d web experiences, this project explores the intersection of 3D design and web performance.',
                     },
                     {
                         title: 'Learning experience',
-                        text: 'This project allowed me to further improve my web development skills. By learning to use multimedia JavaScript libraries such as threeJS, GSAP I was able to improve my knowledge of web development.',
+                        text: 'This project served as a catalyst for advancing my front-end expertise. By integrating multimedia libraries like Three.js and GSAP, I transitioned from static web design to creating high-performance, motion-driven user experiences.',
                     },
                     {
                         title: 'Time Usage',
