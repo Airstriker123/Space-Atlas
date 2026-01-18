@@ -7,6 +7,7 @@ import manifest from './manifest.json';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Space-Atlas/',
   plugins: [
       VitePWA({
           //pwa config
@@ -18,8 +19,10 @@ export default defineConfig({
           devOptions: { enabled: true }, //allow pwa features on development server
           registerType: 'autoUpdate',
           workbox: {
-              globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'],
-              maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+              // Remove images and models from globPatterns so they aren't prefetched all at once
+              globPatterns: ['**/*.{js,css,html,svg,png}'],
+              // This prevents the PWA from trying to "pre-download" the 1,400+ files
+              maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
           },
 
       }),

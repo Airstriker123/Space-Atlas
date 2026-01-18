@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 
 function Planet() {
   const { nodes, materials } = useGLTF(
-      "/3D/planet_earth-transformed.glb"
+      "./3D/planet_earth-transformed.glb"
   ) as GLTFResult
 
   return (
@@ -28,7 +28,7 @@ function Planet() {
   )
 }
 
-useGLTF.preload("/3D/planet_earth-transformed.glb")
+useGLTF.preload("./3D/planet_earth-transformed.glb")
 
 interface PlanetProp
 {

@@ -19,7 +19,7 @@ type GLTFResult = GLTF & {
 
 function Model(props: JSX.IntrinsicElements['group']) {
   const group = React.useRef<THREE.Group>(null!)
-  const { nodes, materials, animations } = useGLTF('/3D/neutronstar-transformed.glb') as GLTFResult
+  const { nodes, materials, animations } = useGLTF('./3D/neutronstar-transformed.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
 
   // Autoplay the animation
@@ -81,4 +81,4 @@ export default function NeutronStar(){
 }
 
 
-useGLTF.preload('/3D/neutronstar-transformed.glb')
+useGLTF.preload('./3D/neutronstar-transformed.glb')

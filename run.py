@@ -29,56 +29,48 @@ note: pwa feature: install only works on local host and not network
                     red = 255
         return faded
 
-def client_setup(choice):
-    """
-    handle running client
-    - automation
-        - installs client dependencies for user
-        - runs client for user
-        - saves time to users with less experience
-    """
 
-    os.system(r'@echo off')
+def client_setup(choice):
     os.system(r'cls')
     print("Starting frontend client...")
-    # logic to setup client
     os.system('color b')
-    ClientBanner()
-    if not os.path.exists("node_modules"):              # check if user ran npm i
-        # handle installing endpoints and running client
-        print("installing client dependencies...")
+
+    # Check for npm dependencies
+    if not os.path.exists("node_modules"):
+        print("Installing client dependencies (this may take a minute)...")
         os.system("npm i")
-        if choice == "2":
-            print('running client (build)')
-            os.system("npm run build")
-            os.system("npm run preview")
-        else:
-            print('running client (development)')
-            os.system("npm run dev")
 
-    else:
-        #handle running client
-        if choice == "2":
-            print('running client (network)')
-            os.system("npm run build")
-            os.system("npm run preview")
-        else:
-            print("running client (local)")
-            os.system("npm run dev")
+    if choice == "1":
+        print('Running client (development)...')
+        os.system("npm run dev")
 
+    elif choice == "2":
+        print('Building and Previewing (production mode)...')
+        os.system("npm run build && npm run preview")
 
+    elif choice == "3":
+        print('--- DEPLOYING TO GITHUB PAGES ---')
+        # 1. Build the project
+        os.system("npm run build")
+        # 2. Add .nojekyll for GitHub Pages
+        with open("build/.nojekyll", "w") as f: f.write("")
+        # 3. Push to GitHub Pages branch
+        # This requires: npm install -g gh-pages
+        print("Pushing build folder to GitHub...")
+        os.system("npx gh-pages -d build --add")
+        print("\nSuccess! Check your site at: https://Airstriker123.github.io/Space-Atlas/")
 
 if __name__ == "__main__":
     try:
         os.system("color 6")
-        print("recommend to run option 2 (production) to build into raw html,css,js")
-        choice = input("enter run option [1] development [2] production (build): ")
-        client_setup(choice)
+        print("SPACE ATLAS DEPLOYMENT TOOL")
+        print("---------------------------")
+        print("[1] Run Development (Real-time editing)")
+        print("[2] Run Production (Build and test locally)")
+        print("[3] Run Deploy  (ghp)")
+
+        user_choice = input("\nEnter option: ")
+        client_setup(user_choice)
     except Exception as e:
         os.system("color c")
-        print('failed to setup ')
-        print(e)
-else:
-    os.system("color c")
-    print("invalid use!")
-    print("run this script to setup frontend")
+        print(f'Failed to setup: {e}')

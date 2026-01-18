@@ -52,7 +52,7 @@ type GLTFResult = GLTF & {
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>(null)
-  const { nodes, materials, animations } = useGLTF('/3D/blackhole-transformed.glb') as GLTFResult
+  const { nodes, materials, animations } = useGLTF('./3D/blackhole-transformed.glb') as GLTFResult
   useAnimations(animations, group)
   return (
     <group
@@ -139,4 +139,4 @@ export default function Blackhole() {
       </Canvas>
   )
 }
-useGLTF.preload('/3D/blackhole-transformed.glb')
+useGLTF.preload('./3D/blackhole-transformed.glb')

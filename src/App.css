@@ -70,3 +70,10 @@
   scrollbar-color: #3700ff #0f172a;
 }
 /*--------------</custom css here>-------------- */
+
+
+canvas {
+  touch-action: none; /* Prevents the browser from handling touch events, giving control to OrbitControls */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}

@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 }
 
 function Model(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/3D/star-transformed.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('./3D/star-transformed.glb') as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Sun_LOD0__0.geometry} material={materials['Scene_-_Root']} position={[0, 4 , 0]} rotation={[Math.PI / 2, 0, 0]} scale={0.116} />
@@ -28,7 +28,7 @@ function Model(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/3D/star-transformed.glb')
+useGLTF.preload('./3D/star-transformed.glb')
 
 export default function Star() {
   return (

@@ -19,7 +19,7 @@ type GLTFResult = GLTF & {
 }
 
 function Model(props: JSX.IntrinsicElements['group']) {
-    const { nodes, materials } = useGLTF('/3D/jupiter-transformed.glb') as GLTFResult
+    const { nodes, materials } = useGLTF('./3D/jupiter-transformed.glb') as GLTFResult
     return (
         <group {...props} dispose={null}>
             <mesh position={[0, 1, 0]}  geometry={nodes.jupiter1_A_jupiter1_A_0.geometry} material={materials.jupiter1_A} rotation={[-1.718, -0.288, -0.943]} scale={0.002} />
@@ -29,7 +29,7 @@ function Model(props: JSX.IntrinsicElements['group']) {
     )
 }
 
-useGLTF.preload('/3D/jupiter-transformed.glb')
+useGLTF.preload('./3D/jupiter-transformed.glb')
 
 export default function Jupiter() {
   return (

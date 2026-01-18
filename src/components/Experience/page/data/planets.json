@@ -2,31 +2,31 @@
   {
     "id": "earth",
     "name": "Earth",
-    "imageUrl": "/object/earth.gif"
+    "imageUrl": "./object/earth.gif"
   },
   {
     "id": "jupiter",
     "name": "Jupiter",
-    "imageUrl": "/object/jupiter.gif"
+    "imageUrl": "./object/jupiter.gif"
   },
   {
     "id": "stars",
     "name": "Stars",
-    "imageUrl": "/object/stars.gif"
+    "imageUrl": "./object/stars.gif"
   },
   {
     "id": "galaxies",
     "name": "Galaxies",
-    "imageUrl": "/object/galaxy.gif"
+    "imageUrl": "./object/galaxy.gif"
   },
   {
     "id": "neutron-stars",
     "name": "Neutron Stars",
-    "imageUrl": "/object/neutronstar.gif"
+    "imageUrl": "./object/neutronstar.gif"
   },
   {
     "id": "black-holes",
     "name": "Black Holes",
-    "imageUrl": "/object/blackhole.gif"
+    "imageUrl": "./object/blackhole.gif"
   }
 ]
