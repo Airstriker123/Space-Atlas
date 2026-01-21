@@ -189,7 +189,7 @@ export default function ProjectKeyFeatures({
                         3D Interactivity: Users can navigate and interact with 3D space objects using mouse and touch input.
                     </li>
                     <li className="font-medium">
-                        Dynamic Animations: GSAP will be used to animate elements such as transitions, text, and movement between sections.
+                        Dynamic Animations: GSAP was used to animate elements such as transitions, text, and movement between sections.
                     </li>
                     <li className="font-medium">
                         Responsive Interface: Styled using TailwindCSS for a futuristic, game-like aesthetic that adapts across devices.
@@ -198,7 +198,7 @@ export default function ProjectKeyFeatures({
                         Modular Sections: Multiple space environments (e.g., planets, galaxy) each with unique interactive features.
                     </li>
                     <li className="font-medium">
-                        Educational: Optional text information about space objects for an educational.
+                        Educational: Provides textual information about space objects for an educational experience.
                     </li>
                 </ul>
 

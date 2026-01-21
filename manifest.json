@@ -1,6 +1,6 @@
 {
   "name": "SPACE ATLAS",
-  "short_name": "SA",
+  "short_name": "SPACE ATLAS",
   "description": "A 3D interactive web experience showing space.",
   "start_url": "/Space-Atlas/",
   "display": "standalone",
