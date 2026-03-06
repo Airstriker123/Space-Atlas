@@ -6,16 +6,19 @@ import {toast, Toaster} from "sonner";
 const TOAST_ID = 'fullscreen-alert';
 export default function App(): JSX.Element
 {
-    const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
+    const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Experience');
     const hasAlerted = useRef(false);
 
-    useEffect(() => {
-        const checkFullscreen = () => {
+    useEffect(() =>
+    {
+        const checkFullscreen = () =>
+        {
             const isWindowFull =
                 window.innerWidth === window.screen.width &&
                 window.innerHeight === window.screen.height;
 
-            if (!isWindowFull && !hasAlerted.current) {
+            if (!isWindowFull && !hasAlerted.current)
+            {
                 toast.error("Please enter fullscreen mode for the best experience!", {
                     id: TOAST_ID, // This prevents duplicates!
                     onDismiss: () => { hasAlerted.current = true; },
@@ -101,6 +104,5 @@ export default function App(): JSX.Element
                 }}
             />
         </main>
-
     )
 }
