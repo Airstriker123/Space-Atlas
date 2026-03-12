@@ -52,7 +52,7 @@ export function CelestialObjectDetail({
   }
   if (object.id === "earth")
   {
-     window.alert("u are on earth")
+
   }
   return (
     <div className="min-h-screen relative overflow-hidden">
