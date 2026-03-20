@@ -28,8 +28,10 @@ export function CelestialObjectDetail({
 }: CelestialObjectDetailProps)
 {
 
-    const PlanetViewer = () => {
-    switch (object.id) {
+    const PlanetViewer = () =>
+    {
+        switch (object.id)
+         {
       case 'jupiter':
         return <Jupiter/>
         case 'earth':

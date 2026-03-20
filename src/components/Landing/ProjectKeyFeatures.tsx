@@ -195,10 +195,10 @@ export default function ProjectKeyFeatures({
                         Responsive Interface: Styled using TailwindCSS for a futuristic, game-like aesthetic that adapts across devices.
                     </li>
                     <li className="font-medium">
-                        Modular Sections: Multiple space environments (e.g., planets, galaxy) each with unique interactive features.
+                        Modular Sections: Multiple space environments to explore and gain insights of objects (e.g. earth, galaxy,) each with unique interactive features through film.
                     </li>
                     <li className="font-medium">
-                        Educational: Provides textual information about space objects for an educational experience.
+                        Textual Insights: textual information about space objects for an educational experience.
                     </li>
                 </ul>
 

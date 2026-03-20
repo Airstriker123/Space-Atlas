@@ -47,7 +47,7 @@ export default function Footer(): JSX.Element {
                     },
                     {
                         title: 'Time Usage',
-                        text: 'This project took me about 1 month to create. I spent most of my school holidays working on it.',
+                        text: 'Project start-end date: 10/11/25 - 9/6/26. I spent most of my school holidays working on it.',
                     },
                 ].map((col, idx) => (
                     <div
