@@ -4,6 +4,7 @@ import Landing from "./components/Landing/Landing.tsx"
 import {useEffect, useRef, useState} from "react"
 import {toast, Toaster} from "sonner";
 const TOAST_ID = 'fullscreen-alert';
+
 export default function App(): JSX.Element
 {
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');

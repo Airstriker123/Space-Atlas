@@ -6,6 +6,7 @@ import { GalacticBackground } from './objects/GalacticBackground';
 import { CelestialObjectDetail } from './objects/CelestialObjectDetail';
 import { celestialObjects } from './data/celestialObjects.tsx';
 import planets from "./data/planets.json"
+import { VideoIntro } from './objects/VideoIntro';
 
 const spaceObjects = planets
 
@@ -17,13 +18,23 @@ export interface NavigateToLanding
 export default function Experience({onNavigateToLanding}: NavigateToLanding)
 {
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
+  const [showVideoIntro, setShowVideoIntro] = useState(false);
 
-  const handleObjectClick = (objectId: string) => {
-    setSelectedObjectId(objectId);
+  const handleVideoComplete = () =>
+  {
+    setShowVideoIntro(false);
   };
 
-  const handleBack = () => {
+  const handleObjectClick = (objectId: string) =>
+  {
+    setSelectedObjectId(objectId);
+    setShowVideoIntro(true);
+  };
+
+  const handleBack = () =>
+  {
     setSelectedObjectId(null);
+    setShowVideoIntro(false);
   };
 
   const handleNext = () => {
@@ -31,6 +42,7 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
       const currentIndex = celestialObjects.findIndex(obj => obj.id === selectedObjectId);
       const nextIndex = (currentIndex + 1) % celestialObjects.length;
       setSelectedObjectId(celestialObjects[nextIndex].id);
+      setShowVideoIntro(true);
     }
   };
 
@@ -39,19 +51,32 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
       const currentIndex = celestialObjects.findIndex(obj => obj.id === selectedObjectId);
       const previousIndex = (currentIndex - 1 + celestialObjects.length) % celestialObjects.length;
       setSelectedObjectId(celestialObjects[previousIndex].id);
+      setShowVideoIntro(true);
     }
   };
 
   // If an object is selected, show detail page
   const selectedObject = celestialObjects.find(obj => obj.id === selectedObjectId);
   if (selectedObject) {
+    // Show video intro first if not completed
+    if (showVideoIntro) {
+      return (
+          <VideoIntro
+              objectName={selectedObject.name}
+              videoUrl={selectedObject.videoUrl}
+              onComplete={handleVideoComplete}
+          />
+      );
+    }
+
+    // Then show detail page
     return (
-      <CelestialObjectDetail
-        object={selectedObject}
-        onBack={handleBack}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-      />
+        <CelestialObjectDetail
+            object={selectedObject}
+            onBack={handleBack}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+        />
     );
   }
 
@@ -60,10 +85,10 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated background gradient */}
       <div className="fixed inset-0 bg-linear-to-br from-black via-purple-950 to-black -z-10" />
-      
+
       {/* Secondary gradient overlay for depth */}
       <div className="fixed inset-0 bg-linear-to-t from-purple-900/20 via-transparent to-black/40 -z-10" />
-      
+
       {/* Star field animation */}
       <GalacticBackground />
 
@@ -127,8 +152,8 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
               key={object.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.6, 
+              transition={{
+                duration: 0.6,
                 delay: 0.5 + index * 0.1,
                 ease: "easeOut",
                 type: "spring",
