@@ -28,14 +28,14 @@ export function CelestialObjectDetail({
 }: CelestialObjectDetailProps)
 {
 
-  const PlanetViewer = () => {
-    switch (object.id) {
-      case 'earth':
-        return <HeroPlanet
-            control={true}
-        />
+    const PlanetViewer = () =>
+    {
+        switch (object.id)
+         {
       case 'jupiter':
         return <Jupiter/>
+        case 'earth':
+            return <HeroPlanet control={true}/>
       case 'stars':
         return <Star/>
       case 'galaxies':
@@ -51,6 +51,10 @@ export function CelestialObjectDetail({
             </>
         )
     }
+  }
+  if (object.id === "earth")
+  {
+
   }
   return (
     <div className="min-h-screen relative overflow-hidden">

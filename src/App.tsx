@@ -10,13 +10,16 @@ export default function App(): JSX.Element
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
     const hasAlerted = useRef(false);
 
-    useEffect(() => {
-        const checkFullscreen = () => {
+    useEffect(() =>
+    {
+        const checkFullscreen = () =>
+        {
             const isWindowFull =
                 window.innerWidth === window.screen.width &&
                 window.innerHeight === window.screen.height;
 
-            if (!isWindowFull && !hasAlerted.current) {
+            if (!isWindowFull && !hasAlerted.current)
+            {
                 toast.error("Please enter fullscreen mode for the best experience!", {
                     id: TOAST_ID, // This prevents duplicates!
                     onDismiss: () => { hasAlerted.current = true; },
@@ -102,6 +105,5 @@ export default function App(): JSX.Element
                 }}
             />
         </main>
-
     )
 }
