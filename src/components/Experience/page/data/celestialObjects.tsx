@@ -42,6 +42,7 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Surface Gravity', value: '9.807 m/s²' },
       { label: 'Moons', value: '1 (Luna)' },
     ],
+      videoUrl: "./media/Earth/earth.mp4",
   },
   {
     id: 'jupiter',

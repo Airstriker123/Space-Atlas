@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles } from 'lucide-react';
-import { GalacticBackground } from './GalacticBackground';
+import {GalacticBackground} from "./GalacticBackground.tsx";
 
 interface VideoIntroProps {
     objectName: string;
@@ -135,13 +135,11 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
     const [videoError, setVideoError] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
-
     const config = useMemo(() => getObjectConfig(objectName), [objectName]);
+    const [duration, setDuration] = useState<number>(5000); // Default fallback
 
     useEffect(() => {
-        // Simulate loading/introduction progress
-        const duration = 5000; // 5 seconds
-        const interval = 50; // Update every 50ms
+        const interval = 50;
         const increment = (interval / duration) * 100;
 
         const timer = setInterval(() => {
@@ -157,15 +155,20 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
         }, interval);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [videoLoaded, duration]); // Effect runs once video is ready and duration is set
+
+    const handleLoadedMetadata = () => {
+        if (videoRef.current) {
+            // duration is in seconds, convert to ms for  interval logic
+            setDuration(videoRef.current.duration * 1000);
+        }
+    };
 
     return (
-        <div className="min-h-screen relative overflow-hidden bg-black">
-            {/* Animated background */}
-            <GalacticBackground />
-
+        <div className="min-h-screen relative overflow-hidden ">
+            <GalacticBackground/>
             {/* Video layer */}
-            {videoUrl && !videoError && (
+            {videoUrl && !showContinue && !videoError && (
                 <video
                     ref={videoRef}
                     src={videoUrl}
@@ -173,132 +176,17 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                     muted
                     playsInline
                     loop
-                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-50' : 'opacity-0'}`}
+                    onLoadedData={handleLoadedMetadata}
+                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
                     onCanPlay={() => setVideoLoaded(true)}
                     onError={() => setVideoError(true)}
                 />
             )}
 
-            {/* Thematic gradient overlay */}
-            <div className={`fixed inset-0 bg-gradient-to-br ${config.gradientOverlay} via-black/80 to-black pointer-events-none z-0`} />
-
             {/* Main content - Full viewport */}
             <div className="relative z-10 min-h-screen flex flex-col items-center justify-center">
                 {/* Animated visual container - Full viewport */}
                 <div className="fixed inset-0 overflow-hidden">
-                    {/* Animated circles */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <motion.div
-                            animate={{
-                                scale: config.circleAnim.scale,
-                                rotate: config.circleAnim.rotate,
-                                opacity: [0.3, 0.1, 0.3]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                            className={`absolute w-32 h-32 rounded-full border-2 ${config.border1}`}
-                        />
-                        <motion.div
-                            animate={{
-                                scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.25 : s),
-                                rotate: config.circleAnim.rotate,
-                                opacity: [0.3, 0, 0.3]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                            className={`absolute w-32 h-32 rounded-full border-2 ${config.border2}`}
-                        />
-                        <motion.div
-                            animate={{
-                                scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.5 : s),
-                                rotate: config.circleAnim.rotate,
-                                opacity: [0.3, 0, 0.3]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            className={`absolute w-32 h-32 rounded-full border-2 ${config.border3}`}
-                        />
-                    </div>
-
-                    {/* Central glow */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [0.5, 0.8, 0.5]
-                            }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            className={`w-96 h-96 md:w-[600px] md:h-[600px] rounded-full ${config.glowPrimary} blur-3xl`}
-                        />
-                    </div>
-
-                    {/* Title at top */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="absolute top-20 left-0 right-0 text-center px-4"
-                    >
-                        <motion.div
-                            animate={{
-                                rotate: 360,
-                                scale: [1, 1.2, 1]
-                            }}
-                            transition={{
-                                rotate: { duration: 3, repeat: Infinity, ease: "linear" },
-                                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                            }}
-                            className="inline-block mb-6"
-                        >
-                            <Sparkles className={`w-16 h-16 ${config.text}`} />
-                        </motion.div>
-
-                        <h1 className="text-white mb-4 tracking-wider">
-                            Entering {objectName}
-                        </h1>
-                        <div className={`h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-current to-transparent rounded-full ${config.text}`} />
-                    </motion.div>
-
-                    {/* Object name in center */}
-                    <div className="absolute inset-0 flex items-center justify-center px-4 pointer-events-none">
-                        <motion.h2
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                            className="text-white text-4xl md:text-6xl lg:text-7xl tracking-wider text-center"
-                        >
-                            {objectName}
-                        </motion.h2>
-                    </div>
-
-                    {/* Floating particles */}
-                    {[...Array(config.particleCount)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{
-                                x: Math.random() * 100 + '%',
-                                y: Math.random() * 100 + '%',
-                                opacity: 0
-                            }}
-                            animate={{
-                                x: [
-                                    Math.random() * 100 + '%',
-                                    Math.random() * 100 + '%',
-                                    Math.random() * 100 + '%'
-                                ],
-                                y: [
-                                    Math.random() * 100 + '%',
-                                    Math.random() * 100 + '%',
-                                    Math.random() * 100 + '%'
-                                ],
-                                opacity: [0, 0.6, 0]
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: Math.random() * 2
-                            }}
-                            className={`absolute w-1 h-1 ${config.particle} rounded-full`}
-                        />
-                    ))}
 
                     {/* Progress overlay at bottom */}
                     <AnimatePresence>
@@ -307,7 +195,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
-                                className="absolute bottom-20 left-0 right-0 px-6 md:px-12"
+                                className="absolute bottom-30 left-0 right-0 px-6 md:px-12"
                             >
                                 <div className="max-w-2xl mx-auto">
                                     <div className="mb-3 text-center">
@@ -358,7 +246,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                                         </motion.div>
                                         <h2 className="text-white mb-2 text-2xl font-semibold">Journey Ready</h2>
                                         <p className={`${config.textLight} mb-8`}>
-                                            Prepare to explore {objectName}
+                                            press continue to explore {objectName}
                                         </p>
                                     </div>
 
