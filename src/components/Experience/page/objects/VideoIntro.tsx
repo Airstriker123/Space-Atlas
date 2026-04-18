@@ -139,6 +139,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
     const [duration, setDuration] = useState<number>(5000); // Default fallback
 
     useEffect(() => {
+        if (!videoLoaded) return;
         const interval = 50;
         const increment = (interval / duration) * 100;
 
@@ -199,7 +200,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                             >
                                 <div className="max-w-2xl mx-auto">
                                     <div className="mb-3 text-center">
-                                        <p className={`${config.textLight} text-sm md:text-base`}>Initializing Journey...</p>
+                                        <p className={`${config.textLight} text-sm md:text-base`}>Introduction progress bar...</p>
                                     </div>
                                     <div className="h-1.5 bg-black/50 rounded-full overflow-hidden backdrop-blur-sm border border-white/10">
                                         <motion.div
