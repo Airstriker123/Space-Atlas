@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles } from 'lucide-react';
+import { motion, AnimatePresence} from 'motion/react';
 import {GalacticBackground} from "./GalacticBackground.tsx";
+import { Sparkles } from 'lucide-react';
 
 interface VideoIntroProps {
     objectName: string;
@@ -166,7 +166,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden ">
+        <div className="bg-black/50 min-h-screen relative overflow-hidden ">
             <GalacticBackground/>
             {/* Video layer */}
             {videoUrl && !showContinue && !videoError && (
@@ -188,7 +188,6 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
             <div className="relative z-10 min-h-screen flex flex-col items-center justify-center">
                 {/* Animated visual container - Full viewport */}
                 <div className="fixed inset-0 overflow-hidden">
-
                     {/* Progress overlay at bottom */}
                     <AnimatePresence>
                         {!showContinue && (
@@ -221,30 +220,60 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-md px-4 z-20"
+                                className="absolute inset-0 flex flex-col items-center justify-center  px-4 z-20"
                             >
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <motion.div
+                                        animate={{
+                                            scale: config.circleAnim.scale,
+                                            rotate: config.circleAnim.rotate,
+                                            opacity: [0.3, 0.1, 0.3]
+                                        }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border1}`}
+                                    />
+                                    <motion.div
+                                        animate={{
+                                            scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.25 : s),
+                                            rotate: config.circleAnim.rotate,
+                                            opacity: [0.3, 0, 0.3]
+                                        }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border2}`}
+                                    />
+                                    <motion.div
+                                        animate={{
+                                            scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.5 : s),
+                                            rotate: config.circleAnim.rotate,
+                                            opacity: [0.3, 0, 0.3]
+                                        }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border3}`}
+                                    />
+                                    <motion.div
+                                        className={`w-20 h-20 mx-auto rounded-full ${config.glowPrimary} border-2 ${config.border1} flex items-center justify-center mb-4`}
+                                        animate={{
+                                            boxShadow: [
+                                                `0 0 20px ${config.shadowColor}`,
+                                                `0 0 40px ${config.shadowColorHover}`,
+                                                `0 0 20px ${config.shadowColor}`
+                                            ]
+                                        }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                    >
+                                        <svg className={`w-10 h-10 ${config.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </motion.div>
+                                </div>
+
                                 <motion.div
                                     initial={{ scale: 0.8, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ delay: 0.2, duration: 0.5 }}
-                                    className="text-center"
+                                    className="text-center mt-167"
                                 >
                                     <div className="mb-6">
-                                        <motion.div
-                                            className={`w-20 h-20 mx-auto rounded-full ${config.glowPrimary} border-2 ${config.border1} flex items-center justify-center mb-4`}
-                                            animate={{
-                                                boxShadow: [
-                                                    `0 0 20px ${config.shadowColor}`,
-                                                    `0 0 40px ${config.shadowColorHover}`,
-                                                    `0 0 20px ${config.shadowColor}`
-                                                ]
-                                            }}
-                                            transition={{ duration: 2, repeat: Infinity }}
-                                        >
-                                            <svg className={`w-10 h-10 ${config.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        </motion.div>
                                         <h2 className="text-white mb-2 text-2xl font-semibold">Journey Ready</h2>
                                         <p className={`${config.textLight} mb-8`}>
                                             press continue to explore {objectName}
@@ -281,9 +310,25 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                 )}
             </div>
 
-            {/* Decorative glow effects */}
-            <div className={`fixed top-20 left-10 w-96 h-96 ${config.glowPrimary} rounded-full blur-3xl pointer-events-none`} />
-            <div className={`fixed bottom-20 right-10 w-96 h-96 ${config.glowSecondary} rounded-full blur-3xl pointer-events-none`} />
+            {/* Decorative glow effects */
+            showContinue && (
+                <motion.div>
+                    {/* Central glow */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <motion.div
+                            animate={{
+                                scale: [1, 1.5, 1],
+                                opacity: [0.5, 0.8, 0.5]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            className={`w-96 h-96 md:w-[600px] md:h-[600px] rounded-full ${config.glowPrimary} blur-3xl`}
+                        />
+                    </div>
+                    <div className={`fixed top-20 left-10 w-96 h-96 ${config.glowPrimary} rounded-full blur-3xl pointer-events-none`} />
+                    <div className={`fixed bottom-20 right-10 w-96 h-96 ${config.glowSecondary} rounded-full blur-3xl pointer-events-none`} />
+                </motion.div>
+                )
+            }
         </div>
     );
 }
