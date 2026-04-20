@@ -3,12 +3,14 @@ import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
 import {useEffect, useRef, useState} from "react"
 import {toast, Toaster} from "sonner";
+
 const TOAST_ID = 'fullscreen-alert';
 
 export default function App(): JSX.Element
 {
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
     const hasAlerted = useRef(false);
+    const audio = new Audio('./media/button.wav')
 
     useEffect(() =>
     {
@@ -40,11 +42,14 @@ export default function App(): JSX.Element
 
     const handleSwapExperience = () =>
     {
+        audio.play().catch(e => console.log('Audio play prevented:', e));
         setCurrentSection('Experience');
         console.log(currentSection);
     }
 
-    const handleSwapLanding = () => {
+    const handleSwapLanding = () =>
+    {
+        audio.play().catch(e => console.log('Audio play prevented:', e));
         setCurrentSection('Landing');
         console.log(currentSection);
     }

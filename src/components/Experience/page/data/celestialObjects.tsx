@@ -12,6 +12,7 @@ export interface CelestialObject {
     value: string;
   }[];
   videoUrl?: string;
+  audioUrl?: string;
 }
 
 export const celestialObjects: CelestialObject[] = [
@@ -43,6 +44,7 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Moons', value: '1 (Luna)' },
     ],
       videoUrl: "./media/Earth/earth.mp4",
+      audioUrl: "./media/Earth/soundtrack.mp3",
   },
   {
     id: 'jupiter',

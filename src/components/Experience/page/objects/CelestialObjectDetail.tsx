@@ -13,7 +13,8 @@ import Blackhole from "../../../models/Blackhole.tsx";
 
 
 
-interface CelestialObjectDetailProps {
+interface CelestialObjectDetailProps
+{
   object: CelestialObject;
   onBack: () => void;
   onNext?: () => void;
@@ -52,10 +53,7 @@ export function CelestialObjectDetail({
         )
     }
   }
-  if (object.id === "earth")
-  {
 
-  }
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Three.js Galactic Background */}
