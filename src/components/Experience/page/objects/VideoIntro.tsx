@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence} from 'motion/react';
 import {GalacticBackground} from "./GalacticBackground.tsx";
-import { Sparkles } from 'lucide-react';
 
 interface VideoIntroProps {
     objectName: string;
@@ -140,7 +139,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
 
     useEffect(() => {
         if (!videoLoaded) return;
-        const interval = 50;
+        const interval = 49;
         const increment = (interval / duration) * 100;
 
         const timer = setInterval(() => {
@@ -176,9 +175,8 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                     autoPlay
                     muted
                     playsInline
-                    loop
                     onLoadedData={handleLoadedMetadata}
-                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    className={`bg-black absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
                     onCanPlay={() => setVideoLoaded(true)}
                     onError={() => setVideoError(true)}
                 />

@@ -14,15 +14,30 @@ export default defineConfig({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-expect-error
           manifest,
-          includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
           // switch to "true" to enable sw on development
           devOptions: { enabled: true }, //allow pwa features on development server
           registerType: 'autoUpdate',
+          includeAssets: [
+              '**/*.mp4',
+              '**/*.mp3',
+              '**/*.wav',
+              '**/*.webp',
+              '**/*.png',
+              '**/*.jpg',
+              '**/*.glb',
+              '**/*.json',
+              'favicon.svg',
+              'favicon.ico',
+              'robots.txt',
+              'apple-touch-icon.png'
+          ],
+          selfDestroying: false,
+          injectRegister: 'auto',
+          strategies: 'generateSW',
           workbox: {
               // Remove images and models from globPatterns so they aren't prefetched all at once
-              globPatterns: ['**/*.{js,css,html,svg,png}'],
-              // This prevents the PWA from trying to "pre-download" the 1,400+ files
-              maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+              globPatterns: ['**/*.{js,css,html,mp4,mp3,svg,wav,webp,png,jpg,glb,json}'],
+              maximumFileSizeToCacheInBytes: 100 * 1024 * 1024 // 100 MB
           },
 
       }),

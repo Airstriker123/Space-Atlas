@@ -72,8 +72,14 @@
 /*--------------</custom css here>-------------- */
 
 
-canvas {
+canvas
+{
   touch-action: none; /* Prevents the browser from handling touch events, giving control to OrbitControls */
   -webkit-tap-highlight-color: transparent;
   outline: none;
+}
+
+:fullscreen
+{
+  overflow: auto;
 }

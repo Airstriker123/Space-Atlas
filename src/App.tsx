@@ -3,6 +3,10 @@ import Experience from "./components/Experience/page/Experience.tsx"
 import Landing from "./components/Landing/Landing.tsx"
 import {useEffect, useRef, useState} from "react"
 import {toast, Toaster} from "sonner";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import {usePreloadAssets} from "./hooks/usePreloadAssets.ts";
+import LoadingScreen from "./components/LoadingScreen.tsx";
+import {useAssetLoader} from "./hooks/useAssestLoader.ts";
 
 const TOAST_ID = 'fullscreen-alert';
 
@@ -11,6 +15,27 @@ export default function App(): JSX.Element
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
     const hasAlerted = useRef(false);
     const audio = new Audio('./media/button.wav')
+    const handle = useFullScreenHandle();
+    const assets = [
+        "./about.jpg",
+        "./3d.webp",
+        "./object/blackhole.glf",
+        "./object/earth.glf",
+        "./object/galaxy.glf",
+        "./object/jupiter.glf",
+        "./object/neutronstar.glf",
+        "./object/stars.glf",
+        "./media/button.wav",
+        "./media/earth.mp4",
+        "./media/soundtrack.mp3",
+        "./3D/blackhole-transformed.glb",
+        "./3D/jupiter-transformed.glb",
+        "./3D/planet_earth-transformed.glb",
+        "./3D/solar_system-transformed.glb",
+        "./3D/star-transformed.glb",
+    ]
+    const loaded = usePreloadAssets(assets)
+    const progress = useAssetLoader(assets)
 
     useEffect(() =>
     {
@@ -22,7 +47,7 @@ export default function App(): JSX.Element
 
             if (!isWindowFull && !hasAlerted.current)
             {
-                toast.error("Please enter fullscreen mode for the best experience!", {
+                toast.error("Enter fullscreen mode for the best experience!", {
                     id: TOAST_ID, // This prevents duplicates!
                     onDismiss: () => { hasAlerted.current = true; },
                     onAutoClose: () => { hasAlerted.current = true; },
@@ -40,10 +65,13 @@ export default function App(): JSX.Element
         return () => window.removeEventListener('resize', checkFullscreen);
     }, []);
 
+
+
     const handleSwapExperience = () =>
     {
         audio.play().catch(e => console.log('Audio play prevented:', e));
         setCurrentSection('Experience');
+        handle.enter().catch(e => console.log('Audio play prevented:', e));
         console.log(currentSection);
     }
 
@@ -63,16 +91,15 @@ export default function App(): JSX.Element
     }, [currentSection]);
 
 
-
     const renderCurrentSection = () =>
     {
         switch(currentSection)
         {
             case 'Experience':
                 return (
-                    <Experience
-                        onNavigateToLanding={handleSwapLanding}
-                    />
+                        <Experience
+                            onNavigateToLanding={handleSwapLanding}
+                        />
                 )
             case 'Landing':
                 return <Landing
@@ -95,20 +122,24 @@ export default function App(): JSX.Element
                 )
         }
     };
+
+    if (!loaded) return <LoadingScreen progress={progress} />;
     return (
         <main className="app-container">
-            {renderCurrentSection()}
-            <Toaster
-                theme="dark"
-                position="bottom-right"
-                toastOptions={{
-                    style: {
-                        background: 'linear-gradient(135deg, rgb(47, 0, 100), rgb(138,5,255,1))',
-                        border: '1px solid linear-gradient(135deg, rgb(0, 147, 255), rgb(122, 0, 255))',
-                        color: '#DBE9F3',
-                    },
-                }}
-            />
+                <FullScreen handle={handle}>
+                    {renderCurrentSection()}
+                </FullScreen>
+                <Toaster
+                    theme="dark"
+                    position="bottom-right"
+                    toastOptions={{
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(47, 0, 100), rgb(138,5,255,1))',
+                            border: '1px solid linear-gradient(135deg, rgb(0, 147, 255), rgb(122, 0, 255))',
+                            color: '#DBE9F3',
+                        },
+                    }}
+                />
         </main>
     )
 }
