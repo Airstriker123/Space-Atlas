@@ -9,7 +9,7 @@ export default function LoadingScreen({progress}: LoadingScreenProps): JSX.Eleme
         <div className="fixed inset-0 bg-black flex flex-col items-center justify-center text-cyan-300 font-mono">
 
             <div className="text-4xl tracking-widest mb-6 animate-pulse">
-                GALACTIC SPACE ATLAS
+                SPACE ATLAS
             </div>
 
             <div className="w-[60%] h-3 bg-cyan-900/30 rounded-full overflow-hidden border border-cyan-400/40">
@@ -29,7 +29,7 @@ export default function LoadingScreen({progress}: LoadingScreenProps): JSX.Eleme
             </div>
 
             <div className="absolute bottom-10 text-xs opacity-50 tracking-widest">
-                INITIALIZING STAR MAP…
+                LOADING SPACE ATLAS ASSETS…
             </div>
         </div>
     );
