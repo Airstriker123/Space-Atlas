@@ -62,8 +62,10 @@ def client_setup(choice):
         print('--- DEPLOYING TO GITHUB PAGES ---')
         os.system("npm run build")
 
+
         with open("build/.nojekyll", "w") as f:
             f.write("")
+
 
         done = False
         t = threading.Thread(target=spinner, args=("Pushing changes",))
