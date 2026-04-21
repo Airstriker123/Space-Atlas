@@ -59,7 +59,7 @@ export default defineConfig({
                 'apple-touch-icon.png'
             ],
             selfDestroying: false,
-            injectRegister: 'auto',
+            injectRegister: null,
             strategies: 'generateSW',
             manifestFilename: 'manifest.webmanifest',
             workbox: {
