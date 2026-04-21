@@ -22,7 +22,7 @@
   {
     "id": "neutron-stars",
     "name": "Neutron Stars",
-    "imageUrl": "./object/neutronstar.gif"
+    "imageUrl": "./object/neutronStar.gif"
   },
   {
     "id": "black-holes",
