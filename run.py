@@ -1,5 +1,8 @@
 import os
 import sys
+import time
+import threading
+import itertools
 
 class ClientBanner(object):
     def __init__(self):
@@ -49,16 +52,28 @@ def client_setup(choice):
         os.system("npm run build && npm run preview")
 
     elif choice == "3":
+        def spinner(text):
+             for frame in itertools.cycle(["/", "-", "\\", "|"]):
+                if done:
+                 break
+                print(f"\r{text} {frame}", end="", flush=True)
+                time.sleep(0.1)
+
         print('--- DEPLOYING TO GITHUB PAGES ---')
-        # 1. Build the project
         os.system("npm run build")
-        # 2. Add .nojekyll for GitHub Pages
-        with open("build/.nojekyll", "w") as f: f.write("")
-        # 3. Push to GitHub Pages branch
-        # This requires: npm install -g gh-pages
-        print("Pushing build folder to GitHub...")
-        os.system("npx gh-pages -d build --add")
-        print("\nSuccess! Check your site at: https://Airstriker123.github.io/Space-Atlas/")
+
+        with open("build/.nojekyll", "w") as f:
+            f.write("")
+
+        done = False
+        t = threading.Thread(target=spinner, args=("Pushing changes",))
+        t.start()
+        os.system("npx gh-pages -d build")
+
+        done = True
+        t.join()
+        print("\rPushing changes ✔")
+        input("Deployment complete.")
 
 if __name__ == "__main__":
     try:
