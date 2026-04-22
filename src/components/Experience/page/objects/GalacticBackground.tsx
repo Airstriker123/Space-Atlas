@@ -17,7 +17,7 @@ export function GalacticBackground() {
 
     // Create stars
     const starGeometry = new THREE.BufferGeometry();
-    const starCount = 5000;
+    const starCount = 10000;
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
     const sizes = new Float32Array(starCount);

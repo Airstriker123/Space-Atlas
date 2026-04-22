@@ -39,15 +39,22 @@ export default function Footer(): JSX.Element {
                 {[
                     {
                         title: 'Inspiration',
-                        text: 'Inspired by Apple’s interactive product displays and other 3d web experiences, this project explores the intersection of 3D design and web performance.',
+                        text: 'Inspired by Apple’s interactive product displays and other 3d web' +
+                            ' experiences, this project explores the intersection of 3D design ' +
+                            'and web performance.',
                     },
                     {
                         title: 'Learning experience',
-                        text: 'This project served as a catalyst for advancing my front-end expertise. By integrating multimedia libraries like Three.js and GSAP, I transitioned from static web design to creating high-performance, motion-driven user experiences.',
+                        text: 'This project served as a catalyst for ' +
+                            'advancing my front-end expertise. ' +
+                            'By integrating multimedia libraries like Three.js and GSAP, ' +
+                            'I transitioned from static web design to creating high-performance,' +
+                            ' motion-driven user experiences.',
                     },
                     {
                         title: 'Time Usage',
-                        text: 'Project start-end date: 10/11/25 - 9/6/26. I spent most of my school holidays working on it.',
+                        text: 'Project start-end date: 10/11/25 - 9/6/26. ' +
+                            'I spent most of my school holidays working on it.',
                     },
                 ].map((col, idx) => (
                     <div

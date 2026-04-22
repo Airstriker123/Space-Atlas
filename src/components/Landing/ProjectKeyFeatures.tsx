@@ -6,13 +6,8 @@ if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-export interface LandingNavigtion {
-    onNavigateToExperience?: () => void;
-}
 
-export default function ProjectKeyFeatures({
-                                               onNavigateToExperience,
-                                           }: LandingNavigtion): JSX.Element {
+export default function ProjectKeyFeatures(): JSX.Element {
     const containerRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLUListElement>(null);
@@ -152,7 +147,7 @@ export default function ProjectKeyFeatures({
             repeat: 1,
             ease: 'power2.inOut',
             onComplete: () => {
-                if (onNavigateToExperience) onNavigateToExperience();
+                window.open("https://github.com/Airstriker123/Space-Atlas");
             },
         });
     };
@@ -210,7 +205,7 @@ export default function ProjectKeyFeatures({
                     className="all-[unset] box-border inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[linear-gradient(90deg,rgba(144,0,255,1)_0%,rgba(81,0,255,1)_100%)] cursor-pointer transform-gpu"
                 >
                     <div className="relative flex items-center justify-center w-fit mt-[-1px] font-medium text-white text-lg text-center tracking-[-0.09px] leading-[26.1px] whitespace-nowrap">
-                        go to experience
+                        Project files (source code)
                     </div>
                 </button>
             </div>
