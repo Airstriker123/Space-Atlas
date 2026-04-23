@@ -123,7 +123,9 @@ export default function App(): JSX.Element
         }
     };
 
-    if (!loaded) return <LoadingScreen progress={progress} />;
+    if (!loaded) return <LoadingScreen
+
+        progress={progress} />;
     return (
         <main className="app-container">
                 <FullScreen handle={handle}>

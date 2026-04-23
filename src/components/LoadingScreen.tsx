@@ -1,10 +1,14 @@
-export interface LoadingScreenProps 
-{
-    progress?: any;
+interface ProgressData {
+    progress: number;
+    loadedAssets: number;
+    totalAssets: number;
+    loadedBytes: number;
+    totalBytes: number;
 }
 
-export default function LoadingScreen({progress}: LoadingScreenProps): JSX.Element
-{
+export default function LoadingScreen({ progress }: { progress: ProgressData }) {
+    const safeProgress = Math.max(0, Math.min(100, progress.progress));
+
     return (
         <div className="fixed inset-0 bg-black flex flex-col
         items-center justify-center text-cyan-300 font-mono">
@@ -17,13 +21,13 @@ export default function LoadingScreen({progress}: LoadingScreenProps): JSX.Eleme
              overflow-hidden border border-cyan-400/40">
                 <div
                     className="h-full bg-gradient-to-r from-cyan-400
-                    to-purple-500 transition-all duration-200"
-                    style={{ width: `${progress.progress}%` }}
+                    to-purple-500 transition-all duration-300 ease-out"
+                    style={{ width: `${safeProgress}%` }}
                 />
             </div>
 
             <div className="mt-4 text-lg">
-                {progress.progress}% — {progress.loadedAssets}/{progress.totalAssets} assets
+                {safeProgress.toFixed(0)}% — {progress.loadedAssets}/{progress.totalAssets} assets
             </div>
 
             <div className="mt-2 text-sm opacity-70">

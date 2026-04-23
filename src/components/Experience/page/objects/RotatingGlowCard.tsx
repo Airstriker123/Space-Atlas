@@ -18,7 +18,7 @@ export function RotatingGlowCard({ children, isHovered, borderRadius = '1rem' }:
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
-      const newAngle = (elapsed / 20) % 360; // Complete rotation every ~7.2 seconds
+      const newAngle = (elapsed /3) % 360; // Complete rotation every ~7.2 seconds
       setAngle(newAngle);
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -37,7 +37,7 @@ export function RotatingGlowCard({ children, isHovered, borderRadius = '1rem' }:
     const angleRad = (angle * Math.PI) / 180;
     
     // Calculate offsets for box-shadow
-    const distance = 20; // Distance of the glow from center
+    const distance = 3; // Distance of the glow from center
     const offsetX = Math.cos(angleRad) * distance;
     const offsetY = Math.sin(angleRad) * distance;
     
@@ -49,9 +49,9 @@ export function RotatingGlowCard({ children, isHovered, borderRadius = '1rem' }:
   const glowStyle = isHovered
     ? {
         boxShadow: `
-          ${offsetX}px ${offsetY}px 15px 5px rgba(168, 85, 247, 0.8),
-          ${-offsetX}px ${-offsetY}px 15px 5px rgba(236, 72, 153, 0.6),
-          ${offsetY}px ${-offsetX}px 10px 3px rgba(59, 130, 246, 0.5),
+          ${offsetX}px ${offsetY}px 15px 5px rgba(168, 85, 247, 1),
+          ${-offsetX}px ${-offsetY}px 15px 5px rgba(236, 72, 153, 1),
+          ${offsetY}px ${-offsetX}px 10px 3px rgba(59, 130, 246, 1),
           0 0 60px rgba(168, 85, 247, 0.3),
           inset 0 0 40px rgba(168, 85, 247, 0.1)
         `,

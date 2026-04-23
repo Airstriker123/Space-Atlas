@@ -139,7 +139,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
 
     useEffect(() => {
         if (!videoLoaded) return;
-        const interval = 49;
+        const interval = 48;
         const increment = (interval / duration) * 100;
 
         const timer = setInterval(() => {
@@ -269,7 +269,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                                     initial={{ scale: 0.8, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ delay: 0.2, duration: 0.5 }}
-                                    className="text-center mt-167"
+                                    className="text-center mt-100"
                                 >
                                     <div className="mb-6">
                                         <h2 className="text-white mb-2 text-2xl font-semibold">Journey Ready</h2>
