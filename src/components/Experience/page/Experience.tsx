@@ -138,10 +138,12 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
 
         <header className="relative z-10 border-b border-purple-500/20 backdrop-blur-sm bg-black/20">
           <div className="container mx-auto px-4 py-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between relative">
+
+              {/* Left: Back button */}
               <motion.button
                   onClick={onNavigateToLanding}
-                  className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                  className="flex items-center gap-2 text-purple-300 hover:text-purple-600 transition-colors duration-300 group"
                   whileHover={{ x: -5 }}
                   whileTap={{ scale: 0.95 }}
               >
@@ -149,23 +151,24 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
                 <span>Back</span>
               </motion.button>
 
+              {/* Center: Title */}
               <motion.div
-                  className="flex items-center gap-3"
+                  className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
               >
                 <Sparkles className="w-6 h-6 text-purple-400" />
-                <h1 className="text-white tracking-wide">
-                  SPACE ATLAS
-                </h1>
+                <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
                 <Sparkles className="w-6 h-6 text-purple-400" />
               </motion.div>
 
-              <div className="w-20" /> {/* Spacer for alignment */}
+              {/* Right: Spacer */}
+              <div className="w-20" />
             </div>
           </div>
         </header>
+
 
         {/* Main content */}
         <main className="relative z-10 container mx-auto px-4 py-12 md:py-20">

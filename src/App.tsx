@@ -71,13 +71,14 @@ export default function App(): JSX.Element
     {
         audio.play().catch(e => console.log('Audio play prevented:', e));
         setCurrentSection('Experience');
-        handle.enter().catch(e => console.log('Audio play prevented:', e));
+        handle.enter().catch(e => console.log('failed to enter fullscreen:', e));
         console.log(currentSection);
     }
 
     const handleSwapLanding = () =>
     {
         audio.play().catch(e => console.log('Audio play prevented:', e));
+        handle.exit().catch(e => console.log('failed to exit:', e));
         setCurrentSection('Landing');
         console.log(currentSection);
     }
@@ -123,14 +124,11 @@ export default function App(): JSX.Element
         }
     };
 
-    if (!loaded) return <LoadingScreen
-
-        progress={progress} />;
+    if (!loaded) return <LoadingScreen progress={progress} />;
     return (
+        <FullScreen handle={handle}>
         <main className="app-container">
-                <FullScreen handle={handle}>
                     {renderCurrentSection()}
-                </FullScreen>
                 <Toaster
                     theme="dark"
                     position="bottom-right"
@@ -143,5 +141,6 @@ export default function App(): JSX.Element
                     }}
                 />
         </main>
+</FullScreen>
     )
 }
