@@ -4,9 +4,7 @@ import Landing from "./components/Landing/Landing.tsx"
 import {useEffect, useRef, useState} from "react"
 import {toast, Toaster} from "sonner";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import {usePreloadAssets} from "./hooks/usePreloadAssets.ts";
-import LoadingScreen from "./components/LoadingScreen.tsx";
-import {useAssetLoader} from "./hooks/useAssestLoader.ts";
+
 
 const TOAST_ID = 'fullscreen-alert';
 
@@ -16,26 +14,6 @@ export default function App(): JSX.Element
     const hasAlerted = useRef(false);
     const audio = new Audio('./media/button.wav')
     const handle = useFullScreenHandle();
-    const assets = [
-        "./about.jpg",
-        "./3d.webp",
-        "./object/blackhole.gif",
-        "./object/earth.gif",
-        "./object/galaxy.gif",
-        "./object/jupiter.gif",
-        "./object/neutronStar.gif",
-        "./object/stars.gif",
-        "./media/button.wav",
-        "./media/Earth/earth.mp4",
-        "./media/Earth/soundtrack.mp3",
-        "./3D/blackhole-transformed.glb",
-        "./3D/jupiter-transformed.glb",
-        "./3D/planet_earth-transformed.glb",
-        "./3D/solar_system-transformed.glb",
-        "./3D/star-transformed.glb",
-    ]
-    const loaded = usePreloadAssets(assets)
-    const progress = useAssetLoader(assets)
 
     useEffect(() =>
     {
@@ -71,15 +49,15 @@ export default function App(): JSX.Element
     {
         audio.play().catch(e => console.log('Audio play prevented:', e));
         setCurrentSection('Experience');
-        handle.enter().catch(e => console.log('failed to enter fullscreen:', e));
+        handle.enter().catch(e => console.log('Audio play prevented:', e));
         console.log(currentSection);
     }
 
     const handleSwapLanding = () =>
     {
         audio.play().catch(e => console.log('Audio play prevented:', e));
-        handle.exit().catch(e => console.log('failed to exit:', e));
         setCurrentSection('Landing');
+        handle.exit().catch(e => console.log(' prevented exit:', e));
         console.log(currentSection);
     }
 
@@ -98,9 +76,11 @@ export default function App(): JSX.Element
         {
             case 'Experience':
                 return (
+                    <FullScreen handle={handle}>
                         <Experience
                             onNavigateToLanding={handleSwapLanding}
                         />
+                    </FullScreen>
                 )
             case 'Landing':
                 return <Landing
@@ -123,12 +103,11 @@ export default function App(): JSX.Element
                 )
         }
     };
-
-    if (!loaded) return <LoadingScreen progress={progress} />;
     return (
-        <FullScreen handle={handle}>
         <main className="app-container">
+                <FullScreen handle={handle}>
                     {renderCurrentSection()}
+                </FullScreen>
                 <Toaster
                     theme="dark"
                     position="bottom-right"
@@ -141,6 +120,5 @@ export default function App(): JSX.Element
                     }}
                 />
         </main>
-</FullScreen>
     )
 }
