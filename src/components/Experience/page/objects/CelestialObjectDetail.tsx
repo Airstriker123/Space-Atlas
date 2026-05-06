@@ -157,7 +157,7 @@ export function CelestialObjectDetail({
             </motion.div>
 
             {/* Expandable fact cards */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               {object.facts.map((fact, index) => (
                 <InfoCard
                   key={fact.title}

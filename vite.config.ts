@@ -42,7 +42,9 @@ export default defineConfig({
             },
             useCredentials: true,
             // switch to "true" to enable sw on development
-            devOptions: { enabled: false }, //allow pwa features on development server
+            devOptions: {
+                enabled: true
+            }, //allow pwa features on development server
             registerType: 'autoUpdate',
             mode: 'production',
             minify: true,
@@ -64,7 +66,9 @@ export default defineConfig({
             manifestFilename: 'manifest.webmanifest',
             workbox: {
                 // Remove images and models from globPatterns so they aren't prefetched all at once
-                globPatterns: ['**/*.{js,css,html,mp4,mp3,svg,wav,webp,png,jpg,glb,json}'],
+                globPatterns: [
+                    '**/*.{js,css,html,mp4,mp3,svg,wav,webp,png,jpg,glb,json}'
+                ],
                 maximumFileSizeToCacheInBytes: 100 * 1024 * 1024 // 100 MB
             },
 
@@ -97,8 +101,10 @@ export default defineConfig({
         manifest: "manifest.webmanifest",
         rollupOptions: {
             output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
+                manualChunks(id)
+                {
+                    if (id.includes('node_modules'))
+                    {
                         return 'vendor';
                     }
                 },
