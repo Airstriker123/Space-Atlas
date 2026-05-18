@@ -73,6 +73,8 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Short Day Length', value: '9.93 hours' },
       { label: 'Lots of Moons', value: '95 confirmed' },
     ],
+    videoUrl: "./media/Jupiter/jupiter.mp4",
+    audioUrl: "./media/Jupiter/soundtrack.mp3",
   },
   {
     id: 'stars',
