@@ -4,7 +4,6 @@ import HeroPlanet from "../models/Earth.tsx";
 import { useRef, useEffect } from 'react'
 import {GalacticBackground} from "../Experience/page/objects/GalacticBackground.tsx";
 import {toast} from "sonner";
-import {useFullScreenHandle } from "react-full-screen";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -23,7 +22,6 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
     const buttonsRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const paragraphRef = useRef<HTMLDivElement>(null);
-    const screen = useFullScreenHandle();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
