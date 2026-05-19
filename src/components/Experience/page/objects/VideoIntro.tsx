@@ -158,7 +158,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                             >
                                 <div className="max-w-2xl mx-auto">
                                     <div className="mb-3 text-center">
-                                        <p className={`${config.textLight} text-sm md:text-base`}>Introduction progress bar...</p>
+                                        <p className={`${config.textLight} text-sm md:text-base`}>Formation of {objectName}</p>
                                     </div>
                                     <div className="h-1.5 bg-black/50 rounded-full overflow-hidden backdrop-blur-sm border border-white/10">
                                         <motion.div

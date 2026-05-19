@@ -179,7 +179,7 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
               transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h2 className="text-purple-200 mb-4 tracking-wider uppercase">
-              Choose Your Journey
+              Select an Space Explorable
             </h2>
             <p className="text-purple-300/70 max-w-2xl mx-auto">
               Select a celestial object to explore its mysteries and discover the wonders of our universe
