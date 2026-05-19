@@ -6,8 +6,6 @@ import { GalacticBackground } from './GalacticBackground';
 import type {CelestialObject} from '../data/celestialObjects.tsx';
 import HeroPlanet from "../../../models/Earth.tsx";
 import Jupiter from "../../../models/Jupiter.tsx";
-import Star from "../../../models/Star.tsx";
-import Galaxy from "../../../models/Galaxy.tsx";
 import NeutronStar from "../../../models/NeutronStar.tsx";
 import Blackhole from "../../../models/Blackhole.tsx";
 
@@ -31,22 +29,18 @@ export function CelestialObjectDetail({
 
     const PlanetViewer = () =>
     {
-        switch (object.id)
-         {
-      case 'jupiter':
-        return <Jupiter/>
+      switch (object.id)
+      {
+        case 'jupiter':
+          return <Jupiter/>
         case 'earth':
-            return <HeroPlanet control={true}/>
-      case 'stars':
-        return <Star/>
-      case 'galaxies':
-        return <Galaxy/>
-      case 'neutron-stars':
-          return <NeutronStar/>
-      case 'black-holes':
-        return <Blackhole/>
-      default:
-        return (
+         return <HeroPlanet control={true}/>
+       case 'neutron-stars':
+         return <NeutronStar/>
+       case 'black-holes':
+          return <Blackhole/>
+        default:
+          return (
             <>
               error 404 - invalid request in systems
             </>

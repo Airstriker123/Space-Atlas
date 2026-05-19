@@ -48,25 +48,6 @@ const getObjectConfig = (name: string) => {
                 particleCount: 40,
                 circleAnim: { scale: [1, 2.2, 1], rotate: [0, 180, 0] }
             };
-        case 'Stars':
-            return {
-                glowPrimary: 'bg-yellow-500/20',
-                glowSecondary: 'bg-amber-400/20',
-                border1: 'border-yellow-400/30',
-                border2: 'border-white/30',
-                border3: 'border-amber-300/30',
-                text: 'text-yellow-300',
-                textLight: 'text-yellow-200',
-                particle: 'bg-yellow-200',
-                progress: 'from-yellow-500 via-white to-yellow-300',
-                btn: 'from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400',
-                btnShadow: 'shadow-yellow-500/50',
-                shadowColor: 'rgba(234, 179, 8, 0.4)',
-                shadowColorHover: 'rgba(234, 179, 8, 0.6)',
-                gradientOverlay: 'from-yellow-950/40',
-                particleCount: 60,
-                circleAnim: { scale: [1, 3, 1], rotate: [0, 45, 0] }
-            };
         case 'Neutron Stars':
             return {
                 glowPrimary: 'bg-cyan-600/20',
@@ -104,26 +85,6 @@ const getObjectConfig = (name: string) => {
                 gradientOverlay: 'from-red-950/40',
                 particleCount: 45,
                 circleAnim: { scale: [2, 0.5, 2], rotate: [0, -180, 0] } // sucking in effect
-            };
-        case 'Galaxies':
-        default:
-            return {
-                glowPrimary: 'bg-purple-600/20',
-                glowSecondary: 'bg-purple-500/20',
-                border1: 'border-purple-500/30',
-                border2: 'border-purple-400/30',
-                border3: 'border-purple-300/30',
-                text: 'text-purple-400',
-                textLight: 'text-purple-300',
-                particle: 'bg-purple-400',
-                progress: 'from-purple-600 via-purple-500 to-purple-400',
-                btn: 'from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400',
-                btnShadow: 'shadow-purple-500/50',
-                shadowColor: 'rgba(168, 85, 247, 0.4)',
-                shadowColorHover: 'rgba(168, 85, 247, 0.6)',
-                gradientOverlay: 'from-purple-950/40',
-                particleCount: 30,
-                circleAnim: { scale: [1, 2, 1], rotate: [0, 0, 0] }
             };
     }
 };

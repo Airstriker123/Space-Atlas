@@ -188,7 +188,7 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
 
           {/* Grid of space objects */}
           <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-8 max-w-7xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -225,7 +225,7 @@ export default function Experience({onNavigateToLanding}: NavigateToLanding)
         <footer className="relative z-10 border-t border-purple-500/20 backdrop-blur-sm bg-black/20 mt-20">
           <div className="container mx-auto px-4 py-6">
             <div className="text-center text-purple-400/60">
-              <p>© 2026 Project Galactic - Explore the Cosmos</p>
+              <p>© 2026 SPACE ATLAS - MAJOR WORKS FOR MULTIMEDIA</p>
             </div>
           </div>
         </footer>

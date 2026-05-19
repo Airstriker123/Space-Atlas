@@ -77,62 +77,6 @@ export const celestialObjects: CelestialObject[] = [
     audioUrl: "./media/Jupiter/soundtrack.mp3",
   },
   {
-    id: 'stars',
-    name: 'Stars',
-    tagline: 'Cosmic Furnaces',
-    description: 'Stars are massive, luminous spheres of plasma held together by gravity. They generate energy through nuclear fusion, converting hydrogen into helium and releasing tremendous amounts of light and heat.',
-    facts: [
-      {
-        title: 'Nuclear Fusion',
-        content: 'Stars shine by fusing hydrogen atoms into helium in their cores. This process releases enormous amounts of energy in the form of light and heat, which radiates outward through space.',
-      },
-      {
-        title: 'Stellar Classification',
-        content: 'Stars are classified by their spectral type (O, B, A, F, G, K, M) based on their temperature and color. Our Sun is a G-type main-sequence star, appearing yellow-white.',
-      },
-      {
-        title: 'Life Cycle',
-        content: 'Stars are born in nebulae, live for millions to billions of years, and die in spectacular ways - either fading as white dwarfs or exploding as supernovae, depending on their mass.',
-      },
-    ],
-    stats: [
-      { label: 'Observable Stars', value: '~200 billion trillion' },
-      { label: 'Other Balls of gas', value: '4.24 light-years (Proxima)' },
-      { label: 'Temperature Range of the Sun', value: '2,000 - 40,000 K' },
-      { label: 'Lifespan of a Star', value: '1 million - 100 billion years' },
-      { label: 'Core Pressure', value: '~250 billion atmospheres' },
-      { label: 'Fusion Rate (Sun)', value: '600 million tons/second' },
-    ],
-  },
-  {
-    id: 'galaxies',
-    name: 'Galaxies',
-    tagline: 'Islands of Stars',
-    description: 'Galaxies are vast collections of stars, gas, dust, and dark matter bound together by gravity. They come in various shapes and sizes, from spiral galaxies like our Milky Way to elliptical and irregular forms.',
-    facts: [
-      {
-        title: 'The Milky Way',
-        content: 'Our home galaxy is a barred spiral galaxy containing 200-400 billion stars. It\'s about 100,000 light-years across and our solar system is located about 27,000 light-years from the galactic center.',
-      },
-      {
-        title: 'Types of Galaxies',
-        content: 'Galaxies are classified into spiral (like the Milky Way), elliptical (spherical or oval), and irregular shapes. Each type forms through different evolutionary processes and interactions.',
-      },
-      {
-        title: 'Supermassive Black Holes',
-        content: 'Nearly all large galaxies contain supermassive black holes at their centers, millions to billions of times more massive than our Sun. These cosmic monsters influence the evolution of their host galaxies.',
-      },
-    ],
-    stats: [
-      { label: 'Estimate of Observable Galaxies', value: '~2 trillion' },
-      { label: 'Milky Way Mass', value: '1.5 trillion solar masses' },
-      { label: 'Milky Way Diameter', value: '100,000 light-years' },
-      { label: 'Nearest Galaxy', value: '25,000 ly (Canis Major Dwarf)' },
-      { label: 'Amount of Stars in Milky Way', value: '200-400 billion' },
-      { label: 'Galactic Rotation', value: '220 km/s (our location)' },
-    ],
-  },
-  {
     id: 'neutron-stars',
     name: 'Neutron Stars',
     tagline: 'Cosmic Lighthouses',

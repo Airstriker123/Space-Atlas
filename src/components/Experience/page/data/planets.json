@@ -10,16 +10,6 @@
     "imageUrl": "./object/jupiter.gif"
   },
   {
-    "id": "stars",
-    "name": "Stars",
-    "imageUrl": "./object/stars.gif"
-  },
-  {
-    "id": "galaxies",
-    "name": "Galaxies",
-    "imageUrl": "./object/galaxy.gif"
-  },
-  {
     "id": "neutron-stars",
     "name": "Neutron Stars",
     "imageUrl": "./object/neutronStar.gif"
