@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence} from 'motion/react';
-import {GalacticBackground} from "./GalacticBackground.tsx";
 
 interface VideoIntroProps {
     objectName: string;
@@ -126,8 +125,8 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
     };
 
     return (
-        <div className="bg-black/50 min-h-screen relative overflow-hidden ">
-            <GalacticBackground/>
+        <div className="bg-no-repeat bg-fixed bg-center bg-cover bg-[url('/loading.gif')] min-h-screen relative overflow-hidden ">
+
             {/* Video layer */}
             {videoUrl && !showContinue && !videoError && (
                 <video
@@ -149,7 +148,28 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                 <div className="fixed inset-0 overflow-hidden">
                     {/* Progress overlay at bottom */}
                     <AnimatePresence>
-                        {!showContinue && (
+                        {!videoLoaded && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                className="absolute bottom-30 left-0 right-0 px-6 md:px-12"
+                            >
+                                <div className="max-w-2xl mx-auto">
+                                    <div className="mb-3 text-center">
+                                        <p className={`${config.textLight} text-sm md:text-base`}>Loading media from server!</p>
+                                    </div>
+                                    <div className="h-1.5 bg-black/50 rounded-full overflow-hidden backdrop-blur-sm border border-white/10">
+                                        <motion.div
+                                            className={`h-full bg-gradient-to-r ${config.progress} rounded-full`}
+                                            style={{ width: `${progress}%` }}
+                                            transition={{ duration: 0.1 }}
+                                        />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                        {!showContinue && videoLoaded && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
