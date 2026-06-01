@@ -5,7 +5,7 @@ import path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-    base: '/Space-Atlas/',
+    base: '/',
 
     plugins: [
         react(),
@@ -20,8 +20,8 @@ export default defineConfig({
                 short_name: 'SPACE ATLAS',
                 description: 'A 3D interactive web experience showing space.',
 
-                start_url: '/Space-Atlas/',
-                scope: '/Space-Atlas/',
+                start_url: '/',
+                scope: '/',
 
                 display: 'standalone',
                 background_color: '#000000',
@@ -29,12 +29,12 @@ export default defineConfig({
 
                 icons: [
                     {
-                        src: '/Space-Atlas/android-chrome-192x192.png',
+                        src: '/android-chrome-192x192.png',
                         sizes: '192x192',
                         type: 'image/png'
                     },
                     {
-                        src: '/Space-Atlas/android-chrome-512x512.png',
+                        src: '/android-chrome-512x512.png',
                         sizes: '512x512',
                         type: 'image/png'
                     }
