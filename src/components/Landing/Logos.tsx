@@ -8,7 +8,8 @@ import TailWind from "../../assets/tech_used/tailwind.png"
 import Three from "../../assets/tech_used/three.png"
 import TypeScript from "../../assets/tech_used/typescript.png"
 import WebStorm from "../../assets/tech_used/webstorm.png"
-
+import Pr from "../../assets/tech_used/pr.png"
+import Blender from "../../assets/tech_used/blender.png"
 gsap.registerPlugin(ScrollTrigger)
 
 const logos = [
@@ -18,6 +19,8 @@ const logos = [
     Three,
     TypeScript,
     WebStorm,
+    Pr,
+    Blender,
 ]
 
 export default function Logos(): JSX.Element {
