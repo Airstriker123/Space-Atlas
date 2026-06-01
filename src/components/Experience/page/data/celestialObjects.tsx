@@ -43,7 +43,7 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Surface Gravity', value: '9.807 m/s²' },
       { label: 'Moons of planet', value: '1 (Luna)' },
     ],
-      videoUrl: "https://pub-8089921c9e274a92a78b66fd0b307fdb.r2.dev/earth.mp4",
+      videoUrl: "https://media.space-atlas.me/earth.mp4",
       audioUrl: "./media/Earth/soundtrack.mp3",
   },
   {
@@ -73,7 +73,7 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Short Day Length', value: '9.93 hours' },
       { label: 'Lots of Moons', value: '95 confirmed' },
     ],
-    videoUrl: "https://pub-8089921c9e274a92a78b66fd0b307fdb.r2.dev/jupiter.mp4",
+    videoUrl: "https://media.space-atlas.me/jupiter.mp4",
     audioUrl: "./media/Jupiter/soundtrack.mp3",
   },
   {
