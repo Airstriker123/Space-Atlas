@@ -42,6 +42,19 @@ export default defineConfig({
             },
 
             workbox: {
+                runtimeCaching: [
+                    {
+                        urlPattern: ({ request }) => request.destination === 'video',
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'videos-cache',
+                            expiration: {
+                                maxEntries: 20,
+                                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                            }
+                        }
+                    }
+                ],
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,webp,glb,json}'],
 		maximumFileSizeToCacheInBytes: 100 * 1024 * 1024,
             }
