@@ -50,7 +50,6 @@ export default function Landing({onNavigateToExperience}: LandingNavigation): JS
                     <Logos />
                     <About onNavigateToExperience={onNavigateToExperience} />
                     <ProjectKeyFeatures onNavigateToExperience={onNavigateToExperience} />
-                    <Footer />
                 </div>
             </div>
         </main>

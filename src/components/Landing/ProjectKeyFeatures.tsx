@@ -190,7 +190,7 @@ export default function ProjectKeyFeatures(): JSX.Element {
                         Responsive Interface: Styled using TailwindCSS for a futuristic, game-like aesthetic that adapts across devices.
                     </li>
                     <li className="font-medium">
-                        Modular Sections: Multiple space environments to explore and gain insights of objects (e.g. earth, galaxy,) each with unique interactive features through film.
+                        Modular Sections: Multiple space environments to explore and gain insights of objects (e.g. earth) each with unique interactive features through film.
                     </li>
                     <li className="font-medium">
                         Textual Insights: textual information about space objects for an educational experience.

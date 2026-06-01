@@ -183,7 +183,7 @@ export default function AnimatedAbout({
                     className="relative flex items-center justify-center self-stretch font-medium text-white text-lg tracking-[-0.09px] leading-[26.1px]"
                 >
                     SPACE ATLAS is an interactive 3D web experience that simulates an immersive journey through space.
-                    You can explore different celestial environments, interact with 3D objects such as planets, satellites, and asteroids.
+                    You can explore different celestial environments, interact with 3D objects such as planets.
                     The project combines 3D modelling, animation, and interactive coding to create an engaging multimedia experience.
                 </p>
 
