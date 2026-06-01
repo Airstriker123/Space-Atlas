@@ -4,7 +4,6 @@ import Hero from "./Hero";
 import Logos from "./Logos";
 import About from "./About";
 import ProjectKeyFeatures from "./ProjectKeyFeatures";
-import Footer from "./Footer";
 import Solar_system from "../models/Solar_system.tsx"
 //animations
 import gsap from "gsap";
