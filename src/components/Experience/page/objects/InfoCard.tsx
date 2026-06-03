@@ -14,7 +14,7 @@ export function InfoCard({ title, content, defaultOpen = false }: InfoCardProps)
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <RotatingGlowCard isHovered={isHovered} borderRadius="0.75rem">
+    <RotatingGlowCard isHovered={isHovered} borderRadius="1rem">
       <motion.div
         className="border border-purple-500/30 rounded-xl bg-black/40 backdrop-blur-sm overflow-hidden relative"
         initial={{ opacity: 0, y: 20 }}

@@ -71,10 +71,10 @@ export default function NeutronStar(){
         </EffectComposer>
 
         <OrbitControls
-            autoRotate
             autoRotateSpeed={3}
             enableZoom={true}
-            enablePan={false}
+            enablePan={true}
+            enableRotate={true}
         />
       </Canvas>
   )

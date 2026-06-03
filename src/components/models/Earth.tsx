@@ -52,10 +52,11 @@ export default function HeroPlanet({control}: PlanetProp)
 
           {/* Controls */}
           <OrbitControls
+              enableDamping={true}
               autoRotate
               autoRotateSpeed={3}
               enableZoom={true}
-              enablePan={false}
+              enablePan={true}
               rotateSpeed={1}
           />
         </Canvas>
