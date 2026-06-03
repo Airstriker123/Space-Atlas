@@ -124,7 +124,7 @@ export const celestialObjects: CelestialObject[] = [
       },
     ],
     stats: [
-      { label: 'current Smallest Mass', value: '~3 solar masses' },
+      { label: 'Smallest Mass', value: '~3 solar masses' },
       { label: 'Largest Known', value: '66 billion solar masses' },
       { label: 'Escape Velocity', value: 'Greater than light speed' },
       { label: 'Nearest Black Hole', value: '1,560 light-years (Gaia BH1)' },
