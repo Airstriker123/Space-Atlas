@@ -48,7 +48,7 @@ export default function Landing({onNavigateToExperience}: LandingNavigation): JS
                     <Solar_system/>
                     <Logos />
                     <About onNavigateToExperience={onNavigateToExperience} />
-                    <ProjectKeyFeatures onNavigateToExperience={onNavigateToExperience} />
+                    <ProjectKeyFeatures />
                 </div>
             </div>
         </main>

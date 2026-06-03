@@ -44,7 +44,15 @@ function Model(props: JSX.IntrinsicElements['group']) {
                 map={materials['Material.002'].map} // Keep your texture
                 color={[0.5, 1, 10]} // Red: 0.5, Green: 1, Blue: 10
                 toneMapped={false}   // Crucial: allows the blue to "over-brighten"
+
             />
+              <EffectComposer>
+                  <Bloom
+                      intensity={1} // Strength of the glow
+                      luminanceThreshold={0.3} // Only glow things that are "over-bright"
+                      mipmapBlur
+                  />
+              </EffectComposer>
           </mesh>
         </group>
       </group>
@@ -57,18 +65,9 @@ export default function NeutronStar(){
           camera={{ position: [0, 0, 14], fov: 300 }}
           style={{ width: "100%", height: "100%", background: 'transparent' }}
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[3, 3, 3]} intensity={1.2} />
 
         <Model />
         {/* Post-processing for the Glow */}
-        <EffectComposer>
-          <Bloom
-              intensity={5.0} // Strength of the glow
-              luminanceThreshold={0.5} // Only glow things that are "over-bright"
-              mipmapBlur
-          />
-        </EffectComposer>
 
         <OrbitControls
             autoRotateSpeed={3}
@@ -79,6 +78,4 @@ export default function NeutronStar(){
       </Canvas>
   )
 }
-
-
 useGLTF.preload('./3D/neutronstar-transformed.glb')

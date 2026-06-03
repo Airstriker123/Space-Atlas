@@ -190,12 +190,12 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                 </button>
                                 <button
                                     className="px-6 py-3 rounded-lg font-semibold text-base bg-[linear-gradient(89deg,rgba(138,5,255,1)_0%,rgba(115,0,255,1)_48%,rgba(153,153,153,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] border-2 border-purple-500 hover:border-purple-600 hover:text-purple-100 transition duration-300 transform-gpu"
-                                    onClick={() => toast.error("not available yet!")}
+                                    onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfQuI8LORzQdb8XrHsBudeJLHVsAJ7SF28iueaSxZunn7USGA/viewform?usp=dialog")}
                                     onMouseEnter={handleButtonHover}
                                     onMouseLeave={handleButtonLeave}
 
                                 >
-                                    Download project documentation
+                                   Submit a feedback form
                                 </button>
                             </div>
                         </div>

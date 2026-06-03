@@ -12,7 +12,10 @@ export function StatCard({ label, value, icon }: StatCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <RotatingGlowCard isHovered={isHovered} borderRadius="0.5rem">
+    <RotatingGlowCard isHovered={isHovered}
+                      borderRadius="0.5rem"
+                      scale={isHovered ? 1.03 : 1}
+                      y={isHovered ? -2 : 0} >
       <motion.div
         className="relative border border-purple-500/30 rounded-lg bg-gradient-to-br from-purple-900/20 to-black/40 backdrop-blur-sm p-4 group"
         whileHover={{ scale: 1.03, y: -2 }}
