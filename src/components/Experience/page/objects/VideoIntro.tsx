@@ -97,9 +97,14 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
     const videoRef = useRef<HTMLVideoElement>(null);
     const config = useMemo(() => getObjectConfig(objectName), [objectName]);
     const [duration, setDuration] = useState<number>(5000); // Default fallback
+    let videoStyle: string = "bg-no-repeat bg-fixed bg-center bg-cover bg-[url('/loading.gif')] min-h-screen relative overflow-hidden ";
 
     useEffect(() => {
         if (!videoLoaded) return;
+        if(showContinue) {
+            // eslint-disable-next-line react-hooks/immutability
+            videoStyle = "min-h-screen relative overflow-hidden";
+        }
         const interval = 48;
         const increment = (interval / duration) * 100;
 
@@ -116,7 +121,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
         }, interval);
 
         return () => clearInterval(timer);
-    }, [videoLoaded, duration]); // Effect runs once video is ready and duration is set
+    }, [videoLoaded, duration, showContinue]); // Effect runs once video is ready and duration is set
 
     const handleLoadedMetadata = () => {
         if (videoRef.current) {
@@ -125,12 +130,13 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
         }
     };
 
+
+
+
     return (
-        <div className="bg-no-repeat bg-fixed bg-center bg-cover bg-[url('/loading.gif')] min-h-screen relative overflow-hidden ">
+        <div className={videoStyle}>
             {showContinue &&
-            <motion.div>
-                <GalacticBackground/>
-            </motion.div>}
+                <GalacticBackground/>}
             {/* Video layer */}
             {videoUrl && !showContinue && !videoError && (
                 <video
