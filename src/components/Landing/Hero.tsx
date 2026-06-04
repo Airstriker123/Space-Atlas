@@ -3,7 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroPlanet from "../models/Earth.tsx";
 import { useRef, useEffect } from 'react'
 import {GalacticBackground} from "../Experience/page/objects/GalacticBackground.tsx";
-import {toast} from "sonner";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {

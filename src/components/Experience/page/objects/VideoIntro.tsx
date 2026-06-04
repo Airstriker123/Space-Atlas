@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence} from 'motion/react';
+import {GalacticBackground} from "./GalacticBackground.tsx";
 
 interface VideoIntroProps {
     objectName: string;
@@ -126,7 +127,10 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
 
     return (
         <div className="bg-no-repeat bg-fixed bg-center bg-cover bg-[url('/loading.gif')] min-h-screen relative overflow-hidden ">
-
+            {showContinue &&
+            <motion.div>
+                <GalacticBackground/>
+            </motion.div>}
             {/* Video layer */}
             {videoUrl && !showContinue && !videoError && (
                 <video
