@@ -9,55 +9,12 @@ if (typeof window !== 'undefined') {
 
 export default function ProjectKeyFeatures(): JSX.Element {
     const containerRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLUListElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
          const ctx = gsap.context(() => {
-            // Split title letters for gradient animation
-            if (titleRef.current) {
-                const titleText = titleRef.current.textContent || '';
-                titleRef.current.innerHTML = titleText
-                    .split('')
-                    .map(
-                        (char) =>
-                            `<span class="inline-block bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
-  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
-  text-transparent  tracking-[0] leading-[normal] 
-                         will-change-transform will-change-opacity"
-              >${char === ' ' ? '&nbsp;' : char}</span>`
-                    )
-                    .join('');
-
-                // Animate letters in sequence
-                gsap.from(titleRef.current.children, {
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: 'top 80%',
-                        toggleActions: 'play none none reverse',
-                    },
-                    opacity: 0,
-                    y: 20,
-                    rotationX: -90,
-                    stagger: 0.03,
-                    duration: 0.8,
-                    ease: 'back.out(1.7)',
-                });
-
-                // Floating + subtle glow
-                gsap.to(titleRef.current.children, {
-                    y: '+=5',
-                    textShadow: '0 0 10px rgba(0,123,255,1)',
-                    duration: 2,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: 'sine.inOut',
-                    stagger: 0.03,
-                });
-            }
-
             // Animate list items
             if (listRef.current) {
                 gsap.from(listRef.current.children, {
@@ -168,12 +125,13 @@ export default function ProjectKeyFeatures(): JSX.Element {
             {/* Text */}
             <div className="flex flex-col items-start justify-center gap-12 flex-1 grow">
                 <div className="flex flex-col gap-6 w-full">
-                    <div
-                        ref={titleRef}
-                        className="relative flex items-center justify-center self-stretch mt-[-1px] font-bold text-4xl tracking-[-0.72px] leading-[43.2px]"
+                    <h1
+                        className="bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
+  text-transparent  tracking-[0] leading-[normal]  text-[32px] text-center font-medium"
                     >
                         Project key features
-                    </div>
+                    </h1>
                 </div>
 
                 <ul

@@ -10,7 +10,10 @@ import TypeScript from "../../assets/tech_used/typescript.png"
 import WebStorm from "../../assets/tech_used/webstorm.png"
 import Pr from "../../assets/tech_used/pr.png"
 import Blender from "../../assets/tech_used/blender.png"
-gsap.registerPlugin(ScrollTrigger)
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const logos = [
     ReactLogo,
