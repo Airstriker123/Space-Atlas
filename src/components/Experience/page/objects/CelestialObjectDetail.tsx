@@ -77,8 +77,25 @@ export function CelestialObjectDetail({
               <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
               <Sparkles className="w-6 h-6 text-purple-400" />
             </motion.div>
-
             <div className="w-40" /> {/* Spacer */}
+              <motion.button
+                  onClick={onPrevious}
+                  className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                  whileHover={{ x: -5 }}
+                  whileTap={{ scale: 0.95 }}
+              >
+                  <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
+                  <span>Back</span>
+              </motion.button>
+              <motion.button
+                  onClick={onNext}
+                  className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                  whileHover={{ x: -5 }}
+                  whileTap={{ scale: 0.95 }}
+              >
+                  <ArrowRight className="w-5 h-5 group-hover:animate-pulse" />
+                  <span>Next</span>
+              </motion.button>
           </div>
         </div>
       </header>

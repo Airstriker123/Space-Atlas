@@ -9,6 +9,8 @@ import Solar_system from "../models/Solar_system.tsx"
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
+import {isMobile} from 'react-device-detect';
+
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -18,13 +20,13 @@ export interface LandingNavigation {
 
 export default function Landing({onNavigateToExperience}: LandingNavigation): JSX.Element
 {
+    if (isMobile) console.log('ENABLED MOBILE MODE')
 
     useEffect(() =>
     {
         if (typeof window === "undefined") return; // SSR safe
 
         const smoother = ScrollSmoother.create({
-            wrapper: "#smooth-wrapper",
             content: "#smooth-content",
             smooth: 1.2, // seconds to "catch up" to native scroll
             effects: true, // looks for data-speed / data-lag
@@ -39,18 +41,15 @@ export default function Landing({onNavigateToExperience}: LandingNavigation): JS
     return (
         <main>
             {/* ScrollSmoother wrapper */}
-            <div
-                id="smooth-wrapper">
                 <div
                     className="bg-[linear-gradient(180deg,rgba(0,0,0,1)_50%,rgba(34,1,50,1)_65%,rgba(0,0,0,1)_83%,rgba(85,0,255,1)_100%)]" data-model-id="1:6"
                     id="smooth-content">
                     <Hero onNavigateToExperience={onNavigateToExperience} />
-                    <Solar_system/>
+                    {!isMobile && (<Solar_system/>)}
                     <Logos />
                     <About onNavigateToExperience={onNavigateToExperience} />
                     <ProjectKeyFeatures />
                 </div>
-            </div>
         </main>
     );
 }

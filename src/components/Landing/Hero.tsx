@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroPlanet from "../models/Earth.tsx";
 import { useRef, useEffect } from 'react'
 import {GalacticBackground} from "../Experience/page/objects/GalacticBackground.tsx";
+import {isMobile} from 'react-device-detect';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -69,6 +70,7 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                     },
                     '-=0.6'
                 );
+            if (isMobile) return;
 
             // Scroll-triggered animations
             if (sectionRef.current && contentRef.current) {
@@ -139,25 +141,36 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
         });
     };
 
-
     return (
         <>
             <section
                 ref={sectionRef}
                 className="overflow-hidden relative before:absolute before:top-0 before:left-0 before:w-full before:h-0.75 before:bg-linear-to-r before:from-purple-700 before:via-purple-500 before:to-purple-100 before:blur-sm before:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.75 after:bg-linear-to-r after:from-purple-700 after:via-purple-500 after:to-purple-100 after:blur-sm after:content-['']"
             >
-                <div className="bg-black/40 lg:grid lg:h-screen lg:place-content-center">
-                    <GalacticBackground />
+                <div
+                    className={
+                        `bg-black/40 ` +
+                        (isMobile
+                                ? "min-h-[100svh] grid place-content-center"
+                                : "lg:grid lg:h-screen lg:place-content-center"
+                        )
+                    }
+                >
+                <GalacticBackground />
                     <div className="mx-auto w-screen max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:grid md:grid-cols-2 md:items-center md:gap-4 lg:px-8 lg:py-32">
                         <div ref={contentRef} className="max-w-prose text-left">
                             <h1
                                 ref={titleRef}
                                 className="
-  text-4xl tk-nasalization
-  bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
-  [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent]
-  font-bold text-transparent text-[77px] tracking-[0] leading-[normal] [-webkit-text-stroke:1px_#FFFFFF]
-"
+    text-4xl sm:text-5xl md:text-6xl lg:text-[77px]
+    tk-nasalization
+    bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(0,123,255,1)_100%)]
+    [-webkit-background-clip:text] bg-clip-text
+    [-webkit-text-fill-color:transparent]
+    font-bold tracking-[0] leading-tight
+    [-webkit-text-stroke:1px_#FFFFFF]
+  "
+
 
 
                             >
@@ -198,9 +211,11 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                 </button>
                             </div>
                         </div>
-                        <div className="relative h-300 w-full">
-                            <HeroPlanet control={false} />
-                        </div>
+                        {!isMobile && (
+                                <div className="relative h-300 w-full">
+                                    <HeroPlanet control={false} />
+                                </div>
+                        )}
                     </div>
                 </div>
             </section>
