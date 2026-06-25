@@ -54,53 +54,62 @@ export function CelestialObjectDetail({
       <GalacticBackground />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-purple-500/20 backdrop-blur-sm bg-black/20">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <motion.button
-              onClick={onBack}
-              className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
-              whileHover={{ x: -5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
-              <span>Back to Experience</span>
-            </motion.button>
+        <header className="relative z-10 border-b border-purple-500/20 backdrop-blur-sm bg-black/20">
+            <div className="container mx-auto px-4 py-6">
+                <div className="relative flex items-center justify-between">
 
-            <motion.div
-              className="flex items-center gap-3"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Sparkles className="w-6 h-6 text-purple-400" />
-              <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
-              <Sparkles className="w-6 h-6 text-purple-400" />
-            </motion.div>
-            <div className="w-40" /> {/* Spacer */}
-              <motion.button
-                  onClick={onPrevious}
-                  className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
-                  whileHover={{ x: -5 }}
-                  whileTap={{ scale: 0.95 }}
-              >
-                  <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
-                  <span>Back</span>
-              </motion.button>
-              <motion.button
-                  onClick={onNext}
-                  className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
-                  whileHover={{ x: -5 }}
-                  whileTap={{ scale: 0.95 }}
-              >
-                  <ArrowRight className="w-5 h-5 group-hover:animate-pulse" />
-                  <span>Next</span>
-              </motion.button>
-          </div>
-        </div>
-      </header>
+                    {/* LEFT: Back to Experience */}
+                    <motion.button
+                        onClick={onBack}
+                        className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                        whileHover={{ x: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
+                        <span>Back to Experience</span>
+                    </motion.button>
 
-      {/* Main content */}
+                    {/* CENTER: Perfectly centered title */}
+                    <motion.div
+                        className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <Sparkles className="w-6 h-6 text-purple-400" />
+                        <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
+                        <Sparkles className="w-6 h-6 text-purple-400" />
+                    </motion.div>
+
+                    {/* RIGHT: Back + Next grouped together */}
+                    <div className="flex items-center gap-4">
+                        <motion.button
+                            onClick={onPrevious}
+                            className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                            whileHover={{ x: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
+                            <span>Back</span>
+                        </motion.button>
+
+                        <motion.button
+                            onClick={onNext}
+                            className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
+                            whileHover={{ x: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span>Next</span>
+                            <ArrowRight className="w-5 h-5 group-hover:animate-pulse" />
+                        </motion.button>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+        {/* Main content */}
       <main className="relative z-10 container mx-auto px-4 py-8 md:py-12">
         {/* Object title and tagline */}
         <motion.div
