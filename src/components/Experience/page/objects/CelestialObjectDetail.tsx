@@ -72,6 +72,18 @@ export function CelestialObjectDetail({
 
                     {/* CENTER: Perfectly centered title */}
 
+                    {!isMobile && (
+                            <motion.div
+                                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3"
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <Sparkles className="w-6 h-6 text-purple-400" />
+                                <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
+                                <Sparkles className="w-6 h-6 text-purple-400" />
+                            </motion.div>
+                    )}
                     <div className="flex items-center gap-4">
                         <motion.button
                             onClick={onPrevious}
@@ -93,19 +105,6 @@ export function CelestialObjectDetail({
                             <ArrowRight className="w-5 h-5 group-hover:animate-pulse" />
                         </motion.button>
                     </div>
-
-                    {!isMobile && (
-                            <motion.div
-                                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6 }}
-                            >
-                                <Sparkles className="w-6 h-6 text-purple-400" />
-                                <h1 className="text-white tracking-wide">SPACE ATLAS</h1>
-                                <Sparkles className="w-6 h-6 text-purple-400" />
-                            </motion.div>
-                    )}
                 </div>
             </div>
         </header>
