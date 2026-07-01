@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence} from 'motion/react';
 import {GalacticBackground} from "./GalacticBackground.tsx";
+import {Loading} from "../../../Loader/Loading.tsx";
 
 interface VideoIntroProps {
     objectName: string;
@@ -129,9 +130,12 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
 
 
     return (
-        <div className={videoLoaded ? "min-h-screen relative overflow-hidden"
-        : "bg-no-repeat bg-fixed bg-center bg-cover bg-[url('/loading.gif')] min-h-screen relative overflow-hidden"
-        }>
+        <div className="min-h-screen relative overflow-hidden">
+
+            {!videoLoaded && <Loading
+            className={'fixed inset-0 -z-10'}
+            style={{ background: 'radial-gradient(ellipse at center, #1a0b2e 0%, #000000 100%)' }}
+            />}
             {videoLoaded &&
                 <GalacticBackground/>
             }

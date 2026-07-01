@@ -85,7 +85,7 @@ export default function App(): JSX.Element
             case 'Landing':
                 return (
                     <FullScreen handle={handle}>
-                    <Landing onNavigateToExperience={handleSwapExperience}/>
+                        <Landing onNavigateToExperience={handleSwapExperience}/>
                     </FullScreen>
                 )
             default:
