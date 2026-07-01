@@ -12,6 +12,7 @@ export default defineConfig({
         tailwindcss(),
 
         VitePWA({
+            devOptions: { enabled: true },
             registerType: 'autoUpdate',
             strategies: 'generateSW',
 

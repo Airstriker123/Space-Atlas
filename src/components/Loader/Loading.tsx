@@ -5,12 +5,11 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import spline from './spline.ts';
 
-
-
 export const Loading: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    React.useEffect(() => {
+    React.useEffect(() =>
+    {
         document.body.style.overflow = "hidden";
         return () => {
             document.body.style.overflow = "auto"; // restore on unmount
@@ -27,7 +26,7 @@ export const Loading: React.FC = () => {
 
         // Scene
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x000000, 0.01);
+        scene.fog = new THREE.FogExp2(0x000000, 0.003);
 
         // Camera
         const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
@@ -44,7 +43,7 @@ export const Loading: React.FC = () => {
         const renderScene = new RenderPass(scene, camera);
         const bloomPass = new UnrealBloomPass(new THREE.Vector2(w, h), 1, 0.3, 100);
         bloomPass.threshold = 0.1;
-        bloomPass.strength = 0.2867
+        bloomPass.strength = 0.3;
         bloomPass.radius = 0;
 
         const composer = new EffectComposer(renderer);
@@ -52,26 +51,45 @@ export const Loading: React.FC = () => {
         composer.addPass(bloomPass);
 
         // Create a line from the spline points
-        const points = spline.getPoints(100);
+        const points = spline.getPoints(444);
         const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        const material = new THREE.LineBasicMaterial({ color: 0xabcca });
         //const line = new THREE.Line(geometry, material);
         //scene.add(line); // Commented out in index.js, keeping it here too
 
         // Create a tube geometry along the spline
-        const tubeGeo = new THREE.TubeGeometry(spline, 232, 0.65, 17, true);
+        const tubeGeo = new THREE.TubeGeometry(spline, 632, 0.8, 17, true);
+
 
         // Create edges geometry from the spline
         const edges = new THREE.EdgesGeometry(tubeGeo, 0);
-        const lineMat = new THREE.LineBasicMaterial({ color: 0xffffff  });
+        const lineMat = new THREE.LineBasicMaterial({ color: 0xfccc0c  });
         const tubeLines = new THREE.LineSegments(edges, lineMat);
+
+        function animateRGB(material: any) {
+            function update() {
+                const t = performance.now() * 0.0007;
+
+                const r = Math.floor(128 + 128 * Math.sin(t));
+                const g = Math.floor(128 + 128 * Math.sin(t + 2));
+                const b = Math.floor(128 + 128 * Math.sin(t + 4));
+
+                material.color.setRGB(r / 255, g / 255, b / 255);
+
+                requestAnimationFrame(update);
+            }
+            update();
+        }
+
+        animateRGB(lineMat);
+
         scene.add(tubeLines);
 
         let animationFrameId: number;
 
         // Create stars
         const starGeometry = new THREE.BufferGeometry();
-        const starCount = 10000;
+        const starCount = 100000;
         const positions = new Float32Array(starCount * 3);
         const colors = new Float32Array(starCount * 3);
         const sizes = new Float32Array(starCount);
@@ -115,7 +133,7 @@ export const Loading: React.FC = () => {
             size: 2,
             vertexColors: true,
             transparent: true,
-            opacity: 0.8,
+            opacity: 1,
             sizeAttenuation: true,
             blending: THREE.AdditiveBlending,
         });
@@ -123,48 +141,10 @@ export const Loading: React.FC = () => {
         const stars = new THREE.Points(starGeometry, starMaterial);
         scene.add(stars);
 
-        // Create nebula clouds
-        const nebulaGeometry = new THREE.BufferGeometry();
-        const nebulaCount = 1000;
-        const nebulaPositions = new Float32Array(nebulaCount * 3);
-        const nebulaColors = new Float32Array(nebulaCount * 3);
-        const nebulaSizes = new Float32Array(nebulaCount);
-
-        for (let i = 0; i < nebulaCount; i++) {
-            const i3 = i * 3;
-
-            nebulaPositions[i3] = (Math.random() - 0.5) * 1500;
-            nebulaPositions[i3 + 1] = (Math.random() - 0.5) * 1500;
-            nebulaPositions[i3 + 2] = (Math.random() - 0.5) * 800;
-
-            // Purple/pink nebula colors
-            const purple = Math.random() * 0.3 + 0.5;
-            nebulaColors[i3] = purple;
-            nebulaColors[i3 + 1] = purple * 0.3;
-            nebulaColors[i3 + 2] = purple * 1.2;
-
-            nebulaSizes[i] = Math.random() * 30 + 10;
-        }
-
-        nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(nebulaPositions, 3));
-        nebulaGeometry.setAttribute('color', new THREE.BufferAttribute(nebulaColors, 3));
-        nebulaGeometry.setAttribute('size', new THREE.BufferAttribute(nebulaSizes, 1));
-
-        const nebulaMaterial = new THREE.PointsMaterial({
-            size: 20,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.15,
-            sizeAttenuation: true,
-            blending: THREE.AdditiveBlending,
-        });
-
-        const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
-        scene.add(nebula);
 
         // Flythrough camera animation
         const updateCamera = (t: number) => {
-            const time = t * 0.1;
+            const time = t * 0.09;
             const looptime = 4 * 1000;
             const p = (time % looptime) / looptime;
             const pos = tubeGeo.parameters.path.getPointAt(p);
@@ -180,9 +160,6 @@ export const Loading: React.FC = () => {
             stars.rotation.y += 0.0002;
             stars.rotation.x += 0.0001;
 
-            // Rotate nebula
-            nebula.rotation.y -= 0.0001;
-            nebula.rotation.x -= 0.00005;
             composer.render();
         };
         animate(0);
@@ -225,14 +202,11 @@ export const Loading: React.FC = () => {
         };
     }, []);
 
-
-
     return (
         <div
             ref={containerRef}
             className="fixed inset-0 -z-10 w-full h-full"
             style={{ background: 'radial-gradient(ellipse at center, #1a0b2e 0%, #000000 100%)' }}
         />
-
     );
 };
