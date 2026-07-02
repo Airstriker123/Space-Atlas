@@ -103,6 +103,9 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Surface Gravity', value: '2 × 10¹² m/s²' },
       { label: 'Surface Temperature', value: '~600,000 K' },
     ],
+    videoUrl: 'https://media.space-atlas.me/neutron.mp4',
+    audioUrl: "./media/Neutron/soundtrack.mp3",
+
   },
   {
     id: 'black-holes',

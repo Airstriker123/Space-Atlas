@@ -18,13 +18,15 @@ export default function App(): JSX.Element
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (!loading) return;
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.ready.then(() => {
                 console.log("Service worker fully loaded");
                 setLoading(false);
             });
         }
-    }, []);
+        if (loading) toast.loading("Loading assets to service worker");
+    }, [loading]);
 
     useEffect(() =>
     {

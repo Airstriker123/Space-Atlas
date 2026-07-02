@@ -48,7 +48,7 @@ function Model(props: JSX.IntrinsicElements['group']) {
             />
               <EffectComposer>
                   <Bloom
-                      intensity={1} // Strength of the glow
+                      intensity={0.3} // Strength of the glow
                       luminanceThreshold={0.3} // Only glow things that are "over-bright"
                       mipmapBlur
                   />
@@ -70,7 +70,7 @@ export default function NeutronStar(){
         {/* Post-processing for the Glow */}
 
         <OrbitControls
-            autoRotateSpeed={3}
+            autoRotateSpeed={5}
             enableZoom={true}
             enablePan={true}
             enableRotate={true}
