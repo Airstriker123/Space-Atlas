@@ -13,6 +13,7 @@ export default function App(): JSX.Element
 {
     const [currentSection, setCurrentSection] = useState<'Experience' | 'Landing'>('Landing');
     const hasAlerted = useRef(false);
+    const hasAlertLoading = useRef(false);
     const audio = new Audio('./media/button.wav')
     const handle = useFullScreenHandle();
     const [loading, setLoading] = useState(true);
@@ -26,10 +27,10 @@ export default function App(): JSX.Element
                 setLoading(false);
                 return
             });
-            if (hasAlerted.current) return
+            if (hasAlertLoading.current) return
             toast.loading("Loading assets to service worker");
             console.log("Service worker not loaded");
-            hasAlerted.current = true;
+            hasAlertLoading.current = true;
         }
     }, []);
 
@@ -41,7 +42,7 @@ export default function App(): JSX.Element
                 window.innerWidth === window.screen.width &&
                 window.innerHeight === window.screen.height;
 
-            if (!isWindowFull && !hasAlerted.current && !loading)
+            if (!isWindowFull && !hasAlerted.current)
             {
                 toast.error("Enter fullscreen mode for the best experience!", {
                     id: TOAST_ID, // This prevents duplicates!
