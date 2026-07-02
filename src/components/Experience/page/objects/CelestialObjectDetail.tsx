@@ -98,7 +98,7 @@ export function CelestialObjectDetail({
                         <motion.button
                             onClick={onNext}
                             className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors duration-300 group"
-                            whileHover={{ x: -5 }}
+                            whileHover={{ x: 5 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <span>Next</span>
@@ -232,7 +232,7 @@ export function CelestialObjectDetail({
             <motion.button
               onClick={onNext}
               className="flex items-center gap-2 px-6 py-3 bg-purple-900/30 border border-purple-500/30 rounded-lg text-purple-200 hover:bg-purple-900/50 hover:border-purple-400/50 transition-all duration-300"
-              whileHover={{ scale: 1.05, x: 5 }}
+              whileHover={{ scale: 1.05 , x: 5}}
               whileTap={{ scale: 0.95 }}
             >
               Next
@@ -250,7 +250,10 @@ export function CelestialObjectDetail({
       <footer className="relative z-10 border-t border-purple-500/20 backdrop-blur-sm bg-black/20 mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-purple-400/60">
-            <p>© 2026 SPACE ATLAS - MAJOR WORKS FOR MULTIMEDIA</p>
+            <p>© 2026 Space Atlas. All rights reserved.
+                Original code, UI, animations, and design are fully protected.
+                Some media assets are used under license and remain the property of their respective owners.
+            </p>
           </div>
         </div>
       </footer>

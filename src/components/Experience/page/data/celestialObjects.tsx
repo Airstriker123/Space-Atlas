@@ -134,5 +134,7 @@ export const celestialObjects: CelestialObject[] = [
       { label: 'Hawking Radiation', value: 'Theoretical particle emission' },
       { label: 'Singularity Density', value: 'Infinite (theoretical)' },
     ],
+    videoUrl: 'https://media.space-atlas.me/blackhole.mp4',
+    audioUrl: './media/Blackhole/soundtrack.mp3',
   },
 ];
