@@ -17,16 +17,21 @@ export default function App(): JSX.Element
     const handle = useFullScreenHandle();
     const [loading, setLoading] = useState(true);
 
+
+
     useEffect(() => {
-        if (!loading) return;
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.ready.then(() => {
                 console.log("Service worker fully loaded");
                 setLoading(false);
+                return
             });
+            if (hasAlerted.current) return
+            toast.loading("Loading assets to service worker");
+            console.log("Service worker not loaded");
+            hasAlerted.current = true;
         }
-        if (loading) toast.loading("Loading assets to service worker");
-    }, [loading]);
+    }, []);
 
     useEffect(() =>
     {
@@ -36,7 +41,7 @@ export default function App(): JSX.Element
                 window.innerWidth === window.screen.width &&
                 window.innerHeight === window.screen.height;
 
-            if (!isWindowFull && !hasAlerted.current)
+            if (!isWindowFull && !hasAlerted.current && !loading)
             {
                 toast.error("Enter fullscreen mode for the best experience!", {
                     id: TOAST_ID, // This prevents duplicates!
@@ -99,7 +104,17 @@ export default function App(): JSX.Element
                     </FullScreen>
                 )
             default:
-                return null
+                return <Toaster
+                    theme="dark"
+                    position="bottom-right"
+                    toastOptions={{
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(47, 0, 100), rgb(138,5,255,1))',
+                            border: '1px solid linear-gradient(135deg, rgb(0, 147, 255), rgb(122, 0, 255))',
+                            color: '#DBE9F3',
+                        },
+                    }}
+                />
         }
     };
 
@@ -107,6 +122,17 @@ export default function App(): JSX.Element
         <main className="app-container">
             {loading && (<>
                 <Loading/>
+                <Toaster
+                    theme="dark"
+                    position="bottom-right"
+                    toastOptions={{
+                        style: {
+                            background: 'linear-gradient(135deg, rgb(47, 0, 100), rgb(138,5,255,1))',
+                            border: '1px solid linear-gradient(135deg, rgb(0, 147, 255), rgb(122, 0, 255))',
+                            color: '#DBE9F3',
+                        },
+                    }}
+                />
             </>)}
             {!loading && (
                     <>
