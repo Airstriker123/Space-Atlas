@@ -53,7 +53,7 @@ export default function Landing({onNavigateToExperience}: LandingNavigation): JS
                         <div className="container mx-auto px-4 py-6">
                             <div className="text-center text-white">
                                 <p>© 2026 Space Atlas. All rights reserved.
-                                    Original code, UI, animations, and design are fully protected.
+                                    Original code, UI, animation, 3D assets, and design are fully protected.
                                     Some media assets are used under license and remain the property of their respective owners.
                                 </p>
                             </div>
