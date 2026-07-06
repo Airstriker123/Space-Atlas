@@ -4,5 +4,4 @@ web src for itm major project
 
 > [!IMPORTANT]
 > 
->`© 2026 Space Atlas. All rights reserved.
-                Original code, UI, animation, 3D assets, and design are fully protected.               Some media assets are used under license and remain the property of their respective owners.`
+>`© 2026 Space Atlas. All rights reserved. Original code, UI, animation, 3D assets, and design are fully protected. Some media assets are used under license and remain the property of their respective owners.`
