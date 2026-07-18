@@ -56,6 +56,9 @@ export default function Landing({onNavigateToExperience}: LandingNavigation): JS
                                     Original code, UI, animation, 3D assets, and design are fully protected.
                                     Some media assets are used under license and remain the property of their respective owners.
                                 </p>
+                                <button onClick={() => window.open("https://github.com/Airstriker123/Space-Atlas#project---space-atlas")}>
+                                    <span className={`text-blue-500 hover:text-purple-700`}><b>View credits by clicking me!</b></span>
+                                </button>
                             </div>
                         </div>
                     </footer>

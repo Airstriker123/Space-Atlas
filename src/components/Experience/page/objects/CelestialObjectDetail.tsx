@@ -250,10 +250,13 @@ export function CelestialObjectDetail({
       <footer className="relative z-10 border-t border-purple-500/20 backdrop-blur-sm bg-black/20 mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-purple-400/60">
-            <p>© 2026 Space Atlas. All rights reserved.
-                Original code, UI, animation, 3D assets, and design are fully protected.
-                Some media assets are used under license and remain the property of their respective owners.
-            </p>
+              <p>© 2026 Space Atlas. All rights reserved.
+                  Original code, UI, animation, 3D assets, and design are fully protected.
+                  Some media assets are used under license and remain the property of their respective owners.
+              </p>
+              <button onClick={() => window.open("https://github.com/Airstriker123/Space-Atlas#project---space-atlas")}>
+                  <span className={`text-blue-500 hover:text-purple-700`}><b>View credits by clicking me!</b></span>
+              </button>
           </div>
         </div>
       </footer>
