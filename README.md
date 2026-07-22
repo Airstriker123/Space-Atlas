@@ -13,7 +13,7 @@ web src for itm major project
 
 ## 📋 Project Information
 * **Project Title:** Space Atlas
-* **Developer:** Amit (GitHub: [@Airstriker123](https://github.com/Airstriker123/Space-Atlas.git))
+* **Developer:** student 39736463 (GitHub: [@Airstriker123](https://github.com/Airstriker123/Space-Atlas.git))
 * **Supervising Teacher:** Matt
 * **Institution:** SMSHS
 
