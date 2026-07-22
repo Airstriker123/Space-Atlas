@@ -4,7 +4,7 @@ web src for itm major project
 
 > [!IMPORTANT]
 > 
->`© 2026 Space Atlas. All rights reserved. Original code, UI, animation, 3D assets, and design are fully protected. Some media assets are used under license and remain the property of their respective owners.`
+>`© 2026 Space Atlas. All rights reserved. Original code, UI, animation, 3D assets, and design are fully protected. media assets are used under license and remain the property of their respective owners.`
 
 # 🌌 Space Atlas — Media and Asset Credits
 
@@ -27,6 +27,15 @@ web src for itm major project
 ---
 
 ## 🪐 Celestial Body Media Assets
+
+<details>
+  <summary>0. Image sources</summary>
+
+  ## About space atlas image: 
+  *About space-atlas image under license [source of image](https://stock.adobe.com/au/images/engineering-designer-design-3d-cad-software-program-industrial-engine-model-mechanical-dimensional-digital-manufacturing-factory-engineer-computer-screen-3d-rendering/530579270)
+  * Planet image [source](https://stock.adobe.com/au/search/images?filters%5Bcontent_type%3Aphoto%5D=1&filters%5Bcontent_type%3Aillustration%5D=1&filters%5Bcontent_type%3Azip_vector%5D=1&filters%5Bcontent_type%3Aimage%5D=1&k=space+planets&order=relevance&price%5B%24%5D=1&search_page=1&search_type=usertyped&acp=&aco=space+planets&get_facets=0&asset_id=1532690120)
+  
+</details>
 
 <details>
 <summary>🌍 1. Earth</summary>
