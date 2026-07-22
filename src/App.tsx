@@ -28,7 +28,6 @@ export default function App(): JSX.Element
                 return
             });
             if (hasAlertLoading.current) return
-            toast.loading("Loading assets to service worker");
             console.log("Service worker not loaded");
             hasAlertLoading.current = true;
         }
