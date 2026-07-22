@@ -4,8 +4,6 @@ import Landing from "./components/Landing/Landing.tsx"
 import {useEffect, useRef, useState} from "react"
 import {toast, Toaster} from "sonner";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import {Loading} from "./components/Loader/Loading.tsx";
-
 
 const TOAST_ID = 'fullscreen-alert';
 
@@ -16,15 +14,11 @@ export default function App(): JSX.Element
     const hasAlertLoading = useRef(false);
     const audio = new Audio('./media/button.wav')
     const handle = useFullScreenHandle();
-    const [loading, setLoading] = useState(true);
-
-
 
     useEffect(() => {
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.ready.then(() => {
                 console.log("Service worker fully loaded");
-                setLoading(false);
                 return
             });
             if (hasAlertLoading.current) return
