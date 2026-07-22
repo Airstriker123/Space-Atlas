@@ -121,22 +121,6 @@ export default function App(): JSX.Element
 
     return (
         <main className="app-container">
-            {loading && (<>
-                <Loading/>
-                <Toaster
-                    theme="dark"
-                    position="bottom-right"
-                    toastOptions={{
-                        style: {
-                            background: 'linear-gradient(135deg, rgb(47, 0, 100), rgb(138,5,255,1))',
-                            border: '1px solid linear-gradient(135deg, rgb(0, 147, 255), rgb(122, 0, 255))',
-                            color: '#DBE9F3',
-                        },
-                    }}
-                />
-            </>)}
-            {!loading && (
-                    <>
                         <FullScreen handle={handle}>
                             {renderCurrentSection()}
                         </FullScreen>
@@ -151,9 +135,6 @@ export default function App(): JSX.Element
                                 },
                             }}
                         />
-                    </>
-                )
-            }
         </main>
     )
 }
