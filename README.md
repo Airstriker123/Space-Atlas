@@ -84,6 +84,12 @@ web src for itm major project
 * Stock clips sourced via *Black Hole Videos Download The BEST Free 4k Stock Video Footage & Black Hole HD Video Clips*. [source](https://www.pexels.com/video/stunning-animated-black-hole-accretion-disk-33692880/)
 * [Documentary clip: *Black Hole Eats Star. Beams Signal to Earth*.](https://www.youtube.com/watch?v=oRSmMDH11Ss&t=647s)
 
+### 3D model used
+* For the blackhole i decided to use this 3d model I found from sketchfab and import it to blender:
+* [source of blackhole](https://sketchfab.com/3d-models/blackhole-74cbeaeae2174a218fe9455d77902b5c)
+* License is Creative commons meaning I can use it for educational purposes.
+
+
 ### Audio & Music
 * **Background Track:** *BoomStorm - Black Hole* via FREE EPIC MUSIC (Utilized under Creative Commons licensing).
 </details>
