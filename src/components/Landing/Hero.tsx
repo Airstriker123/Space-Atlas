@@ -188,7 +188,7 @@ export default function AnimatedHero({onNavigateToExperience}: LandingNavigation
                                 ref={subtitleRef}
                                 className="mt-2 text-2xl  text-gray-400 font-bold  tracking-[0] leading-[normal]"
                             >
-                                <strong>By student: 39736403</strong>
+                                <strong>NESA NUMBER: 39736403</strong>
                             </h3>
 
                             <div ref={buttonsRef} className="mt-4 flex gap-4 sm:mt-6">
