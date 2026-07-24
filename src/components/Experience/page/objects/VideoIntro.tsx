@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence} from 'motion/react';
 import {GalacticBackground} from "./GalacticBackground.tsx";
 import {Loading} from "../../../Loader/Loading.tsx";
+import {toast, Toaster} from "sonner";
 
 interface VideoIntroProps {
     objectName: string;
@@ -110,6 +111,7 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                 if (newProgress >= 100) {
                     clearInterval(timer);
                     setShowContinue(true);
+                    onComplete();
                     return 100;
                 }
                 return newProgress;
@@ -131,7 +133,6 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
 
     return (
         <div className="min-h-screen relative overflow-hidden">
-
             {!videoLoaded && <Loading/>
             }
             {videoLoaded &&
@@ -198,86 +199,6 @@ export function VideoIntro({ objectName, videoUrl, onComplete }: VideoIntroProps
                                         />
                                     </div>
                                 </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Continue button overlay */}
-                    <AnimatePresence>
-                        {showContinue && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                className="absolute inset-0 flex flex-col items-center justify-center  px-4 z-20"
-                            >
-                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                    <motion.div
-                                        animate={{
-                                            scale: config.circleAnim.scale,
-                                            rotate: config.circleAnim.rotate,
-                                            opacity: [0.3, 0.1, 0.3]
-                                        }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border1}`}
-                                    />
-                                    <motion.div
-                                        animate={{
-                                            scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.25 : s),
-                                            rotate: config.circleAnim.rotate,
-                                            opacity: [0.3, 0, 0.3]
-                                        }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border2}`}
-                                    />
-                                    <motion.div
-                                        animate={{
-                                            scale: config.circleAnim.scale.map(s => typeof s === 'number' ? s * 1.5 : s),
-                                            rotate: config.circleAnim.rotate,
-                                            opacity: [0.3, 0, 0.3]
-                                        }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                        className={`absolute w-32 h-32 rounded-full border-2 ${config.border3}`}
-                                    />
-                                    <motion.div
-                                        className={`w-20 h-20 mx-auto rounded-full ${config.glowPrimary} border-2 ${config.border1} flex items-center justify-center mb-4`}
-                                        animate={{
-                                            boxShadow: [
-                                                `0 0 20px ${config.shadowColor}`,
-                                                `0 0 40px ${config.shadowColorHover}`,
-                                                `0 0 20px ${config.shadowColor}`
-                                            ]
-                                        }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                    >
-                                        <svg className={`w-10 h-10 ${config.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </motion.div>
-                                </div>
-
-                                <motion.div
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 0.2, duration: 0.5 }}
-                                    className="text-center mt-100"
-                                >
-                                    <div className="mb-6">
-                                        <h2 className="text-white mb-2 text-2xl font-semibold">Journey Ready</h2>
-                                        <p className={`${config.textLight} mb-8`}>
-                                            press continue to explore {objectName}
-                                        </p>
-                                    </div>
-
-                                    <motion.button
-                                        onClick={onComplete}
-                                        className={`px-8 py-4 bg-gradient-to-r ${config.btn} text-white rounded-full shadow-lg ${config.btnShadow} transition-all duration-300 tracking-wide font-medium`}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
-                                        Continue to {objectName}
-                                    </motion.button>
-                                </motion.div>
                             </motion.div>
                         )}
                     </AnimatePresence>
