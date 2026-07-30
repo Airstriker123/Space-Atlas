@@ -46,6 +46,7 @@ web src for itm major project
 * *Earth: Making of a Planet* (Used for clips covering the Big Bang, moon formation, and molten early stages).
 * [Big bang and creation of earth](https://www.youtube.com/watch?v=Tz8ithgTBj4&list=RDTz8ithgTBj4&start_radio=1)
 * [making of earth](https://www.youtube.com/watch?v=Jf628Bugy_I&list=RDJf628Bugy_I&start_radio=1)
+* [3 second dino footage from National Geographic](https://www.youtube.com/watch?v=HCDVN7DCzYE)
 * Common footage of earth (most used)
 * 
 
