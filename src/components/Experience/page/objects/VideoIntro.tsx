@@ -269,6 +269,34 @@ export function VideoIntro({
         );
     };
 
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const update = () => updatePlaybackProgress();
+
+        video.addEventListener("timeupdate", update);
+        video.addEventListener("progress", update);
+        video.addEventListener("playing", update);
+        video.addEventListener("canplay", update);
+        video.addEventListener("canplaythrough", update);
+
+        // These fire when video stalls or buffers
+        video.addEventListener("waiting", update);
+        video.addEventListener("stalled", update);
+
+        return () => {
+            video.removeEventListener("timeupdate", update);
+            video.removeEventListener("progress", update);
+            video.removeEventListener("playing", update);
+            video.removeEventListener("canplay", update);
+            video.removeEventListener("canplaythrough", update);
+            video.removeEventListener("waiting", update);
+            video.removeEventListener("stalled", update);
+        };
+    }, []);
+
+
     /*
      * ------------------------------------------------------------
      * VIDEO EVENTS
