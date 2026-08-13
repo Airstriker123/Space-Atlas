@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GalacticBackground } from "./GalacticBackground.tsx";
 import { Loading } from "../../../Loader/Loading.tsx";
@@ -92,7 +92,6 @@ const getObjectConfig = (name: string) => {
             };
     }
 
-    // Fallback so the component doesn't crash for an unknown objectName.
     return {
         glowPrimary: 'bg-blue-600/20',
         glowSecondary: 'bg-green-500/20',
@@ -129,8 +128,10 @@ export function VideoIntro({
 
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    // Prevent onComplete from firing more than once.
     const completedRef = useRef(false);
+    const playRequestedRef = useRef(false);
+    const initialBufferReadyRef = useRef(false);
+    const bufferCheckTimerRef = useRef<number | null>(null);
 
     const config = useMemo(
         () => getObjectConfig(objectName),
@@ -138,115 +139,154 @@ export function VideoIntro({
     );
 
     /*
-     * ------------------------------------------------------------
-     * VIDEO BUFFER HELPERS
-     * ------------------------------------------------------------
+     * Initial target.
+     *
+     * 40% is preferred, but we DO NOT require it if the browser
+     * already has enough playable data.
      */
+    const MIN_BUFFER_PERCENT = 40;
 
-    const getBufferedAhead = (
-        video: HTMLVideoElement
-    ): number => {
-
-        if (
-            !Number.isFinite(video.duration) ||
-            video.buffered.length === 0
-        ) {
-            return 0;
-        }
-
-        const currentTime = video.currentTime;
-
-        for (let i = 0; i < video.buffered.length; i++) {
-
-            const start = video.buffered.start(i);
-            const end = video.buffered.end(i);
-
-            if (
-                currentTime >= start &&
-                currentTime <= end
-            ) {
-                return Math.max(
-                    0,
-                    end - currentTime
-                );
-            }
-        }
-
-        return 0;
-    };
-
-    const updateBufferProgress = () => {
-
-        const video = videoRef.current;
-
-        if (
-            !video ||
-            !Number.isFinite(video.duration) ||
-            video.duration <= 0
-        ) {
-            return;
-        }
-
-        let bufferedEnd = 0;
-
-        for (
-            let i = 0;
-            i < video.buffered.length;
-            i++
-        ) {
-
-            const start = video.buffered.start(i);
-            const end = video.buffered.end(i);
-
-            if (
-                video.currentTime >= start &&
-                video.currentTime <= end
-            ) {
-                bufferedEnd = end;
-                break;
-            }
-        }
-
-        if (
-            bufferedEnd === 0 &&
-            video.buffered.length > 0
-        ) {
-            bufferedEnd =
-                video.buffered.end(
-                    video.buffered.length - 1
-                );
-        }
-
-        const percentage =
-            (bufferedEnd / video.duration) * 100;
-
-        setBufferProgress(
-            Math.min(
-                100,
-                Math.max(0, percentage)
-            )
-        );
-    };
+    /*
+     * If the browser has this much playable video ahead,
+     * it is safe to start even if the 40% percentage has
+     * not been reached.
+     */
+    const MIN_BUFFER_SECONDS = 10;
 
     /*
      * ------------------------------------------------------------
-     * ACTUAL PLAYBACK PROGRESS
+     * BUFFERED TIME AHEAD
      * ------------------------------------------------------------
-     *
-     * The old implementation used setInterval().
-     *
-     * That meant:
-     *
-     *     video buffering
-     *          ↓
-     *     timer continues
-     *          ↓
-     *     progress continues
-     *
-     * This version uses video.currentTime instead.
      */
 
-    const updatePlaybackProgress = () => {
+    const getBufferedAhead = useCallback(
+        (video: HTMLVideoElement): number => {
+
+            if (
+                !Number.isFinite(video.duration) ||
+                video.duration <= 0 ||
+                video.buffered.length === 0
+            ) {
+                return 0;
+            }
+
+            const currentTime = video.currentTime;
+
+            for (let i = 0; i < video.buffered.length; i++) {
+
+                const start = video.buffered.start(i);
+                const end = video.buffered.end(i);
+
+                if (
+                    currentTime >= start &&
+                    currentTime <= end
+                ) {
+                    return Math.max(
+                        0,
+                        end - currentTime
+                    );
+                }
+            }
+
+            return 0;
+        },
+        []
+    );
+
+    /*
+     * ------------------------------------------------------------
+     * BUFFER PERCENTAGE
+     * ------------------------------------------------------------
+     */
+
+    const getBufferPercentage = useCallback(
+        (video: HTMLVideoElement): number => {
+
+            if (
+                !Number.isFinite(video.duration) ||
+                video.duration <= 0 ||
+                video.buffered.length === 0
+            ) {
+                return 0;
+            }
+
+            const currentTime = video.currentTime;
+
+            /*
+             * Prefer the buffered range containing the current
+             * playback position.
+             */
+            for (let i = 0; i < video.buffered.length; i++) {
+
+                const start = video.buffered.start(i);
+                const end = video.buffered.end(i);
+
+                if (
+                    currentTime >= start &&
+                    currentTime <= end
+                ) {
+                    return Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            (end / video.duration) * 100
+                        )
+                    );
+                }
+            }
+
+            /*
+             * If the current position isn't inside a buffered
+             * range, use a range starting close to zero.
+             */
+            for (let i = 0; i < video.buffered.length; i++) {
+
+                const start = video.buffered.start(i);
+                const end = video.buffered.end(i);
+
+                if (start <= 0.5) {
+
+                    return Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            (end / video.duration) * 100
+                        )
+                    );
+                }
+            }
+
+            return 0;
+        },
+        []
+    );
+
+    /*
+     * ------------------------------------------------------------
+     * UPDATE BUFFER UI
+     * ------------------------------------------------------------
+     */
+
+    const updateBufferProgress = useCallback(() => {
+
+        const video = videoRef.current;
+
+        if (!video) return;
+
+        const percentage =
+            getBufferPercentage(video);
+
+        setBufferProgress(percentage);
+
+    }, [getBufferPercentage]);
+
+    /*
+     * ------------------------------------------------------------
+     * UPDATE PLAYBACK UI
+     * ------------------------------------------------------------
+     */
+
+    const updatePlaybackProgress = useCallback(() => {
 
         const video = videoRef.current;
 
@@ -267,39 +307,286 @@ export function VideoIntro({
                 Math.max(0, percentage)
             )
         );
-    };
 
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-
-        const update = () => updatePlaybackProgress();
-
-        video.addEventListener("timeupdate", update);
-        video.addEventListener("progress", update);
-        video.addEventListener("playing", update);
-        video.addEventListener("canplay", update);
-        video.addEventListener("canplaythrough", update);
-
-        // These fire when video stalls or buffers
-        video.addEventListener("waiting", update);
-        video.addEventListener("stalled", update);
-
-        return () => {
-            video.removeEventListener("timeupdate", update);
-            video.removeEventListener("progress", update);
-            video.removeEventListener("playing", update);
-            video.removeEventListener("canplay", update);
-            video.removeEventListener("canplaythrough", update);
-            video.removeEventListener("waiting", update);
-            video.removeEventListener("stalled", update);
-        };
     }, []);
-
 
     /*
      * ------------------------------------------------------------
-     * VIDEO EVENTS
+     * START PLAYBACK
+     * ------------------------------------------------------------
+     */
+
+    const startPlayback = useCallback(async () => {
+
+        const video = videoRef.current;
+
+        if (!video) return;
+
+        if (
+            initialBufferReadyRef.current &&
+            !video.paused
+        ) {
+            return;
+        }
+
+        if (playRequestedRef.current) {
+            return;
+        }
+
+        playRequestedRef.current = true;
+
+        try {
+
+            await video.play();
+
+            console.log(
+                '[VideoIntro] Playback started'
+            );
+
+        } catch (error) {
+
+            console.warn(
+                '[VideoIntro] play() failed:',
+                error
+            );
+
+        } finally {
+
+            playRequestedRef.current = false;
+        }
+
+    }, []);
+
+    /*
+     * ------------------------------------------------------------
+     * INITIAL BUFFER CHECK
+     * ------------------------------------------------------------
+     *
+     * IMPORTANT:
+     *
+     * We no longer require 40% unconditionally.
+     *
+     * A video can be perfectly playable with much less than
+     * 40% buffered.
+     */
+
+    const checkInitialBuffer = useCallback(() => {
+
+        const video = videoRef.current;
+
+        if (
+            !video ||
+            initialBufferReadyRef.current
+        ) {
+            return;
+        }
+
+        const bufferPercent =
+            getBufferPercentage(video);
+
+        const bufferedAhead =
+            getBufferedAhead(video);
+
+        setBufferProgress(bufferPercent);
+
+        console.log(
+            '[VideoIntro] Buffer check:',
+            {
+                bufferPercent:
+                    bufferPercent.toFixed(2) + '%',
+
+                bufferedAhead:
+                    bufferedAhead.toFixed(2) + 's',
+
+                readyState:
+                video.readyState,
+
+                networkState:
+                video.networkState,
+
+                duration:
+                video.duration
+            }
+        );
+
+        /*
+         * CONDITION 1:
+         *
+         * Preferred 40% preload.
+         */
+        if (
+            bufferPercent >= MIN_BUFFER_PERCENT
+        ) {
+
+            console.log(
+                '[VideoIntro] 40% buffer reached'
+            );
+
+            initialBufferReadyRef.current = true;
+
+            setVideoReady(true);
+            setBuffering(false);
+
+            startPlayback();
+
+            return;
+        }
+
+        /*
+         * CONDITION 2:
+         *
+         * At least 10 seconds of playable video.
+         *
+         * This prevents short/oddly packaged videos from
+         * getting stuck waiting for 40%.
+         */
+        if (
+            video.readyState >=
+            HTMLMediaElement.HAVE_FUTURE_DATA &&
+            bufferedAhead >= MIN_BUFFER_SECONDS
+        ) {
+
+            console.log(
+                '[VideoIntro] Enough playable data available'
+            );
+
+            initialBufferReadyRef.current = true;
+
+            setVideoReady(true);
+            setBuffering(false);
+
+            startPlayback();
+
+            return;
+        }
+
+        /*
+         * CONDITION 3:
+         *
+         * Browser itself says it has enough data.
+         */
+        if (
+            video.readyState >=
+            HTMLMediaElement.HAVE_ENOUGH_DATA
+        ) {
+
+            console.log(
+                '[VideoIntro] Browser reports enough data'
+            );
+
+            initialBufferReadyRef.current = true;
+
+            setVideoReady(true);
+            setBuffering(false);
+
+            startPlayback();
+        }
+
+    }, [
+        getBufferPercentage,
+        getBufferedAhead,
+        startPlayback
+    ]);
+
+    /*
+     * ------------------------------------------------------------
+     * BUFFER MONITOR
+     * ------------------------------------------------------------
+     */
+
+    useEffect(() => {
+
+        if (!videoUrl) {
+            return;
+        }
+
+        const video = videoRef.current;
+
+        if (!video) {
+            return;
+        }
+
+        const check = () => {
+            checkInitialBuffer();
+        };
+
+        video.addEventListener(
+            "progress",
+            check
+        );
+
+        video.addEventListener(
+            "loadedmetadata",
+            check
+        );
+
+        video.addEventListener(
+            "durationchange",
+            check
+        );
+
+        video.addEventListener(
+            "canplay",
+            check
+        );
+
+        video.addEventListener(
+            "canplaythrough",
+            check
+        );
+
+        bufferCheckTimerRef.current =
+            window.setInterval(
+                check,
+                250
+            );
+
+        return () => {
+
+            video.removeEventListener(
+                "progress",
+                check
+            );
+
+            video.removeEventListener(
+                "loadedmetadata",
+                check
+            );
+
+            video.removeEventListener(
+                "durationchange",
+                check
+            );
+
+            video.removeEventListener(
+                "canplay",
+                check
+            );
+
+            video.removeEventListener(
+                "canplaythrough",
+                check
+            );
+
+            if (
+                bufferCheckTimerRef.current !== null
+            ) {
+                clearInterval(
+                    bufferCheckTimerRef.current
+                );
+
+                bufferCheckTimerRef.current = null;
+            }
+        };
+
+    }, [
+        videoUrl,
+        checkInitialBuffer
+    ]);
+
+    /*
+     * ------------------------------------------------------------
+     * METADATA
      * ------------------------------------------------------------
      */
 
@@ -307,62 +594,82 @@ export function VideoIntro({
 
         const video = videoRef.current;
 
-        if (!video) {
-            return;
-        }
+        if (!video) return;
 
         console.log(
             '[VideoIntro] Metadata loaded',
             {
-                duration: video.duration,
-                readyState: video.readyState,
-                networkState: video.networkState
+                duration:
+                video.duration,
+
+                readyState:
+                video.readyState,
+
+                networkState:
+                video.networkState,
+
+                buffered:
+                video.buffered.length
             }
         );
+
+        updateBufferProgress();
+        checkInitialBuffer();
     };
+
+    /*
+     * ------------------------------------------------------------
+     * CAN PLAY
+     * ------------------------------------------------------------
+     */
 
     const handleCanPlay = () => {
 
         const video = videoRef.current;
 
-        if (!video) {
-            return;
-        }
+        if (!video) return;
 
         console.log(
             '[VideoIntro] Can play',
             {
-                readyState: video.readyState,
-                bufferedAhead: getBufferedAhead(video)
+                readyState:
+                video.readyState,
+
+                bufferedAhead:
+                    getBufferedAhead(video),
+
+                bufferedPercent:
+                    getBufferPercentage(video)
             }
         );
 
-        setVideoReady(true);
-        setBuffering(false);
-
-        /*
-         * Don't use a custom preload polling loop.
-         *
-         * Let the browser's media loader handle buffering.
-         */
-        video
-            .play()
-            .catch((error) => {
-
-                console.warn(
-                    '[VideoIntro] Autoplay failed:',
-                    error
-                );
-
-                /*
-                 * The video can still be displayed.
-                 *
-                 * We don't immediately treat this as a network
-                 * failure because autoplay can be blocked by the
-                 * browser independently of loading.
-                 */
-            });
+        checkInitialBuffer();
     };
+
+    /*
+     * ------------------------------------------------------------
+     * CAN PLAY THROUGH
+     * ------------------------------------------------------------
+     */
+
+    const handleCanPlayThrough = () => {
+
+        const video = videoRef.current;
+
+        if (!video) return;
+
+        console.log(
+            '[VideoIntro] Can play through'
+        );
+
+        checkInitialBuffer();
+    };
+
+    /*
+     * ------------------------------------------------------------
+     * PLAYING
+     * ------------------------------------------------------------
+     */
 
     const handlePlaying = () => {
 
@@ -372,16 +679,33 @@ export function VideoIntro({
 
         setVideoReady(true);
         setBuffering(false);
+
+        updateBufferProgress();
+        updatePlaybackProgress();
     };
+
+    /*
+     * ------------------------------------------------------------
+     * WAITING
+     * ------------------------------------------------------------
+     */
 
     const handleWaiting = () => {
 
         console.log(
-            '[VideoIntro] Buffering'
+            '[VideoIntro] Buffering...'
         );
 
         setBuffering(true);
+
+        updateBufferProgress();
     };
+
+    /*
+     * ------------------------------------------------------------
+     * STALLED
+     * ------------------------------------------------------------
+     */
 
     const handleStalled = () => {
 
@@ -390,17 +714,39 @@ export function VideoIntro({
         );
 
         setBuffering(true);
-    };
-
-    const handleProgress = () => {
 
         updateBufferProgress();
     };
 
+    /*
+     * ------------------------------------------------------------
+     * PROGRESS
+     * ------------------------------------------------------------
+     */
+
+    const handleProgress = () => {
+
+        updateBufferProgress();
+        checkInitialBuffer();
+    };
+
+    /*
+     * ------------------------------------------------------------
+     * TIME UPDATE
+     * ------------------------------------------------------------
+     */
+
     const handleTimeUpdate = () => {
 
         updatePlaybackProgress();
+        updateBufferProgress();
     };
+
+    /*
+     * ------------------------------------------------------------
+     * ENDED
+     * ------------------------------------------------------------
+     */
 
     const handleVideoEnded = () => {
 
@@ -422,6 +768,12 @@ export function VideoIntro({
         onComplete();
     };
 
+    /*
+     * ------------------------------------------------------------
+     * SKIP
+     * ------------------------------------------------------------
+     */
+
     const handleSkip = () => {
 
         if (completedRef.current) {
@@ -442,6 +794,12 @@ export function VideoIntro({
         onComplete();
     };
 
+    /*
+     * ------------------------------------------------------------
+     * ERROR
+     * ------------------------------------------------------------
+     */
+
     const handleVideoError = () => {
 
         const video = videoRef.current;
@@ -456,8 +814,11 @@ export function VideoIntro({
             console.error(
                 '[VideoIntro] Error details',
                 {
-                    code: video.error.code,
-                    message: video.error.message
+                    code:
+                    video.error.code,
+
+                    message:
+                    video.error.message
                 }
             );
         }
@@ -468,12 +829,8 @@ export function VideoIntro({
 
     /*
      * ------------------------------------------------------------
-     * SMOOTH PROGRESS UPDATE
+     * SMOOTH PROGRESS UPDATES
      * ------------------------------------------------------------
-     *
-     * timeupdate is enough for functionality.
-     *
-     * requestAnimationFrame makes the progress bar visually smooth.
      */
 
     useEffect(() => {
@@ -482,7 +839,7 @@ export function VideoIntro({
             return;
         }
 
-        let animationFrame: number;
+        let animationFrame = 0;
 
         const update = () => {
 
@@ -503,17 +860,23 @@ export function VideoIntro({
             );
         };
 
-    }, [videoReady]);
+    }, [
+        videoReady,
+        updatePlaybackProgress,
+        updateBufferProgress
+    ]);
 
     /*
      * ------------------------------------------------------------
-     * RESET WHEN VIDEO URL CHANGES
+     * RESET WHEN URL CHANGES
      * ------------------------------------------------------------
      */
 
     useEffect(() => {
 
         completedRef.current = false;
+        playRequestedRef.current = false;
+        initialBufferReadyRef.current = false;
 
         setProgress(0);
         setBufferProgress(0);
@@ -534,19 +897,21 @@ export function VideoIntro({
 
         return () => {
 
+            if (
+                bufferCheckTimerRef.current !== null
+            ) {
+                clearInterval(
+                    bufferCheckTimerRef.current
+                );
+
+                bufferCheckTimerRef.current = null;
+            }
+
             const video =
                 videoRef.current;
 
             if (video) {
-
                 video.pause();
-
-                /*
-                 * Don't remove src here.
-                 *
-                 * React may still need the element while
-                 * unmounting. Simply pausing is sufficient.
-                 */
             }
         };
 
@@ -561,19 +926,13 @@ export function VideoIntro({
     return (
         <div className="min-h-screen relative overflow-hidden">
 
-            {/* Loading screen */}
             {!videoReady && !videoError && (
                 <Loading />
             )}
 
-            {/* Background */}
             {videoReady && (
                 <GalacticBackground />
             )}
-
-            {/* ================================================== */}
-            {/* VIDEO */}
-            {/* ================================================== */}
 
             {videoUrl &&
                 !videoError &&
@@ -582,47 +941,32 @@ export function VideoIntro({
                     <video
                         ref={videoRef}
 
-                        /*
-                         * Cloudflare R2 video URL.
-                         */
                         src={videoUrl}
 
-                        /*
-                         * Tell the browser to preload the media.
-                         */
                         preload="auto"
 
-                        /*
-                         * Required for reliable autoplay.
-                         */
-                        autoPlay
+                        autoPlay={false}
+
                         muted
+
                         playsInline
 
-                        /*
-                         * Metadata.
-                         */
                         onLoadedMetadata={
                             handleLoadedMetadata
                         }
 
-                        /*
-                         * Playback readiness.
-                         */
                         onCanPlay={
                             handleCanPlay
                         }
 
-                        /*
-                         * Playback state.
-                         */
+                        onCanPlayThrough={
+                            handleCanPlayThrough
+                        }
+
                         onPlaying={
                             handlePlaying
                         }
 
-                        /*
-                         * Buffering.
-                         */
                         onWaiting={
                             handleWaiting
                         }
@@ -631,30 +975,18 @@ export function VideoIntro({
                             handleStalled
                         }
 
-                        /*
-                         * Network download progress.
-                         */
                         onProgress={
                             handleProgress
                         }
 
-                        /*
-                         * Actual playback progress.
-                         */
                         onTimeUpdate={
                             handleTimeUpdate
                         }
 
-                        /*
-                         * Actual completion.
-                         */
                         onEnded={
                             handleVideoEnded
                         }
 
-                        /*
-                         * Loading error.
-                         */
                         onError={
                             handleVideoError
                         }
@@ -677,10 +1009,6 @@ export function VideoIntro({
                 )
             }
 
-            {/* ================================================== */}
-            {/* MAIN CONTENT */}
-            {/* ================================================== */}
-
             <div
                 className="
                     relative
@@ -693,10 +1021,6 @@ export function VideoIntro({
                 "
             >
 
-                {/* ================================================== */}
-                {/* PROGRESS / LOADING */}
-                {/* ================================================== */}
-
                 <div
                     className="
                         fixed
@@ -708,7 +1032,6 @@ export function VideoIntro({
 
                     <AnimatePresence>
 
-                        {/* Initial loading */}
                         {!videoReady &&
                             !videoError && (
 
@@ -794,7 +1117,6 @@ export function VideoIntro({
                             )
                         }
 
-                        {/* Playback progress */}
                         {!showContinue &&
                             videoReady && (
 
@@ -870,8 +1192,11 @@ export function VideoIntro({
                                                     rounded-full
                                                 `}
                                                 style={{
-                                                    width:
-                                                        `${progress}%`
+                                                    width: `${
+                                                        buffering
+                                                            ? bufferProgress
+                                                            : progress
+                                                    }%`
                                                 }}
                                                 transition={{
                                                     duration: 0.05,
@@ -890,10 +1215,6 @@ export function VideoIntro({
                     </AnimatePresence>
 
                 </div>
-
-                {/* ================================================== */}
-                {/* SKIP */}
-                {/* ================================================== */}
 
                 {!showContinue &&
                     !videoError && (
@@ -942,10 +1263,6 @@ export function VideoIntro({
                     )}
 
             </div>
-
-            {/* ================================================== */}
-            {/* VIDEO ERROR */}
-            {/* ================================================== */}
 
             {videoError && (
 
@@ -998,10 +1315,6 @@ export function VideoIntro({
 
                 </div>
             )}
-
-            {/* ================================================== */}
-            {/* DECORATIVE GLOWS */}
-            {/* ================================================== */}
 
             {showContinue && (
 
